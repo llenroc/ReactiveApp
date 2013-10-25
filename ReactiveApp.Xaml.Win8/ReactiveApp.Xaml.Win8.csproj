@@ -100,22 +100,9 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
+    <Folder Include="Controls\" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controls\AppBarButton.cs" />
-    <Compile Include="Controls\AppBarMenuButton.cs" />
-    <Compile Include="Controls\BitmapIcon.cs" />
-    <Compile Include="Controls\FrameCache.cs" />
-    <Compile Include="Controls\IconControl.cs" />
-    <Compile Include="Controls\JournalEntry.cs" />
-    <Compile Include="Controls\PathIcon.cs" />
-    <Compile Include="Controls\ReactiveAppBar.cs" />
-    <Compile Include="Controls\ReactiveAppBarManager.cs" />
-    <Compile Include="Controls\ReactiveAppBarMode.cs" />
-    <Compile Include="Controls\ReactiveFrame.cs" />
-    <Compile Include="Controls\ReactiveView.cs" />
-    <Compile Include="Controls\Symbol.cs" />
-    <Compile Include="Controls\SymbolIcon.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '11.0' ">

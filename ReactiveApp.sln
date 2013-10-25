@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReactiveApp.Xaml.Win81", "R
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReactiveApp.Xaml.Win8", "ReactiveApp.Xaml.Win8\ReactiveApp.Xaml.Win8.csproj", "{21175907-4C1D-42DB-813D-9CC2C8E7A8FF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReactiveApp.Munq", "ReactiveApp.Munq\ReactiveApp.Munq.csproj", "{D479F55D-0AF3-437A-84AF-4B638917C14E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -79,6 +81,16 @@ Global
 		{21175907-4C1D-42DB-813D-9CC2C8E7A8FF}.Release|x64.Build.0 = Release|x64
 		{21175907-4C1D-42DB-813D-9CC2C8E7A8FF}.Release|x86.ActiveCfg = Release|x86
 		{21175907-4C1D-42DB-813D-9CC2C8E7A8FF}.Release|x86.Build.0 = Release|x86
+		{D479F55D-0AF3-437A-84AF-4B638917C14E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D479F55D-0AF3-437A-84AF-4B638917C14E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D479F55D-0AF3-437A-84AF-4B638917C14E}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{D479F55D-0AF3-437A-84AF-4B638917C14E}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{D479F55D-0AF3-437A-84AF-4B638917C14E}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{D479F55D-0AF3-437A-84AF-4B638917C14E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D479F55D-0AF3-437A-84AF-4B638917C14E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D479F55D-0AF3-437A-84AF-4B638917C14E}.Release|ARM.ActiveCfg = Release|Any CPU
+		{D479F55D-0AF3-437A-84AF-4B638917C14E}.Release|x64.ActiveCfg = Release|Any CPU
+		{D479F55D-0AF3-437A-84AF-4B638917C14E}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
