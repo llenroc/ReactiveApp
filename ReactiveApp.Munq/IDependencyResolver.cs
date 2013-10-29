@@ -84,7 +84,7 @@ namespace Munq
 
 		//ResolveAll
 		
-        /// <summary>Gets of all possible named and unnamed resolutions for the type TType.</summary>
+        /// <summary>Gets of all possible unnamed resolutions for the type TType.</summary>
 		/// <typeparam name="TType">The type of which to get the instances.</typeparam>
 		/// <returns>A list of resolved instances.</returns>
 		/// <example>
@@ -97,8 +97,23 @@ namespace Munq
 		/// 	</code>
 		/// </example>
 		IEnumerable<TType> ResolveAll<TType>() where TType : class;
+
+        /// <summary>Gets of all possible named resolutions for the type TType.</summary>
+        /// <param name="name">The name of the registration for type.</param>
+        /// <typeparam name="TType">The type of which to get the instances.</typeparam>
+        /// <returns>A list of resolved instances.</returns>
+        /// <example>
+        /// 	This example gets a list of plugins and initializes them.
+        /// 	<code>
+        /// 		...
+        /// 		var plugins = container.ResolveAll&lt;IPlugin&gt;();
+        /// 		foreach (var plugin in plugins)
+        /// 			MyApp.Initialize(plugin);
+        /// 	</code>
+        /// </example>
+        IEnumerable<TType> ResolveAll<TType>(string name) where TType : class;
 		
-        /// <summary>Gets of all possible named and unnamed resolutions for the specified type.</summary>
+        /// <summary>Gets of all possible unnamed resolutions for the specified type.</summary>
 		/// <param name="type">The type of which to get the instances.</param>
 		/// <returns>A list of resolved instances.</returns>
 		/// <example>
@@ -111,6 +126,21 @@ namespace Munq
 		/// 	</code>
 		/// </example>
 		IEnumerable<object> ResolveAll(Type type);
+
+        /// <summary>Gets of all possible named resolutions for the specified type.</summary>
+        /// <param name="name">The name of the registration for type.</param>
+        /// <param name="type">The type of which to get the instances.</param>
+        /// <returns>A list of resolved instances.</returns>
+        /// <example>
+        /// 	This example gets a list of plugins and initializes them.
+        /// 	<code>
+        /// 		...
+        /// 		var plugins = container.ResolveAll(typeof(IPlugin));
+        /// 		foreach (var plugin in plugins)
+        /// 		MyApp.Initialize(plugin);
+        /// 	</code>
+        /// </example>
+        IEnumerable<object> ResolveAll(string name, Type type);
 
 		//Lazy Resolve
 		

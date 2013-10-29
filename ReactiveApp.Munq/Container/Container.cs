@@ -42,7 +42,7 @@ namespace Munq
 		public IocContainer()
 		{
 			RegisterInstance<IocContainer>(this);
-			RegisterInstance<IDependecyRegistrar>(this);
+			RegisterInstance<IDependencyRegistrar>(this);
 			RegisterInstance<IDependencyResolver>(this);
 		}
 		#endregion

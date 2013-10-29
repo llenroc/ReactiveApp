@@ -13,44 +13,56 @@ namespace Munq
 	{
 		// Track whether Dispose has been called.
 		private bool disposed;
-        private readonly IDictionary<IRegistrationKey, Registration> typeRegistrations = new Dictionary<IRegistrationKey, Registration>();
+        private readonly IDictionary<IRegistrationKey, List<Registration>> typeRegistrations = new Dictionary<IRegistrationKey, List<Registration>>();
 
 		public void Add(Registration reg)
 		{
-			IRegistrationKey key   = MakeKey(reg.Name, reg.ResolvesTo);
-			typeRegistrations[key] = reg;
+			IRegistrationKey key = MakeKey(reg.Name, reg.ResolvesTo);
+
+            List<Registration> registrationList;
+            if (typeRegistrations.TryGetValue(key, out registrationList))
+            {
+                registrationList.Add(reg);
+            }
+            else
+            {
+                registrationList = new List<Registration>(2) { reg };
+                typeRegistrations[key] = registrationList;
+            }
 		}
 
-		public Registration Get(string name, Type type)
+        public IEnumerable<Registration> Get(string name, Type type)
 		{
 			IRegistrationKey key = MakeKey(name, type);
 			return typeRegistrations[key];
 		}
 
-        public IEnumerable<Registration> GetDerived(string name, Type type)
-        {
-            var regs = typeRegistrations.Values
-                       .Where(r => string.Compare(r.Name, name, StringComparison.OrdinalIgnoreCase) == 0 &&
-                                   type.IsAssignableFrom(r.ResolvesTo));
-            return regs;
-        }
-
         public IEnumerable<Registration> GetDerived(Type type)
         {
             var regs = typeRegistrations.Values
-                       .Where(r => type.IsAssignableFrom(r.ResolvesTo));
+                        .SelectMany(list => list)
+                        .Where(r => type.IsAssignableFrom(r.ResolvesTo));
+            return regs;
+        }
+
+        public IEnumerable<Registration> GetDerived(string name, Type type)
+        {
+            var regs = typeRegistrations.Values
+                        .SelectMany(list => list)
+                        .Where(r => string.Compare(r.Name, name, StringComparison.OrdinalIgnoreCase) == 0 &&
+                                   type.IsAssignableFrom(r.ResolvesTo));
             return regs;
         }
 
         public bool ContainsKey(string name, Type type)
 		{
 			IRegistrationKey key = MakeKey(name, type);
-			return typeRegistrations.Keys.Contains(key);
+			return typeRegistrations.ContainsKey(key);
 		}
 
 		public IEnumerable<Registration> All(Type type)
 		{
-			return typeRegistrations.Values.Where(reg => reg.ResolvesTo == type);
+            return typeRegistrations.Values.SelectMany(list => list).Where(reg => reg.ResolvesTo == type);
 		}
 
 		public void Remove(IRegistration ireg)
@@ -80,7 +92,7 @@ namespace Munq
 				// If disposing equals true, dispose all ContainerLifetime instances
 				if (disposing)
 				{
-					foreach (Registration reg in typeRegistrations.Values)
+					foreach (Registration reg in typeRegistrations.Values.SelectMany(list => list))
 					{
 						var instance = reg.Instance as IDisposable;
 						if (instance != null)

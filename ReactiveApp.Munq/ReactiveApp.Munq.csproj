@@ -41,7 +41,7 @@
     <Compile Include="Container\Container.Resolver.cs" />
     <Compile Include="CreateInstanceDelegateFactory.cs" />
     <Compile Include="Container\IContainerFluent.cs" />
-    <Compile Include="IDependecyRegistrar.cs" />
+    <Compile Include="IDependencyRegistrar.cs" />
     <Compile Include="IDependencyResolver.cs" />
     <Compile Include="LifetimeManagers\ILifetimeManager.cs" />
     <Compile Include="IRegistration.cs" />

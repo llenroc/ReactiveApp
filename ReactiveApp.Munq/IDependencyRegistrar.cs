@@ -8,8 +8,12 @@ using System.Collections.Generic;
 
 namespace Munq
 {
-	/// <include file='XmlDocumentation/IDependencyRegistrar.xml' path='IDependencyRegistrar/SummaryDocumentation/*' />
-	public interface IDependecyRegistrar
+    /// <summary>
+    ///     The IDependencyRegistrar defines the methods used to manage Registration of functions or 
+    ///     instances which will be used to resolve instances of specified types, either without or
+    ///     without a distinguishingname.
+    /// </summary>
+	public interface IDependencyRegistrar
 	{
 		// ---- Lifetime Manager -----------------------------------------------------------------
 
@@ -536,6 +540,25 @@ namespace Munq
 		/// 	</code>
 		/// </example>
 		IEnumerable<IRegistration> GetRegistrations<TType>() where TType : class;
+
+        /// <summary>
+        /// 	Gets all Registrations for the specified type and name.
+        /// </summary>
+        /// <param name="name">The name associated with the named registrations to get.</param>
+      /// <typeparam name="TType">The type for which the Registrations are required.</typeparam>
+        /// <returns>An list of the registration of the specified type.</returns>
+        /// <example>
+        /// 	This example gets a list of the names of plugins registered.
+        /// 	<code>
+        /// 		...
+        /// 		public IList&lt;string&gt; GetPluginNames(IocContainer container)
+        /// 		{
+        /// 			var registrations = container.GetRegistrations&lt;IPlugin&gt;();
+        /// 			return registrations.Select(reg =&gt; reg.Name).ToList();
+        /// 		}
+        /// 	</code>
+        /// </example>
+        IEnumerable<IRegistration> GetRegistrations<TType>(string name) where TType : class;
 		
         /// <summary>
 		/// 	Gets all Registrations for the specified type.
@@ -554,5 +577,24 @@ namespace Munq
 		/// 	</code>
 		/// </example>
 		IEnumerable<IRegistration> GetRegistrations(Type type);
+
+        /// <summary>
+        /// 	Gets all Registrations for the specified type.
+        /// </summary>
+        /// <param name="name">The name associated with the named registrations to get.</param>
+        /// <param name="type">The type for which the Registrations are required.</param>
+        /// <returns>An list of the registration of the specified type.</returns>
+        /// <example>
+        /// 	This example gets a list of the names of plugins registered.
+        /// 	<code>
+        /// 		...
+        /// 		public IList&lt;string&gt; GetPluginNames(IocContainer container)
+        /// 		{
+        /// 			var registrations = container.GetRegistrations(typeof(IPlugin));
+        /// 			return registrations.Select(reg =&gt; reg.Name).ToList();
+        /// 		}
+        /// 	</code>
+        /// </example>
+        IEnumerable<IRegistration> GetRegistrations(string name, Type type);
 	}
 }

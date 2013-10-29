@@ -9,7 +9,7 @@ using System.Linq;
 
 namespace Munq
 {
-	public partial class IocContainer : IDependecyRegistrar
+	public partial class IocContainer : IDependencyRegistrar
 	{
 		private const string STR_RegistrationNotFoundFor = "Registration not found for {0}";
 
@@ -144,7 +144,7 @@ namespace Munq
 		{
 			try
 			{
-				return typeRegistry.Get(name, type);
+				return typeRegistry.Get(name, type).LastOrDefault();
 			}
 			catch (KeyNotFoundException ex)
 			{
@@ -155,13 +155,32 @@ namespace Munq
 		/// <inheritdoc />
 		public IEnumerable<IRegistration> GetRegistrations<TType>() where TType : class
 		{
-			return GetRegistrations(typeof(TType));
+			return GetRegistrations(null, typeof(TType));
 		}
 
+        /// <inheritdoc />
+        public IEnumerable<IRegistration> GetRegistrations<TType>(string name) where TType : class
+        {
+            return GetRegistrations(name, typeof(TType));
+        }
+
+        /// <inheritdoc />
+        public IEnumerable<IRegistration> GetRegistrations(Type type)
+        {
+            return GetRegistrations(null, type);
+        }
+
 		/// <inheritdoc />
-		public IEnumerable<IRegistration> GetRegistrations(Type type)
+		public IEnumerable<IRegistration> GetRegistrations(string name, Type type)
 		{
-			return typeRegistry.All(type).Cast<IRegistration>();
+            try
+            {
+                return typeRegistry.Get(null, type).Cast<IRegistration>();
+            }
+            catch (KeyNotFoundException ex)
+            {
+                throw new KeyNotFoundException(String.Format(STR_RegistrationNotFoundFor, type), ex);
+            }
 		}
 		#endregion
 	}
