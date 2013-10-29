@@ -11,16 +11,16 @@ namespace Munq
     /// The IContainerFluent interface defined the fluent interface that can be used to configure
     /// the IocContainer.
     /// </summary>
-	public interface IContainerFluent
-	{
-		/// <summary>
-		/// Sets the LifetimeManager that will be used on new Registrations by default.  This can 
+    public interface IContainerFluent
+    {
+        /// <summary>
+        /// Sets the LifetimeManager that will be used on new Registrations by default.  This can 
         /// be changed calling WithRegistration on the IRegistration returned from a call to Register.
         /// </summary>
-		/// <param name="lifetimeManager">The Lifetime manager to use.</param>
-		/// <returns>'this' so that the method calls can be chained.</returns>
-		/// <example>
-		/// <para>
+        /// <param name="lifetimeManager">The Lifetime manager to use.</param>
+        /// <returns>'this' so that the method calls can be chained.</returns>
+        /// <example>
+        /// <para>
         /// This example shows how an application wide instance of the IOC Container could be created
         /// and configured to scope resolved instances to the HttpRequest lifetime as a default.
         /// </para>
@@ -44,13 +44,13 @@ namespace Munq
         ///         {
         ///              _container = new IocContainer();
         ///              Container.UsesDefaultLifetimeManagerOf(_defaultLifetimeManager);
-		///		 
+        ///		 
         ///              Container.Register&lt;IDatabase, MyDatabase&gt;(); // RequestLifetime
         ///              Container.Register&lt;ILogger, MyLogger&gt;().WithLifetimeManager(new ContainerLifetime());
         ///         }
         ///     }
         /// </code>
         ///</example>
-		IContainerFluent UsesDefaultLifetimeManagerOf(ILifetimeManager lifetimeManager);
-	}
+        IContainerFluent UsesDefaultLifetimeManagerOf(ILifetimeManager lifetimeManager);
+    }
 }

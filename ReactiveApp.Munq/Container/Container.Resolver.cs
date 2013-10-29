@@ -9,68 +9,68 @@ using System.Linq;
 
 namespace Munq
 {
-	public partial class IocContainer : IDependencyResolver
-	{
-		#region Resolve Members
+    public partial class IocContainer : IDependencyResolver
+    {
+        #region Resolve Members
         /// <inheritdoc />
-		public TType Resolve<TType>() where TType : class
-		{
-			return Resolve(null, typeof(TType)) as TType;
-		}
-
-        /// <inheritdoc />
-		public TType Resolve<TType>(string name) where TType : class
-		{
-			return Resolve(name, typeof(TType)) as TType;
-		}
+        public TType Resolve<TType>() where TType : class
+        {
+            return Resolve(null, typeof(TType)) as TType;
+        }
 
         /// <inheritdoc />
-		public object Resolve(Type type)
-		{
-			return Resolve(null, type);
-		}
+        public TType Resolve<TType>(string name) where TType : class
+        {
+            return Resolve(name, typeof(TType)) as TType;
+        }
 
-		/// <inheritdoc />
-		public object Resolve(string name, Type type)
-		{
-			try
-			{
-				return typeRegistry.Get(name, type).LastOrDefault().GetInstance();
-			}
-			catch (KeyNotFoundException knfe)
-			{
-				return HandleUnResolved(knfe, name, type);
-			}
-		}
+        /// <inheritdoc />
+        public object Resolve(Type type)
+        {
+            return Resolve(null, type);
+        }
 
-		private object HandleUnResolved(Exception knfe, string name, Type type)
-		{
-			if (type.IsGenericType)
-			{
-				object result = ResolveUsingOpenType(knfe, name, type);
-				if (result!=null)
-					return result;
-			}
+        /// <inheritdoc />
+        public object Resolve(string name, Type type)
+        {
+            try
+            {
+                return typeRegistry.Get(name, type).LastOrDefault().GetInstance();
+            }
+            catch (KeyNotFoundException knfe)
+            {
+                return HandleUnResolved(knfe, name, type);
+            }
+        }
 
-			if (type.IsClass)
-			{
-				try
-				{
-					var func = CreateInstanceDelegateFactory.Create(type);
-					Register(name, type, func);
-					// Thanks to dfullerton for catching this.
-					return typeRegistry.Get(name, type).LastOrDefault().GetInstance();
-				}
-				catch
-				{
-					throw new KeyNotFoundException(ResolveFailureMessage(type), knfe);
-				}
-			}
+        private object HandleUnResolved(Exception knfe, string name, Type type)
+        {
+            if (type.IsGenericType)
+            {
+                object result = ResolveUsingOpenType(knfe, name, type);
+                if (result != null)
+                    return result;
+            }
 
-			if (type.IsInterface)
-			{
-				var regs = typeRegistry.GetDerived(name, type);
-				var reg = regs.FirstOrDefault();
+            if (type.IsClass)
+            {
+                try
+                {
+                    var func = CreateInstanceDelegateFactory.Create(type);
+                    Register(name, type, func);
+                    // Thanks to dfullerton for catching this.
+                    return typeRegistry.Get(name, type).LastOrDefault().GetInstance();
+                }
+                catch
+                {
+                    throw new KeyNotFoundException(ResolveFailureMessage(type), knfe);
+                }
+            }
+
+            if (type.IsInterface)
+            {
+                var regs = typeRegistry.GetDerived(name, type);
+                var reg = regs.FirstOrDefault();
                 if (reg != null)
                 {
                     object instance = reg.GetInstance();
@@ -81,12 +81,12 @@ namespace Munq
                 {
                     throw new KeyNotFoundException(ResolveFailureMessage(type), knfe);
                 }
-			}
-			throw new KeyNotFoundException(ResolveFailureMessage(type), knfe);
-		}
+            }
+            throw new KeyNotFoundException(ResolveFailureMessage(type), knfe);
+        }
 
-		private object ResolveUsingOpenType(Exception knfe, string name, Type type)
-		{
+        private object ResolveUsingOpenType(Exception knfe, string name, Type type)
+        {
             if (type.ContainsGenericParameters)
             {
                 throw new KeyNotFoundException(ResolveFailureMessage(type), knfe);
@@ -119,45 +119,45 @@ namespace Munq
                     }
                 }
             }
-			return null;
-		}
-		#endregion
+            return null;
+        }
+        #endregion
 
-		#region CanResolve Members
-
-        /// <inheritdoc />
-		public bool CanResolve<TType>()
-				where TType : class
-		{
-			return CanResolve(null, typeof(TType));
-		}
+        #region CanResolve Members
 
         /// <inheritdoc />
-		public bool CanResolve<TType>(string name)
-				where TType : class
-		{
-			return CanResolve(name, typeof(TType));
-		}
+        public bool CanResolve<TType>()
+                where TType : class
+        {
+            return CanResolve(null, typeof(TType));
+        }
 
         /// <inheritdoc />
-		public bool CanResolve(Type type)
-		{
-			return CanResolve(null, type);
-		}
+        public bool CanResolve<TType>(string name)
+                where TType : class
+        {
+            return CanResolve(name, typeof(TType));
+        }
 
         /// <inheritdoc />
-		public bool CanResolve(string name, Type type)
-		{
-			return typeRegistry.ContainsKey(name, type);
-		}
-		#endregion
+        public bool CanResolve(Type type)
+        {
+            return CanResolve(null, type);
+        }
 
-		#region Resolve All Methods
         /// <inheritdoc />
-		public IEnumerable<TType> ResolveAll<TType>() where TType : class
-		{
-			return ResolveAll(null, typeof(TType)).Cast<TType>();
-		}
+        public bool CanResolve(string name, Type type)
+        {
+            return typeRegistry.ContainsKey(name, type);
+        }
+        #endregion
+
+        #region Resolve All Methods
+        /// <inheritdoc />
+        public IEnumerable<TType> ResolveAll<TType>() where TType : class
+        {
+            return ResolveAll(null, typeof(TType)).Cast<TType>();
+        }
 
         /// <inheritdoc />
         public IEnumerable<TType> ResolveAll<TType>(string name) where TType : class
@@ -171,48 +171,48 @@ namespace Munq
             return ResolveAll(null, type);
         }
 
-		/// <inheritdoc />
-		public IEnumerable<object> ResolveAll(string name, Type type)
-		{
-			var registrations = typeRegistry.Get(name, type);
-			var instances = new List<object>();
-			foreach (var reg in registrations)
-			{
-				instances.Add(reg.GetInstance());
-			}
-			return instances;
-		}
-		#endregion
-
-		#region LazyResolve Members
         /// <inheritdoc />
-		public Func<TType> LazyResolve<TType>() where TType : class
-		{
-			return LazyResolve<TType>(null);
-		}
+        public IEnumerable<object> ResolveAll(string name, Type type)
+        {
+            var registrations = typeRegistry.Get(name, type);
+            var instances = new List<object>();
+            foreach (var reg in registrations)
+            {
+                instances.Add(reg.GetInstance());
+            }
+            return instances;
+        }
+        #endregion
 
+        #region LazyResolve Members
         /// <inheritdoc />
-		public Func<TType> LazyResolve<TType>(string name) where TType : class
-		{
-			return () => Resolve<TType>(name);
-		}
+        public Func<TType> LazyResolve<TType>() where TType : class
+        {
+            return LazyResolve<TType>(null);
+        }
 
         /// <inheritdoc />
-		public Func<Object> LazyResolve(Type type)
-		{
-			return LazyResolve(null, type);
-		}
+        public Func<TType> LazyResolve<TType>(string name) where TType : class
+        {
+            return () => Resolve<TType>(name);
+        }
 
-		/// <inheritdoc />
-		public Func<Object> LazyResolve(string name, Type type)
-		{
-			return () => Resolve(name, type);
-		}
+        /// <inheritdoc />
+        public Func<Object> LazyResolve(Type type)
+        {
+            return LazyResolve(null, type);
+        }
 
-		private static string ResolveFailureMessage(Type type)
-		{
-			return String.Format("Munq IocContainer failed to resolve {0}", type);
-		}
-		#endregion
-	}
+        /// <inheritdoc />
+        public Func<Object> LazyResolve(string name, Type type)
+        {
+            return () => Resolve(name, type);
+        }
+
+        private static string ResolveFailureMessage(Type type)
+        {
+            return String.Format("Munq IocContainer failed to resolve {0}", type);
+        }
+        #endregion
+    }
 }
