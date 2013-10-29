@@ -26,12 +26,26 @@ namespace ReactiveApp
 
         public object GetService(Type serviceType, string contract = null)
         {
-            return container.Resolve(contract, serviceType);
+            try
+            {
+                return container.Resolve(contract, serviceType);
+            }
+            catch (KeyNotFoundException)
+            {
+                return null;
+            }
         }
 
         public IEnumerable<object> GetServices(Type serviceType, string contract = null)
         {
-            return container.ResolveAll(contract, serviceType);
+            try
+            {
+                return container.ResolveAll(contract, serviceType);
+            }
+            catch (KeyNotFoundException)
+            {
+                return new object[0];
+            }
         }
 
         public void Dispose()
