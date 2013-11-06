@@ -105,6 +105,15 @@
     <Folder Include="Controls\" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\ReactiveApp.Xaml.Win8\Platform\CurrentPlatformProvider.cs">
+      <Link>Platform\CurrentPlatformProvider.cs</Link>
+    </Compile>
+    <Compile Include="..\ReactiveApp.Xaml.Win8\Platform\XamlViewEvents.cs">
+      <Link>Platform\XamlViewEvents.cs</Link>
+    </Compile>
+    <Compile Include="..\ReactiveApp.Xaml.Win8\ReactiveApplication.cs">
+      <Link>ReactiveApplication.cs</Link>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -135,6 +144,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ReactiveApp\ReactiveApp.csproj">
+      <Project>{5022e311-8709-4fac-8114-ad2955ec198d}</Project>
+      <Name>ReactiveApp</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '12.0' ">
     <VisualStudioVersion>12.0</VisualStudioVersion>

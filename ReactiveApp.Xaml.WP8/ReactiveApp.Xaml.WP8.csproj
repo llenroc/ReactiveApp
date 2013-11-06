@@ -83,6 +83,15 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="..\ReactiveApp.Xaml.Win8\Platform\CurrentPlatformProvider.cs">
+      <Link>Platform\CurrentPlatformProvider.cs</Link>
+    </Compile>
+    <Compile Include="..\ReactiveApp.Xaml.Win8\Platform\XamlViewEvents.cs">
+      <Link>Platform\XamlViewEvents.cs</Link>
+    </Compile>
+    <Compile Include="..\ReactiveApp.Xaml.Win8\ReactiveApplication.cs">
+      <Link>ReactiveApplication.cs</Link>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -116,6 +125,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ReactiveApp\ReactiveApp.csproj">
+      <Project>{5022E311-8709-4FAC-8114-AD2955EC198D}</Project>
+      <Name>ReactiveApp</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkVersion)\Microsoft.$(TargetFrameworkIdentifier).$(TargetFrameworkVersion).Overrides.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkVersion)\Microsoft.$(TargetFrameworkIdentifier).CSharp.targets" />

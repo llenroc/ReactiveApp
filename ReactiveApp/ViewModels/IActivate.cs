@@ -23,6 +23,6 @@ namespace ReactiveApp.ViewModels
         /// <summary>
         /// Raised after activation occurs.
         /// </summary>
-        IObservable<ActivationInfo> Activated;
+        IObservable<ActivationInfo> Activated { get; }
     }
 }

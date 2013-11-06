@@ -19,6 +19,6 @@ namespace ReactiveApp.ViewModels
         /// <summary>
         /// Raised after deactivation.
         /// </summary>
-        IObservable<DeactivationInfo> Deactivated;
+        IObservable<DeactivationInfo> Deactivated { get; }
     }
 }

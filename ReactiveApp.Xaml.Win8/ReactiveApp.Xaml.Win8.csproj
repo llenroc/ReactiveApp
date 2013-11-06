@@ -103,7 +103,10 @@
     <Folder Include="Controls\" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Platform\CurrentPlatformProvider.cs" />
+    <Compile Include="Platform\XamlViewEvents.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReactiveApplication.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="ReactiveUI">
@@ -133,6 +136,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ReactiveApp\ReactiveApp.csproj">
+      <Project>{5022e311-8709-4fac-8114-ad2955ec198d}</Project>
+      <Name>ReactiveApp</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '11.0' ">
     <VisualStudioVersion>11.0</VisualStudioVersion>

@@ -1,18 +1,20 @@
-﻿using ReactiveUI;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using Munq;
+using ReactiveUI;
+
 namespace ReactiveApp
 {
     class MunqDependencyResolver : IMutableDependencyResolver
     {
-        private readonly Munq.IocContainer container;
+        private readonly IocContainer container;
 
-        public MunqDependencyResolver(Munq.IocContainer container)
+        public MunqDependencyResolver(IocContainer container)
         {
             Contract.Requires(container != null);
 

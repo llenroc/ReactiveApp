@@ -25,6 +25,6 @@ namespace ReactiveApp.ViewModels
         /// <summary>
         /// Raised when a view is attached.
         /// </summary>
-        IObservable<ViewAttachedInfo> ViewAttached;
+        IObservable<ViewAttachedInfo> ViewAttached { get; }
     }
 }
