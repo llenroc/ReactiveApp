@@ -6,6 +6,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 
 namespace Munq
 {
@@ -45,14 +46,14 @@ namespace Munq
 
         private object HandleUnResolved(Exception knfe, string name, Type type)
         {
-            if (type.IsGenericType)
+            if (type.GetTypeInfo().IsGenericType)
             {
                 object result = ResolveUsingOpenType(knfe, name, type);
                 if (result != null)
                     return result;
             }
 
-            if (type.IsClass)
+            if (type.GetTypeInfo().IsClass)
             {
                 try
                 {
@@ -67,7 +68,7 @@ namespace Munq
                 }
             }
 
-            if (type.IsInterface)
+            if (type.GetTypeInfo().IsInterface)
             {
                 var regs = typeRegistry.GetDerived(name, type);
                 var reg = regs.FirstOrDefault();
@@ -87,7 +88,7 @@ namespace Munq
 
         private object ResolveUsingOpenType(Exception knfe, string name, Type type)
         {
-            if (type.ContainsGenericParameters)
+            if (type.GetTypeInfo().ContainsGenericParameters)
             {
                 throw new KeyNotFoundException(ResolveFailureMessage(type), knfe);
             }
@@ -97,7 +98,7 @@ namespace Munq
                 // create a type using the registered Open Type
                 // Try and resolve this type
                 var definition = type.GetGenericTypeDefinition();
-                var arguments = type.GetGenericArguments();
+                var arguments = type.GenericTypeArguments;
                 if (opentypeRegistry.ContainsKey(name, definition))
                 {
                     var reg = opentypeRegistry.Get(name, definition).LastOrDefault();

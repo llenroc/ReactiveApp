@@ -41,7 +41,7 @@ namespace Munq
 
         private static NewExpression BuildExpression(Type type, ParameterExpression container)
         {
-            if (!type.IsGenericTypeDefinition)
+            if (!type.GetTypeInfo().IsGenericTypeDefinition)
             {
                 ConstructorInfo constructor = GetConstructorInfo(type);
                 ParameterInfo[] parameters = constructor.GetParameters();
@@ -67,7 +67,7 @@ namespace Munq
 
         private static ConstructorInfo GetConstructorInfo(Type implType)
         {
-            var constructors = implType.GetConstructors();
+            var constructors = implType.GetTypeInfo().DeclaredConstructors.Where(c => c.IsPublic && !c.IsStatic);
             var constructor = constructors
                                .OrderBy(c => c.GetParameters().Length)
                                .LastOrDefault();

@@ -6,6 +6,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 
 namespace Munq
 {
@@ -73,7 +74,7 @@ namespace Munq
         /// <inheritdoc />
         public IRegistration Register(string name, Type tType, Type tImpl)
         {
-            if (tType.ContainsGenericParameters)
+            if (tType.GetTypeInfo().ContainsGenericParameters)
                 return RegisterOpenType(name, tType, tImpl);
             else
                 return Register(name, tType, CreateInstanceDelegateFactory.Create(tImpl));

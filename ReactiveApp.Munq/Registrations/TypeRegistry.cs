@@ -6,6 +6,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 
 namespace Munq
 {
@@ -41,7 +42,7 @@ namespace Munq
         {
             var regs = typeRegistrations.Values
                         .SelectMany(list => list)
-                        .Where(r => type.IsAssignableFrom(r.ResolvesTo));
+                        .Where(r => type.GetTypeInfo().IsAssignableFrom(r.ResolvesTo.GetTypeInfo()));
             return regs;
         }
 
@@ -50,7 +51,7 @@ namespace Munq
             var regs = typeRegistrations.Values
                         .SelectMany(list => list)
                         .Where(r => string.Compare(r.Name, name, StringComparison.OrdinalIgnoreCase) == 0 &&
-                                   type.IsAssignableFrom(r.ResolvesTo));
+                                   type.GetTypeInfo().IsAssignableFrom(r.ResolvesTo.GetTypeInfo()));
             return regs;
         }
 
