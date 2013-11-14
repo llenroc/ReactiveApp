@@ -76,7 +76,6 @@ namespace Munq
 
             return constructor;
         }
-
     }
 }
 

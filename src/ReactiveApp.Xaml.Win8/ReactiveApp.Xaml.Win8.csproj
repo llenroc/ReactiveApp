@@ -100,9 +100,14 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
-    <Folder Include="Controls\" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controls\Shell\ReactiveAppBar.cs" />
+    <Compile Include="Controls\Shell\ReactiveShell.cs" />
+    <Compile Include="Controls\Shell\ReactiveView.cs" />
+    <Compile Include="Controls\Transitions\ViewTransition.cs" />
+    <Compile Include="Controls\Transitions\ViewTransitionMode.cs" />
+    <Compile Include="Controls\Transitions\ViewTransitions.cs" />
     <Compile Include="Platform\CurrentPlatformProvider.cs" />
     <Compile Include="Platform\XamlViewEvents.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -102,9 +102,26 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
-    <Folder Include="Controls\" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\ReactiveApp.Xaml.Win8\Controls\Shell\ReactiveAppBar.cs">
+      <Link>Controls\Shell\ReactiveAppBar.cs</Link>
+    </Compile>
+    <Compile Include="..\ReactiveApp.Xaml.Win8\Controls\Shell\ReactiveShell.cs">
+      <Link>Controls\Shell\ReactiveShell.cs</Link>
+    </Compile>
+    <Compile Include="..\ReactiveApp.Xaml.Win8\Controls\Shell\ReactiveView.cs">
+      <Link>Controls\Shell\ReactiveView.cs</Link>
+    </Compile>
+    <Compile Include="..\ReactiveApp.Xaml.Win8\Controls\Transitions\ViewTransition.cs">
+      <Link>Controls\Transitions\ViewTransition.cs</Link>
+    </Compile>
+    <Compile Include="..\ReactiveApp.Xaml.Win8\Controls\Transitions\ViewTransitionMode.cs">
+      <Link>Controls\Transitions\ViewTransitionMode.cs</Link>
+    </Compile>
+    <Compile Include="..\ReactiveApp.Xaml.Win8\Controls\Transitions\ViewTransitions.cs">
+      <Link>Controls\Transitions\ViewTransitions.cs</Link>
+    </Compile>
     <Compile Include="..\ReactiveApp.Xaml.Win8\Platform\CurrentPlatformProvider.cs">
       <Link>Platform\CurrentPlatformProvider.cs</Link>
     </Compile>
