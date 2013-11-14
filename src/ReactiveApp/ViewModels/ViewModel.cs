@@ -16,6 +16,8 @@ namespace ReactiveApp.ViewModels
         private ISubject<ActivationInfo> activated;
         private ISubject<DeactivationInfo> deactivated;
         private ISubject<ViewAttachedInfo> viewAttached;
+        private ISubject<object> viewLoaded;
+        private ISubject<object> viewReady;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ViewModel"/> class.
@@ -26,6 +28,8 @@ namespace ReactiveApp.ViewModels
             this.activated = new Subject<ActivationInfo>();
             this.deactivated = new Subject<DeactivationInfo>();
             this.viewAttached = new Subject<ViewAttachedInfo>();
+            this.viewLoaded = new Subject<object>();
+            this.viewReady = new Subject<object>();
             this.CacheView = cacheView;
 
             // make view null 
@@ -152,23 +156,23 @@ namespace ReactiveApp.ViewModels
                 this.view = view;
             }
 
-            this.ViewLoaded = PlatformProvider.Instance.ViewEvents.OnFirstLoaded(view).Multicast(new Subject<object>()).PermaRef();
+            PlatformProvider.Instance.ViewEvents.OnFirstLoaded(view).Multicast(this.viewLoaded).PermaRef();
             this.viewAttached.OnNext(new ViewAttachedInfo() { View = view });
 
             // if we are not active yet, we wait for the Activated message.
             if (this.IsActive)
             {
-                this.ViewReady = PlatformProvider.Instance.ViewEvents.OnLayoutUpdated(view).Multicast(new Subject<object>()).PermaRef();
+                PlatformProvider.Instance.ViewEvents.OnLayoutUpdated(view).Multicast(this.viewReady).PermaRef();
             }
             else
             {
                 // we don't want to keep a ref to the view here
                 WeakReference viewRef = new WeakReference(view);
-                this.ViewReady = this.Activated.FirstOrDefaultAsync().SelectMany(_ =>
+                this.Activated.FirstOrDefaultAsync().SelectMany(_ =>
                 {
                     if (viewRef.Target != null)
                     {
-                        return PlatformProvider.Instance.ViewEvents.OnLayoutUpdated(view).Multicast(new Subject<object>()).PermaRef();
+                        return PlatformProvider.Instance.ViewEvents.OnLayoutUpdated(view).Multicast(this.viewReady).PermaRef();
                     }
                     else
                     {
@@ -190,14 +194,12 @@ namespace ReactiveApp.ViewModels
 
         protected IObservable<object> ViewLoaded
         {
-            get;
-            private set;
+            get { return this.viewLoaded; }
         }
 
         protected IObservable<object> ViewReady
         {
-            get;
-            private set;
+            get { return this.viewReady; }
         }
 
         #endregion
