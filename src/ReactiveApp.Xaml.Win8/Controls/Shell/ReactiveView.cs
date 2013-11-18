@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reactive;
+using System.Reactive.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ReactiveApp.Interfaces;
@@ -19,10 +21,20 @@ using Windows.UI.Xaml.Data;
 
 namespace ReactiveApp.Xaml.Controls
 {
-    public class ReactiveView : ContentControl, IView<ReactiveShell,ReactiveView>
+    /// <summary>
+    /// Class similar to the Page class on Windows and PhoneApplicationPage on Windows Phone.
+    /// 
+    /// Several events occur on this class in the following order:
+    /// 
+    /// Windows:        Constructor, OnNavigatingToAsync, OnNavigatedToAsync, Loaded
+    /// Windows Phone:  Constructor, OnNavigatingToAsync, OnNavigatedToAsync, Loaded 
+    /// 
+    /// </summary>
+    public class ReactiveView : ContentControl, IView<ReactiveShell, ReactiveView>
     {
         private Binding dataContextBinding;
-        private Task completed;
+        private IObservable<Unit> completed;
+        private IDisposable loaded;
 
         #region Dependency Properties
 
@@ -285,14 +297,26 @@ namespace ReactiveApp.Xaml.Controls
         public ReactiveView()
         {
             dataContextBinding = new Binding() { Source = this, Path = new PropertyPath("DataContext") };
-            completed = Task.FromResult(0);
+            completed = Observable.Empty<Unit>();
+
+            // this does not leak because the event is on the object itself
+            // and therefore only references itself
+            this.Loaded += ReactiveView_Loaded;
+        }
+
+        void ReactiveView_Loaded(object sender, RoutedEventArgs e)
+        {
+            // make sure the template is available during the Loaded event.
+            // on Windows Phone this is by default not guaranteed
+            // http://msdn.microsoft.com/en-us/library/system.windows.frameworkelement.loaded(v=vs.95).aspx
+            this.ApplyTemplate();
         }
 
         #endregion
 
         #region Navigation
 
-        internal Task OnNavigatingFromInternalAsync(ReactiveShell shell, NavigatingInfo e)
+        internal IObservable<Unit> OnNavigatingFromInternalAsync(ReactiveShell shell, NavigatingInfo e)
         {
             return OnNavigatingFromAsync(e);
         }
@@ -307,12 +331,12 @@ namespace ReactiveApp.Xaml.Controls
         /// navigation can potentially be canceled by setting Cancel.
         /// </param>
         /// <returns></returns>
-        protected virtual Task OnNavigatingFromAsync(NavigatingInfo e)
+        protected virtual IObservable<Unit> OnNavigatingFromAsync(NavigatingInfo e)
         {
             return completed;
         }
 
-        internal Task OnNavigatingToInternalAsync(ReactiveShell shell, NavigatingInfo e)
+        internal IObservable<Unit> OnNavigatingToInternalAsync(ReactiveShell shell, NavigatingInfo e)
         {
             return OnNavigatingToAsync(e);
         }
@@ -328,12 +352,12 @@ namespace ReactiveApp.Xaml.Controls
         /// to cancel earlier before the page is actually created. Use with care!
         /// </param>
         /// <returns></returns>
-        protected virtual Task OnNavigatingToAsync(NavigatingInfo e)
+        protected virtual IObservable<Unit> OnNavigatingToAsync(NavigatingInfo e)
         {
             return completed;
         }
 
-        internal Task OnNavigatedFromInternalAsync(ReactiveShell frame, NavigatedInfo e)
+        internal IObservable<Unit> OnNavigatedFromInternalAsync(ReactiveShell frame, NavigatedInfo e)
         {
             return OnNavigatedFromAsync(e);
         }
@@ -347,12 +371,12 @@ namespace ReactiveApp.Xaml.Controls
         /// of the navigation that has unloaded the current Page.
         /// </param>
         /// <returns></returns>
-        protected virtual Task OnNavigatedFromAsync(NavigatedInfo e)
+        protected virtual IObservable<Unit> OnNavigatedFromAsync(NavigatedInfo e)
         {
             return completed;
         }
 
-        internal Task OnNavigatedToInternalAsync(ReactiveShell frame, NavigatedInfo e)
+        internal IObservable<Unit> OnNavigatedToInternalAsync(ReactiveShell frame, NavigatedInfo e)
         {
             return OnNavigatedToAsync(e);
         }
@@ -366,7 +390,7 @@ namespace ReactiveApp.Xaml.Controls
         /// relevant property to examine is Parameter.
         /// </param>
         /// <returns></returns>
-        protected virtual Task OnNavigatedToAsync(NavigatedInfo e)
+        protected virtual IObservable<Unit> OnNavigatedToAsync(NavigatedInfo e)
         {
             return completed;
         }
