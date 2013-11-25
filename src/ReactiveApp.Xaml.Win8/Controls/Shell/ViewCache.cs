@@ -36,10 +36,10 @@ namespace ReactiveApp.Xaml.Controls
         /// <returns>A ReactivePage.</returns>
         internal bool TryGet(IJournalEntry entry, out ReactiveView cachedView)
         {
-            CachedJournalEntry journalEntry = entry as CachedJournalEntry;
-            if (journalEntry != null && journalEntry.CachedView != null)
+            JournalEntry journalEntry = entry as JournalEntry;
+            if (journalEntry != null && journalEntry.State != null)
             {
-                cachedView = journalEntry.CachedView;
+                cachedView = journalEntry.State as ReactiveView;
                 return true;
             }
 
@@ -60,25 +60,25 @@ namespace ReactiveApp.Xaml.Controls
         /// <param name="view">The page.</param>
         public void Store(IJournalEntry entry, ReactiveView view)
         {
-            switch (view.CacheMode)
+            switch (view.NavigationCacheMode)
             {
                 case NavigationCacheMode.Backward:
                 case NavigationCacheMode.BackwardAndForward:
                 case NavigationCacheMode.Forward:
-                    CachedJournalEntry journalEntry = entry as CachedJournalEntry;
+                    JournalEntry journalEntry = entry as JournalEntry;
                     if (journalEntry != null)
                     {
-                        journalEntry.CachedPage = view;
+                        journalEntry.State = view;
                     }
                     else
                     {
-                        throw new InvalidOperationException("Expected CachedJournalEntry");
+                        throw new InvalidOperationException("Expected JournalEntry");
                     }
                     break;
                 case NavigationCacheMode.Enabled:
-                    entryToPageMap[entry] = view;
+                    entryToViewMap[entry] = view;
                     break;
-                case NavigationCacheMode.Unspecified:
+                case NavigationCacheMode.Inherit:
                 case NavigationCacheMode.Disabled:
                 default:
                     break;

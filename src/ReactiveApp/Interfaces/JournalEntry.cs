@@ -31,6 +31,12 @@ namespace ReactiveApp.Interfaces
             private set;
         }
 
+        public object State
+        {
+            get;
+            set;
+        }
+
         /// <summary>
         /// Determines whether the specified <see cref="System.Object" /> is equal to this instance.
         /// </summary>
@@ -75,6 +81,5 @@ namespace ReactiveApp.Interfaces
 
             return hash;
         }
-    }
     }
 }
