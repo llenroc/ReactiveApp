@@ -98,6 +98,31 @@ namespace ReactiveApp.Xaml.Controls
 
         #endregion
 
+        #region NavigationCacheMode (Dependency Property)
+
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for NavigationCacheMode.  This enables animation, styling, binding, etc...    
+        /// </summary>
+        public static readonly DependencyProperty NavigationCacheModeProperty =
+            DependencyProperty.Register(
+                "NavigationCacheMode",
+                typeof(NavigationCacheMode),
+                typeof(ReactiveView),
+                new PropertyMetadata(NavigationCacheMode.Inherit)
+            );
+
+        /// <summary>
+        /// Specifies the cache mode for the current page. If not defined uses the 
+        /// default cache mode defined on the frame.
+        /// </summary>
+        public NavigationCacheMode NavigationCacheMode
+        {
+            get { return (NavigationCacheMode)this.GetValue(NavigationCacheModeProperty); }
+            set { this.SetValue(NavigationCacheModeProperty, value); }
+        }
+
+        #endregion
+
         #region TopAppBar (Dependency Property)
 
         /// <summary>

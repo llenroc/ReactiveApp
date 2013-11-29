@@ -18,6 +18,7 @@ using System.Windows.Media;
 #else
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml;
 #endif
 
 namespace ReactiveApp.Xaml.Controls
@@ -25,25 +26,28 @@ namespace ReactiveApp.Xaml.Controls
     /// <summary>
     /// 
     /// </summary>
-    public class ReactiveShell : ContentControl, IShell<ReactiveShell, ReactiveView>
+    public class ReactiveShell : ContentControl, IShell<ReactiveShell, ReactiveView>, IEnableLogger
     {
         #region Fields
 
-        private static readonly CacheMode BitmapCacheMode = (CacheMode)new BitmapCache();
+        private static readonly CacheMode BitmapCacheMode = new BitmapCache();
         private const string ViewPresentersPanelName = "PART_ViewPresentersPanel";
         private ContentPresenter currentViewPresenter;
         private Panel viewPresentersPanel;
+        private IList<Action<Panel>> overlays;
 
         private readonly BehaviorSubject<IJournalEntry> viewJournal;
         private readonly ISubject<ReactiveView> view;
         private readonly ISubject<bool> canView;
         private readonly Lazy<Subject<NavigatingInfo>> navigating;
         private readonly Lazy<Subject<NavigatedInfo>> navigated;
+        private readonly ISubject<Unit> activated;
 
         private readonly IObservable<bool> canBackView;
         private readonly IObservable<bool> canForwardView;
 
-        private ViewCache cache;
+        private readonly ViewCache cache;
+        private readonly ViewLoader loader;
 
         #endregion
 
@@ -61,6 +65,7 @@ namespace ReactiveApp.Xaml.Controls
             this.canView = new BehaviorSubject<bool>(true);
             this.navigating = new Lazy<Subject<NavigatingInfo>>(() => new Subject<NavigatingInfo>());
             this.navigated = new Lazy<Subject<NavigatedInfo>>(() => new Subject<NavigatedInfo>());
+            this.activated = new Subject<Unit>();
 
             // cast needed to access Count
             this.canBackView = Observable.CombineLatest(
@@ -83,6 +88,9 @@ namespace ReactiveApp.Xaml.Controls
                                 .RefCount();
 
             this.cache = new ViewCache();
+            this.loader = new ViewLoader(this.cache);
+            this.NavigationCacheMode = NavigationCacheMode.Disabled;
+            this.overlays = new List<Action<Panel>>();
         }
 
         #endregion
@@ -104,7 +112,7 @@ namespace ReactiveApp.Xaml.Controls
             viewPresentersPanel = (Panel)GetTemplateChild(ViewPresentersPanelName);
             if (viewPresentersPanel == null)
             {
-                throw new InvalidOperationException("ReactiveFrame template is missing PART_ViewPresentersPanel");
+                throw new InvalidOperationException("ReactiveShell template is missing PART_ViewPresentersPanel");
             }
             else
             {
@@ -112,10 +120,12 @@ namespace ReactiveApp.Xaml.Controls
                 {
                     viewPresentersPanel.Children.Add(currentViewPresenter);
                 }
-                //if (designGrid != null)
-                //{
-                //    pagePresentersPanel.Children.Add(designGrid);
-                //}
+            }
+
+            //add overlays if they are queued
+            foreach (var func in this.overlays)
+            {
+                func(this.viewPresentersPanel);
             }
         }
 
@@ -131,13 +141,18 @@ namespace ReactiveApp.Xaml.Controls
         /// <returns></returns>
         public IObservable<bool> BackViewAsync<V>(V view, object parameter = null) where V : ReactiveView
         {
+            return this.BackViewAsync((IJournalEntry)new JournalEntry(typeof(V), parameter) { State = view });
+        }
+
+        public IObservable<bool> BackViewAsync(IJournalEntry entry)
+        {
             return this.CanBackView.FirstOrDefaultAsync()
                 .Do(_ => { lock (this.canView) { this.canView.OnNext(false); } })
                 .SelectMany(allowed =>
                 {
                     if (allowed)
                     {
-                        return this.NavigateToView(view, parameter, NavigationMode.Back, true);
+                        return this.NavigateToJournalEntry(entry, NavigationMode.Back, true);
                     }
                     else
                     {
@@ -145,11 +160,6 @@ namespace ReactiveApp.Xaml.Controls
                     }
                 })
                 .Do(_ => { lock (this.canView) { this.canView.OnNext(true); } });
-        }
-
-        public Task BackViewAsync(IJournalEntry entry)
-        {
-            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -160,13 +170,18 @@ namespace ReactiveApp.Xaml.Controls
         /// <returns></returns>
         public IObservable<bool> ViewAsync<V>(V view, object parameter = null) where V : ReactiveView
         {
+            return this.ViewAsync((IJournalEntry)new JournalEntry(typeof(V), parameter) { State = view });
+        }
+
+        public IObservable<bool> ViewAsync(IJournalEntry entry)
+        {
             return this.CanView.FirstOrDefaultAsync()
                 .Do(_ => { lock (this.canView) { this.canView.OnNext(false); } })
                 .SelectMany(allowed =>
                 {
                     if (allowed)
                     {
-                        return this.NavigateToView(view, parameter, NavigationMode.New, true);
+                        return this.NavigateToJournalEntry(entry, NavigationMode.New, true);
                     }
                     else
                     {
@@ -174,11 +189,6 @@ namespace ReactiveApp.Xaml.Controls
                     }
                 })
                 .Do(_ => { lock (this.canView) { this.canView.OnNext(true); } });
-        }
-
-        public Task ViewAsync(IJournalEntry entry)
-        {
-            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -189,13 +199,18 @@ namespace ReactiveApp.Xaml.Controls
         /// <returns></returns>
         public IObservable<bool> ForwardViewAsync<V>(V view, object parameter = null) where V : ReactiveView
         {
+            return this.ForwardViewAsync((IJournalEntry)new JournalEntry(typeof(V), parameter) { State = view });
+        }
+
+        public IObservable<bool> ForwardViewAsync(IJournalEntry entry)
+        {
             return this.CanForwardView.FirstOrDefaultAsync().ObserveOnDispatcher()
                 .Do(_ => { lock (this.canView) { this.canView.OnNext(false); } })
                 .SelectMany(allowed =>
                 {
                     if (allowed)
                     {
-                        return this.NavigateToView(view, parameter, NavigationMode.Forward, true);
+                        return this.NavigateToJournalEntry(entry, NavigationMode.Forward, true);
                     }
                     else
                     {
@@ -203,11 +218,6 @@ namespace ReactiveApp.Xaml.Controls
                     }
                 })
                 .Do(_ => { lock (this.canView) { this.canView.OnNext(true); } });
-        }
-
-        public Task ForwardViewAsync(IJournalEntry entry)
-        {
-            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -279,41 +289,90 @@ namespace ReactiveApp.Xaml.Controls
             get { return this.view; }
         }
 
+        private bool disableJournal;
         public bool DisableJournal
         {
-            get;
-            set;
+            get { return this.disableJournal; }
+            set
+            {
+                this.disableJournal = value;
+                if (!value)
+                {
+                    ((IList<IJournalEntry>)this.BackStack).Clear();
+                    ((IList<IJournalEntry>)this.ForwardStack).Clear();
+                }
+            }
         }
 
         #endregion
 
         #region Activation
 
-        public IObservable<object> Activated
+        public IObservable<Unit> Activated
         {
-            get { throw new NotImplementedException(); }
+            get { return this.activated; }
         }
 
-        public Task Activate()
+        public IObservable<Unit> Activate()
         {
-            throw new NotImplementedException();
+            Func<Unit> func = () =>
+            {
+                if (Window.Current.Content != this)
+                {
+                    Window.Current.Content = this;
+                }
+                Window.Current.Activate();
+                //fire activated
+                activated.OnNext(Unit.Default);
+                return Unit.Default;
+            };
+            return Observable.Return<Unit>(func());
         }
 
         #endregion
 
-        private IObservable<bool> NavigateToJournalEntry(IJournalEntry journalEntry, NavigationMode navigationMode, bool isNavigationInitiator)
+        public NavigationCacheMode NavigationCacheMode
         {
-            return this.NavigateInternal(() => view, journalEntry, navigationMode, isNavigationInitiator);
+            get { return this.loader.DefaultCacheMode; }
+            set { this.loader.DefaultCacheMode = value; }
         }
 
-        private IObservable<bool> NavigateToView(ReactiveView view, object parameter, NavigationMode navigationMode, bool isNavigationInitiator)
+        /// <summary>
+        /// Adds the overlay either to the panel or defers the adding.
+        /// </summary>
+        /// <param name="overlay">The overlay.</param>
+        /// <returns></returns>
+        /// <exception cref="System.ArgumentException">overlay must be UIElement</exception>
+        public IDisposable AddOverlay(object overlay)
         {
-            return this.NavigateInternal(() => view, new JournalEntry(view.GetType(), parameter), navigationMode, isNavigationInitiator);
+            UIElement element = overlay as UIElement;
+            if (element == null)
+            {
+                throw new ArgumentException("overlay must be UIElement");
+            }
+
+            SerialDisposable disp = new SerialDisposable();
+            Action<Panel> addFunction = panel =>
+            {
+                panel.Children.Add(element);
+                disp.Disposable = Disposable.Create(() => panel.Children.Remove(element));
+            };
+            this.overlays.Add(addFunction);
+            if (this.viewPresentersPanel != null)
+            {
+                addFunction(this.viewPresentersPanel);
+            }
+            return new CompositeDisposable(disp, Disposable.Create(() => this.overlays.Remove(addFunction)));
+        }
+
+        private IObservable<bool> NavigateToJournalEntry(IJournalEntry journalEntry, NavigationMode navigationMode, bool isNavigationInitiator)
+        {
+            return this.NavigateInternal(() => this.loader.GetView(journalEntry), journalEntry, navigationMode, isNavigationInitiator);
         }
 
         private IObservable<bool> NavigateInternal(Func<ReactiveView> view, IJournalEntry journalEntry, NavigationMode navigationMode, bool isNavigationInitiator)
         {
-            return this.ViewJournal.SelectMany(async je =>
+            return this.ViewJournal.SelectMany(async currentJournalEntry =>
             {
                 ReactiveView currentView = null;
                 ReactiveView newView = null;
@@ -328,11 +387,22 @@ namespace ReactiveApp.Xaml.Controls
                         currentView = (ReactiveView)currentViewPresenter.Content;
                     }
 
+                    this.Log().Info("Navigating started.");
+
                     NavigatingInfo navigating = new NavigatingInfo(navigationMode, journalEntry, isNavigationInitiator, isNavigationInitiator);
-                    if (!await this.PeformNavigating(currentView, navigating, () => { newView = view(); return newView; }))
+                    if (!await this.PeformNavigating(currentView, navigating, () =>
+                        {
+                            this.Log().Info("Creating view.");
+                            newView = view();
+                            newView.Shell = this;
+                            this.Log().Info("Created view {0}.", newView.GetType());
+                            return newView;
+                        }))
                     {
+                        this.Log().Info("Navigating aborted.");
                         return false;
                     }
+                    this.Log().Info("Navigating completed.");
 
                     newViewPresenter = new ContentPresenter();
                     newViewPresenter.Content = newView;
@@ -345,14 +415,19 @@ namespace ReactiveApp.Xaml.Controls
                         viewPresentersPanel.Children.Add(newViewPresenter);
                     }
 
-                    this.UpdateJournal(navigationMode, je);
+                    //do not update journal if disabled
+                    if (!this.DisableJournal)
+                    {
+                        this.UpdateJournal(navigationMode, currentJournalEntry, journalEntry);
+                    }
 
                     this.viewJournal.OnNext(journalEntry);
                     this.view.OnNext(newView);
 
+                    this.Log().Info("Navigated started.");
                     NavigatedInfo navigated = new NavigatedInfo(newView, navigationMode, journalEntry, isNavigationInitiator);
                     await this.PeformNavigated(currentView, navigated, newView);
-
+                    this.Log().Info("Navigated completed.");
 
                     //remove old page presenter
                     if (viewPresentersPanel != null && currentViewPresenter != null)
@@ -368,7 +443,7 @@ namespace ReactiveApp.Xaml.Controls
 
                     return true;
                 }
-            });
+            }).LoggedCatch(this);
         }
 
         private async Task<bool> PeformNavigating(ReactiveView currentView, NavigatingInfo navigatingInfo, Func<ReactiveView> view)
@@ -422,7 +497,7 @@ namespace ReactiveApp.Xaml.Controls
             }
         }
 
-        private void UpdateJournal(NavigationMode navigationMode, IJournalEntry currentJournalEntry)
+        private void UpdateJournal(NavigationMode navigationMode, IJournalEntry currentJournalEntry, IJournalEntry newJournalEntry)
         {
             switch (navigationMode)
             {
@@ -437,7 +512,7 @@ namespace ReactiveApp.Xaml.Controls
 
                     break;
                 case NavigationMode.Forward:
-                    ((IList<IJournalEntry>)this.ForwardStack).RemoveAt(((IList<IJournalEntry>)this.ForwardStack).Count - 1);
+                    ((IList<IJournalEntry>)this.ForwardStack).RemoveUntil(newJournalEntry);
 
                     if (currentJournalEntry != null)
                     {
@@ -446,7 +521,7 @@ namespace ReactiveApp.Xaml.Controls
 
                     break;
                 case NavigationMode.Back:
-                    ((IList<IJournalEntry>)this.BackStack).RemoveAt(((IList<IJournalEntry>)this.BackStack).Count - 1);
+                    ((IList<IJournalEntry>)this.BackStack).RemoveUntil(newJournalEntry);
 
                     if (currentJournalEntry != null)
                     {

@@ -4,20 +4,20 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>8.0.30703</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{896C4B33-1725-4ED0-AF57-798A955D36A9}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <ProjectGuid>{D2920D93-D60D-4D24-AB5D-F3F6A4C05C71}</ProjectGuid>
+    <OutputType>AppContainerExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ReactiveApp.Xaml</RootNamespace>
-    <AssemblyName>ReactiveApp.Xaml</AssemblyName>
+    <RootNamespace>TestApp.Win81</RootNamespace>
+    <AssemblyName>TestApp.Win81</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformVersion>8.1</TargetPlatformVersion>
     <MinimumVisualStudioVersion>12</MinimumVisualStudioVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{BC8A1FFA-BEE3-4634-8014-F334798102B3};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <PackageCertificateKeyFile>TestApp.Win81_TemporaryKey.pfx</PackageCertificateKeyFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -27,6 +27,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -102,96 +103,54 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
+    <ProjectReference Include="..\..\src\ReactiveApp.Munq\ReactiveApp.Munq.csproj">
+      <Project>{d479f55d-0af3-437a-84af-4b638917c14e}</Project>
+      <Name>ReactiveApp.Munq</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\ReactiveApp.Xaml.Win81\ReactiveApp.Xaml.Win81.csproj">
+      <Project>{896c4b33-1725-4ed0-af57-798a955d36a9}</Project>
+      <Name>ReactiveApp.Xaml.Win81</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\ReactiveApp\ReactiveApp.csproj">
+      <Project>{5022e311-8709-4fac-8114-ad2955ec198d}</Project>
+      <Name>ReactiveApp</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\ReactiveApp.Xaml.Win8\Controls\Shell\ReactiveAppBar.cs">
-      <Link>Controls\Shell\ReactiveAppBar.cs</Link>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="..\ReactiveApp.Xaml.Win8\Controls\Shell\ReactiveShell.cs">
-      <Link>Controls\Shell\ReactiveShell.cs</Link>
-    </Compile>
-    <Compile Include="..\ReactiveApp.Xaml.Win8\Controls\Shell\ReactiveView.cs">
-      <Link>Controls\Shell\ReactiveView.cs</Link>
-    </Compile>
-    <Compile Include="..\ReactiveApp.Xaml.Win8\Controls\Transitions\ViewTransition.cs">
-      <Link>Controls\Transitions\ViewTransition.cs</Link>
-    </Compile>
-    <Compile Include="..\ReactiveApp.Xaml.Win8\Controls\Transitions\ViewTransitionMode.cs">
-      <Link>Controls\Transitions\ViewTransitionMode.cs</Link>
-    </Compile>
-    <Compile Include="..\ReactiveApp.Xaml.Win8\Controls\Transitions\ViewTransitions.cs">
-      <Link>Controls\Transitions\ViewTransitions.cs</Link>
-    </Compile>
-    <Compile Include="..\ReactiveApp.Xaml.Win8\Platform\CurrentPlatformProvider.cs">
-      <Link>Platform\CurrentPlatformProvider.cs</Link>
-    </Compile>
-    <Compile Include="..\ReactiveApp.Xaml.Win8\Platform\XamlViewEvents.cs">
-      <Link>Platform\XamlViewEvents.cs</Link>
-    </Compile>
-    <Compile Include="..\ReactiveApp.Xaml.Win8\ReactiveApplication.cs">
-      <Link>ReactiveApplication.cs</Link>
-    </Compile>
-    <Compile Include="..\ReactiveApp.Xaml.Win8\Services\WinRTSuspensionService.cs">
-      <Link>Services\WinRTSuspensionService.cs</Link>
+    <Compile Include="Views\MainView.xaml.cs">
+      <DependentUpon>MainView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="Akavache.Portable">
-      <HintPath>..\..\packages\akavache.portable.3.1.1\lib\NetCore45\Akavache.Portable.dll</HintPath>
-    </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\..\packages\Newtonsoft.Json.5.0.8\lib\netcore45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="ReactiveUI">
-      <HintPath>..\packages\reactiveui-core.5.2.0\lib\Portable-Net45+WinRT45+WP8\ReactiveUI.dll</HintPath>
-    </Reference>
-    <Reference Include="ReactiveUI.Xaml">
-      <HintPath>..\packages\reactiveui-platforms.5.2.0\lib\WinRT45\ReactiveUI.Xaml.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Net.Http.Extensions">
-      <HintPath>..\..\packages\Microsoft.Net.Http.2.2.18\lib\win8\System.Net.Http.Extensions.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Net.Http.Primitives">
-      <HintPath>..\..\packages\Microsoft.Net.Http.2.2.18\lib\win8\System.Net.Http.Primitives.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Reactive.Core">
-      <HintPath>..\packages\Rx-Core.2.1.30214.0\lib\NetCore45\System.Reactive.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Reactive.Interfaces">
-      <HintPath>..\packages\Rx-Interfaces.2.1.30214.0\lib\NetCore45\System.Reactive.Interfaces.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Reactive.Linq">
-      <HintPath>..\packages\Rx-Linq.2.1.30214.0\lib\NetCore45\System.Reactive.Linq.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Reactive.PlatformServices">
-      <HintPath>..\packages\Rx-PlatformServices.2.1.30214.0\lib\NetCore45\System.Reactive.PlatformServices.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Reactive.Windows.Threading">
-      <HintPath>..\packages\Rx-XAML.2.1.30214.0\lib\NetCore45\System.Reactive.Windows.Threading.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Reactive.WindowsRuntime">
-      <HintPath>..\packages\Rx-WinRT.2.1.30214.0\lib\NetCore45\System.Reactive.WindowsRuntime.dll</HintPath>
-    </Reference>
+    <AppxManifest Include="Package.appxmanifest">
+      <SubType>Designer</SubType>
+    </AppxManifest>
+    <None Include="TestApp.Win81_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <Content Include="Assets\Logo.scale-100.png" />
+    <Content Include="Assets\SmallLogo.scale-100.png" />
+    <Content Include="Assets\SplashScreen.scale-100.png" />
+    <Content Include="Assets\StoreLogo.scale-100.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ReactiveApp\ReactiveApp.csproj">
-      <Project>{5022e311-8709-4fac-8114-ad2955ec198d}</Project>
-      <Name>ReactiveApp</Name>
-    </ProjectReference>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Page Include="Views\MainView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '12.0' ">
     <VisualStudioVersion>12.0</VisualStudioVersion>
   </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
-  <Import Project="..\..\packages\Microsoft.Bcl.Build.1.0.13\tools\Microsoft.Bcl.Build.targets" Condition="Exists('..\..\packages\Microsoft.Bcl.Build.1.0.13\tools\Microsoft.Bcl.Build.targets')" />
-  <Target Name="EnsureBclBuildImported" BeforeTargets="BeforeBuild" Condition="'$(BclBuildImported)' == ''">
-    <Error Condition="!Exists('..\..\packages\Microsoft.Bcl.Build.1.0.13\tools\Microsoft.Bcl.Build.targets')" Text="This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=317567." HelpKeyword="BCLBUILD2001" />
-    <Error Condition="Exists('..\..\packages\Microsoft.Bcl.Build.1.0.13\tools\Microsoft.Bcl.Build.targets')" Text="The build restored NuGet packages. Build the project again to include these packages in the build. For more information, see http://go.microsoft.com/fwlink/?LinkID=317568." HelpKeyword="BCLBUILD2002" />
-  </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

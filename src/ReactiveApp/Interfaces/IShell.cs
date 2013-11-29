@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reactive;
 using System.Text;
 using System.Threading.Tasks;
 using ReactiveApp.Interfaces;
@@ -12,19 +13,19 @@ namespace ReactiveApp.Interfaces
         where T : class, IShell<T, U>
         where U : class, IView<T, U>
     {
-        Task BackViewAsync(IJournalEntry entry);
+        IObservable<bool> BackViewAsync(IJournalEntry entry);
 
         IObservable<bool> BackViewAsync<V>(V view, object parameter = null) where V : U;
 
         IObservable<bool> CanBackView { get; }
 
-        Task ViewAsync(IJournalEntry entry);
+        IObservable<bool> ViewAsync(IJournalEntry entry);
 
         IObservable<bool> ViewAsync<V>(V view, object parameter = null) where V : U;
 
         IObservable<bool> CanView { get; }
 
-        Task ForwardViewAsync(IJournalEntry entry);
+        IObservable<bool> ForwardViewAsync(IJournalEntry entry);
 
         IObservable<bool> ForwardViewAsync<V>(V view, object parameter = null) where V : U;
 
@@ -46,7 +47,7 @@ namespace ReactiveApp.Interfaces
         /// Makes the shell visible on screen.
         /// </summary>
         /// <returns></returns>
-        Task Activate();
+        IObservable<Unit> Activate();
 
         /// <summary>
         /// Observable that indicates whether the Shell is visible on screen.
@@ -54,7 +55,7 @@ namespace ReactiveApp.Interfaces
         /// <value>
         /// The activated.
         /// </value>
-        IObservable<object> Activated { get; }
+        IObservable<Unit> Activated { get; }
 
         /// <summary>
         /// Gets or sets a value indicating whether a view journal on the back- and forwardstack is recorded or not.
@@ -63,25 +64,32 @@ namespace ReactiveApp.Interfaces
         ///   <c>true</c> if the journal is disabled; otherwise, <c>false</c>.
         /// </value>
         bool DisableJournal { get; set; }
+
+        /// <summary>
+        /// Adds the overlay to the Shell.
+        /// </summary>
+        /// <param name="overlay">The overlay.</param>
+        /// <returns></returns>
+        IDisposable AddOverlay(object overlay);
     }
 
     public static class IShellExtensions
     {
-        public static Task NavigateAsync<T, U>(this IShell<T, U> This, Type viewType, object parameter = null)
+        public static IObservable<bool> NavigateAsync<T, U>(this IShell<T, U> This, Type viewType, object parameter = null)
             where T : class, IShell<T, U>
             where U : class, IView<T, U>
         {
             return This.ViewAsync((IJournalEntry)new JournalEntry(viewType, parameter));
         }
 
-        public static Task GoBackAsync<T, U>(this IShell<T, U> This)
+        public static IObservable<bool> GoBackAsync<T, U>(this IShell<T, U> This)
             where T : class, IShell<T, U>
             where U : class, IView<T, U>
         {
             return This.BackViewAsync(This.BackStack.Last());
         }
 
-        public static Task GoForwardAsync<T, U>(this IShell<T, U> This)
+        public static IObservable<bool> GoForwardAsync<T, U>(this IShell<T, U> This)
             where T : class, IShell<T, U>
             where U : class, IView<T, U>
         {
