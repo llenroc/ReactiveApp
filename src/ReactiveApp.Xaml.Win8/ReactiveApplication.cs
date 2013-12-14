@@ -27,7 +27,8 @@ namespace ReactiveApp.Xaml
         where U : class, IView<T, U>
     {
 #if !WINDOWS_PHONE
-        internal readonly ReplaySubject<LaunchActivatedEventArgs> launched = new ReplaySubject<LaunchActivatedEventArgs>();
+        // an app can only launch once and we want to remember that value
+        internal readonly ISubject<LaunchActivatedEventArgs> launched = new ReplaySubject<LaunchActivatedEventArgs>();
 #endif
 
         public ReactiveApplication()
@@ -50,6 +51,7 @@ namespace ReactiveApp.Xaml
             resolver.InitializeResolver();
             RxApp.DependencyResolver = resolver;
 
+            this.Log().Info("Register services.");
             this.Configure();
         }
 
@@ -73,13 +75,27 @@ namespace ReactiveApp.Xaml
             base.OnLaunched(args);
             this.launched.OnNext(args);
         }
+#else
+        public void Exit()
+        {
+            this.Terminate();
+        }
 #endif
 
         /// <summary>
-        /// The shell used for navigation.
+        /// Gets the shell.
         /// </summary>
+        /// <value>
+        /// The shell.
+        /// </value>
         public IShell<T, U> Shell { get; private set; }
 
+        /// <summary>
+        /// Gets the suspension service.
+        /// </summary>
+        /// <value>
+        /// The suspension service.
+        /// </value>
         public ISuspensionService SuspensionService { get; private set; }
     }
 }
