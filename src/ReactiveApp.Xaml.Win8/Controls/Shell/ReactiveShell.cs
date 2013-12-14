@@ -19,6 +19,7 @@ using System.Windows.Media;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml;
+using System.Reactive.Concurrency;
 #endif
 
 namespace ReactiveApp.Xaml.Controls
@@ -66,6 +67,9 @@ namespace ReactiveApp.Xaml.Controls
             this.navigating = new Lazy<Subject<NavigatingInfo>>(() => new Subject<NavigatingInfo>());
             this.navigated = new Lazy<Subject<NavigatedInfo>>(() => new Subject<NavigatedInfo>());
             this.activated = new Subject<Unit>();
+
+            this.BackStack = new ReactiveList<IJournalEntry>();
+            this.ForwardStack = new ReactiveList<IJournalEntry>();
 
             // cast needed to access Count
             this.canBackView = Observable.CombineLatest(
@@ -146,7 +150,7 @@ namespace ReactiveApp.Xaml.Controls
 
         public IObservable<bool> BackViewAsync(IJournalEntry entry)
         {
-            return this.CanBackView.FirstOrDefaultAsync()
+            return this.CanBackView.FirstOrDefaultAsync().ObserveOnDispatcher()
                 .Do(_ => { lock (this.canView) { this.canView.OnNext(false); } })
                 .SelectMany(allowed =>
                 {
@@ -175,7 +179,7 @@ namespace ReactiveApp.Xaml.Controls
 
         public IObservable<bool> ViewAsync(IJournalEntry entry)
         {
-            return this.CanView.FirstOrDefaultAsync()
+            return this.CanView.FirstOrDefaultAsync().ObserveOnDispatcher()
                 .Do(_ => { lock (this.canView) { this.canView.OnNext(false); } })
                 .SelectMany(allowed =>
                 {
