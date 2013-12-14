@@ -41,6 +41,12 @@ namespace ReactiveApp.Interfaces
 
         IObservable<IJournalEntry> ViewJournal { get; }
 
+        /// <summary>
+        /// Gets the stream of views. Subscribing to this observable should always return a value immediately.
+        /// </summary>
+        /// <value>
+        /// The view.
+        /// </value>
         IObservable<U> View { get; }
 
         /// <summary>

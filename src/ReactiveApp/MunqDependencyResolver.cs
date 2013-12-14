@@ -10,10 +10,14 @@ using ReactiveUI;
 
 namespace ReactiveApp
 {
-    class MunqDependencyResolver : IMutableDependencyResolver
+    public class MunqDependencyResolver : IMutableDependencyResolver
     {
         private readonly IocContainer container;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MunqDependencyResolver"/> class.
+        /// </summary>
+        /// <param name="container">The container.</param>
         public MunqDependencyResolver(IocContainer container)
         {
             Contract.Requires(container != null);
@@ -50,6 +54,9 @@ namespace ReactiveApp
             }
         }
 
+        /// <summary>
+        /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+        /// </summary>
         public void Dispose()
         {
             this.container.Dispose();
