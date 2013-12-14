@@ -7,7 +7,9 @@ using System.Reactive.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+
 using Microsoft.Phone.Shell;
+using ReactiveApp.Services;
 using ReactiveUI;
 using ReactiveUI.Mobile;
 
@@ -16,20 +18,20 @@ namespace ReactiveApp.Xaml.Services
     /// <summary>
     /// Based on WP8SuspensionHost in ReactiveUI.Mobile
     /// </summary>
-    public class WP8SuspensionService : ISuspensionHost
+    public class WP8SuspensionService : ISuspensionService
     {
         public WP8SuspensionService(Application app)
         {
             this.IsLaunchingNew =
                 Observable.FromEventPattern<LaunchingEventArgs>(
                     x => PhoneApplicationService.Current.Launching += x, x => PhoneApplicationService.Current.Launching -= x)
-                    .Select(_ => Unit.Default);
+                    .Select(_ => (string)null);
 
             this.IsUnpausing =
                 Observable.FromEventPattern<ActivatedEventArgs>(
                     x => PhoneApplicationService.Current.Activated += x, x => PhoneApplicationService.Current.Activated -= x)
                     .Where(x => x.EventArgs.IsApplicationInstancePreserved)
-                    .Select(_ => Unit.Default);
+                    .Select(_ => (string)null);
 
             // NB: "Applications should not perform resource-intensive tasks 
             // such as loading from isolated storage or a network resource 
@@ -39,7 +41,7 @@ namespace ReactiveApp.Xaml.Services
                 Observable.FromEventPattern<ActivatedEventArgs>(
                     x => PhoneApplicationService.Current.Activated += x, x => PhoneApplicationService.Current.Activated -= x)
                     .Where(x => !x.EventArgs.IsApplicationInstancePreserved)
-                    .Select(_ => Unit.Default)
+                    .Select(_ => (string)null)
                     .ObserveOn(RxApp.TaskpoolScheduler);
 
             // NB: No way to tell OS that we need time to suspend, we have to
@@ -57,19 +59,19 @@ namespace ReactiveApp.Xaml.Services
                     .Select(_ => Unit.Default);
         }
 
-        public IObservable<Unit> IsLaunchingNew
+        public IObservable<string> IsLaunchingNew
         {
             get;
             private set;
         }
 
-        public IObservable<Unit> IsResuming
+        public IObservable<string> IsResuming
         {
             get;
             private set;
         }
 
-        public IObservable<Unit> IsUnpausing
+        public IObservable<string> IsUnpausing
         {
             get;
             private set;
