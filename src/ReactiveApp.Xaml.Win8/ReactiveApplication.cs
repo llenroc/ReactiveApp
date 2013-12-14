@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reactive;
 using System.Reactive.Subjects;
 using System.Text;
 using System.Threading.Tasks;
 
 using ReactiveApp.Interfaces;
+using ReactiveApp.Services;
 using ReactiveApp.Xaml.Controls;
 using ReactiveApp.Xaml.Services;
 using ReactiveUI;
@@ -14,8 +16,6 @@ using ReactiveUI.Mobile;
 #if !WINDOWS_PHONE
 using Windows.UI.Xaml;
 using Windows.ApplicationModel.Activation;
-using System.Reactive;
-using ReactiveApp.Services;
 #else
 using System.Windows;
 #endif

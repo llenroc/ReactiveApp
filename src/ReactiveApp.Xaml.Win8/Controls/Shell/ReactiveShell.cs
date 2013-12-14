@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reactive;
+using System.Reactive.Concurrency;
 using System.Reactive.Disposables;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
@@ -13,13 +14,13 @@ using ReactiveApp.Interfaces;
 using ReactiveUI;
 
 #if WINDOWS_PHONE
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 #else
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml;
-using System.Reactive.Concurrency;
 #endif
 
 namespace ReactiveApp.Xaml.Controls
@@ -319,6 +320,7 @@ namespace ReactiveApp.Xaml.Controls
 
         public IObservable<Unit> Activate()
         {
+#if !WINDOWS_PHONE
             Func<Unit> func = () =>
             {
                 if (Window.Current.Content != this)
@@ -331,6 +333,9 @@ namespace ReactiveApp.Xaml.Controls
                 return Unit.Default;
             };
             return Observable.Return<Unit>(func());
+#else
+            return Observable.Return<Unit>(Unit.Default);
+#endif
         }
 
         #endregion
