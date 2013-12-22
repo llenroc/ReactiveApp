@@ -30,7 +30,7 @@ namespace ReactiveApp.Xaml.Controls
     /// Windows Phone:  Constructor, OnNavigatingToAsync, OnNavigatedToAsync, Loaded 
     /// 
     /// </summary>
-    public class ReactiveView : ContentControl, IView<ReactiveShell, ReactiveView>
+    public class ReactiveView : UserControl, IView<ReactiveShell, ReactiveView>
     {
         private Binding dataContextBinding;
         private IObservable<Unit> completed;
@@ -322,7 +322,7 @@ namespace ReactiveApp.Xaml.Controls
         public ReactiveView()
         {
             dataContextBinding = new Binding() { Source = this, Path = new PropertyPath("DataContext") };
-            completed = Observable.Empty<Unit>();
+            completed = Observable.Return<Unit>(Unit.Default);
 
             // this does not leak because the event is on the object itself
             // and therefore only references itself
