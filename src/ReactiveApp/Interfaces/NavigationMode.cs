@@ -29,12 +29,6 @@ namespace ReactiveApp.Interfaces
         /// This value is used when the <see cref="Methylium.Xaml.Controls.ReactiveFrame.GoForward()"/>
         /// method is called.
         /// </summary>
-        Forward = 2,
-
-        /// <summary>
-        /// Navigating to the current page after the app has resumed.
-        /// This value is used when the app is resumed from a previously paused/tombstoned state.
-        /// </summary>
-        Refresh = 3,
+        Forward = 2
     }
 }
