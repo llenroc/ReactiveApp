@@ -51,6 +51,7 @@
     <Compile Include="Platform\PlatformProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\ISuspensionService.cs" />
+    <Compile Include="Subjects\SemaphoreSubject.cs" />
     <Compile Include="ViewModels\ActivationInfo.cs" />
     <Compile Include="ViewModels\DeactivationInfo.cs" />
     <Compile Include="ViewModels\IActivate.cs" />
