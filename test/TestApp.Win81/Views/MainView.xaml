@@ -8,7 +8,6 @@
     xmlns:appcontrols="using:ReactiveApp.Xaml.Controls"
     mc:Ignorable="d">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-
+    <Grid Background="White">
     </Grid>
 </appcontrols:ReactiveView>
