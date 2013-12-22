@@ -21,6 +21,7 @@ using System.Windows.Media;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml;
+using ReactiveApp.Subjects;
 #endif
 
 namespace ReactiveApp.Xaml.Controls
@@ -38,15 +39,13 @@ namespace ReactiveApp.Xaml.Controls
         private Panel viewPresentersPanel;
         private IList<Action<Panel>> overlays;
 
-        private readonly BehaviorSubject<IJournalEntry> viewJournal;
-        private readonly ISubject<ReactiveView> view;
-        private readonly ISubject<bool> canView;
+        private readonly SemaphoreSubject<Tuple<IJournalEntry, NavigationMode>> navigations;
+        private readonly IObservable<Tuple<IJournalEntry, ReactiveView, bool>> journal;
+        private readonly ISubject<bool> isNavigationActive;
+
         private readonly Lazy<Subject<NavigatingInfo>> navigating;
         private readonly Lazy<Subject<NavigatedInfo>> navigated;
         private readonly ISubject<Unit> activated;
-
-        private readonly IObservable<bool> canBackView;
-        private readonly IObservable<bool> canForwardView;
 
         private readonly ViewCache cache;
         private readonly ViewLoader loader;
@@ -62,9 +61,6 @@ namespace ReactiveApp.Xaml.Controls
         /// </summary>
         public ReactiveShell()
         {
-            this.viewJournal = new BehaviorSubject<IJournalEntry>(null);
-            this.view = new BehaviorSubject<ReactiveView>(null);
-            this.canView = new BehaviorSubject<bool>(true);
             this.navigating = new Lazy<Subject<NavigatingInfo>>(() => new Subject<NavigatingInfo>());
             this.navigated = new Lazy<Subject<NavigatedInfo>>(() => new Subject<NavigatedInfo>());
             this.activated = new Subject<Unit>();
@@ -72,30 +68,41 @@ namespace ReactiveApp.Xaml.Controls
             this.BackStack = new ReactiveList<IJournalEntry>();
             this.ForwardStack = new ReactiveList<IJournalEntry>();
 
-            // cast needed to access Count
-            this.canBackView = Observable.CombineLatest(
-                                    this.CanView,
-                                    this.BackStack.Changed
-                                        .Select(_ => ((ICollection<IJournalEntry>)this.BackStack).Count > 0)
-                                        .StartWith(((ICollection<IJournalEntry>)this.BackStack).Count > 0),
-                                    (b1, b2) => b1 && b2)
-                                .DistinctUntilChanged()
-                                .Publish(false)
-                                .RefCount();
-            this.canForwardView = Observable.CombineLatest(
-                                    this.CanView,
-                                    this.ForwardStack.Changed
-                                        .Select(_ => ((ICollection<IJournalEntry>)this.ForwardStack).Count > 0)
-                                        .StartWith(((ICollection<IJournalEntry>)this.ForwardStack).Count > 0),
-                                    (b1, b2) => b1 && b2)
-                                .DistinctUntilChanged()
-                                .Publish(false)
-                                .RefCount();
-
             this.cache = new ViewCache();
             this.loader = new ViewLoader(this.cache);
             this.NavigationCacheMode = NavigationCacheMode.Disabled;
             this.overlays = new List<Action<Panel>>();
+
+            // we only want a single navigation active at a time.
+            this.navigations = new SemaphoreSubject<Tuple<IJournalEntry, NavigationMode>>(1);
+            this.isNavigationActive = new BehaviorSubject<bool>(false);
+            this.journal = this.navigations
+                .Do(_ => 
+                { 
+                    lock (isNavigationActive) 
+                    { 
+                        isNavigationActive.OnNext(true); 
+                    } 
+                })
+                .SelectMany(tuple => this.NavigateToJournalEntry(tuple.Item1, tuple.Item2)
+                    .Finally(() => 
+                    {
+                        this.navigations.Release();
+                        lock (isNavigationActive) 
+                        { 
+                            isNavigationActive.OnNext(true); 
+                        } 
+                    })
+                )
+                .Publish().RefCount();
+            //publishes the journal entry of the visible view
+            this.CurrentJournalEntry = this.journal.Where(tuple => tuple.Item3).Select(tuple => tuple.Item1).Publish(null).RefCount();
+            // publishes the visible view
+            this.CurrentView = this.journal.Where(tuple => tuple.Item3).Select(tuple => tuple.Item2).Publish(null).RefCount();
+            // publishes a value indicating if a navigation is active
+            this.IsNavigationActive = this.isNavigationActive.DistinctUntilChanged();
+
+            this.DefaultStyleKey = typeof(ReactiveShell);
         }
 
         #endregion
@@ -139,101 +146,27 @@ namespace ReactiveApp.Xaml.Controls
         #region Navigation
 
         /// <summary>
-        /// Navigates back to the view on the top of the backstack asynchronous.
-        /// </summary>
-        /// <typeparam name="V">The type of the view which must inherit from ReactiveView.</typeparam>
-        /// <param name="view">The view. If null, a new instance is optionally created based on the CacheMode parameter.</param>
-        /// <returns></returns>
-        public IObservable<bool> BackViewAsync<V>(V view, object parameter = null) where V : ReactiveView
-        {
-            return this.BackViewAsync((IJournalEntry)new JournalEntry(typeof(V), parameter) { State = view });
-        }
-
-        public IObservable<bool> BackViewAsync(IJournalEntry entry)
-        {
-            return this.CanBackView.FirstOrDefaultAsync().ObserveOnDispatcher()
-                .Do(_ => { lock (this.canView) { this.canView.OnNext(false); } })
-                .SelectMany(allowed =>
-                {
-                    if (allowed)
-                    {
-                        return this.NavigateToJournalEntry(entry, NavigationMode.Back, true);
-                    }
-                    else
-                    {
-                        return Observable.Throw<bool>(new InvalidOperationException("Can not navigate back at this time. Check CanBackView."));
-                    }
-                })
-                .Do(_ => { lock (this.canView) { this.canView.OnNext(true); } });
-        }
-
-        /// <summary>
         /// Navigates to the view asynchronous.
         /// </summary>
         /// <typeparam name="V">The type of the view which must inherit from ReactiveView.</typeparam>
         /// <param name="view">The view. If null, a new instance is optionally created based on the CacheMode parameter.</param>
         /// <returns></returns>
-        public IObservable<bool> ViewAsync<V>(V view, object parameter = null) where V : ReactiveView
+        public IObservable<bool> ViewAsync<V>(V view, NavigationMode mode, object parameter = null) where V : ReactiveView
         {
-            return this.ViewAsync((IJournalEntry)new JournalEntry(typeof(V), parameter) { State = view });
+            //create journal entry based on arguments.
+            return this.ViewAsync((IJournalEntry)new JournalEntry(typeof(V), parameter) { State = view }, mode);
         }
 
-        public IObservable<bool> ViewAsync(IJournalEntry entry)
+        public IObservable<bool> ViewAsync(IJournalEntry entry, NavigationMode mode)
         {
-            return this.CanView.FirstOrDefaultAsync().ObserveOnDispatcher()
-                .Do(_ => { lock (this.canView) { this.canView.OnNext(false); } })
-                .SelectMany(allowed =>
-                {
-                    if (allowed)
-                    {
-                        return this.NavigateToJournalEntry(entry, NavigationMode.New, true);
-                    }
-                    else
-                    {
-                        return Observable.Throw<bool>(new InvalidOperationException("Can not navigate at this time. Check CanView."));
-                    }
-                })
-                .Do(_ => { lock (this.canView) { this.canView.OnNext(true); } });
-        }
+            // this is not entirely a safe check, because we in theory can have multiple navigation to the same 
+            // journalentry scheduled after each other, but that is weird and will probably never happen
+            IObservable<bool> result = this.journal.FirstOrDefaultAsync(tuple => tuple.Item1 == entry).Select(tuple => tuple.Item3);
 
-        /// <summary>
-        /// Navigates forward to the view on the top of the forwardstack asynchronous.
-        /// </summary>
-        /// <typeparam name="V">The type of the view which must inherit from ReactiveView.</typeparam>
-        /// <param name="view">The view. If null, a new instance is optionally created based on the CacheMode parameter.</param>
-        /// <returns></returns>
-        public IObservable<bool> ForwardViewAsync<V>(V view, object parameter = null) where V : ReactiveView
-        {
-            return this.ForwardViewAsync((IJournalEntry)new JournalEntry(typeof(V), parameter) { State = view });
-        }
+            // schedule the navigation action asynchronous so we can return the observable
+            RxApp.MainThreadScheduler.Schedule(() => this.navigations.OnNext(Tuple.Create(entry, mode)));
 
-        public IObservable<bool> ForwardViewAsync(IJournalEntry entry)
-        {
-            return this.CanForwardView.FirstOrDefaultAsync().ObserveOnDispatcher()
-                .Do(_ => { lock (this.canView) { this.canView.OnNext(false); } })
-                .SelectMany(allowed =>
-                {
-                    if (allowed)
-                    {
-                        return this.NavigateToJournalEntry(entry, NavigationMode.Forward, true);
-                    }
-                    else
-                    {
-                        return Observable.Throw<bool>(new InvalidOperationException("Can not navigate forward at this time. Check CanForwardView."));
-                    }
-                })
-                .Do(_ => { lock (this.canView) { this.canView.OnNext(true); } });
-        }
-
-        /// <summary>
-        /// Returns an observable of booleans indicating if we can go back to a previous view on the backstack.
-        /// </summary>
-        /// <value>
-        /// The observable of booleans.
-        /// </value>
-        public IObservable<bool> CanBackView
-        {
-            get { return this.canBackView; }
+            return result;
         }
 
         /// <summary>
@@ -242,20 +175,10 @@ namespace ReactiveApp.Xaml.Controls
         /// <value>
         /// The observable of booleans.
         /// </value>
-        public IObservable<bool> CanView
+        public IObservable<bool> IsNavigationActive
         {
-            get { return this.canView; }
-        }
-
-        /// <summary>
-        /// Returns an observable of booleans indicating if we can go forward to a previous view on the forwardstack.
-        /// </summary>
-        /// <value>
-        /// The observable of booleans.
-        /// </value>
-        public IObservable<bool> CanForwardView
-        {
-            get { return this.canForwardView; }
+            get;
+            private set;
         }
 
         public IObservable<NavigatingInfo> Navigating
@@ -284,14 +207,16 @@ namespace ReactiveApp.Xaml.Controls
             private set;
         }
 
-        public IObservable<IJournalEntry> ViewJournal
+        public IObservable<IJournalEntry> CurrentJournalEntry
         {
-            get { return this.viewJournal; }
+            get;
+            private set;
         }
 
-        public IObservable<ReactiveView> View
+        public IObservable<ReactiveView> CurrentView
         {
-            get { return this.view; }
+            get;
+            private set;
         }
 
         private bool disableJournal;
@@ -303,8 +228,8 @@ namespace ReactiveApp.Xaml.Controls
                 this.disableJournal = value;
                 if (!value)
                 {
-                    ((IList<IJournalEntry>)this.BackStack).Clear();
-                    ((IList<IJournalEntry>)this.ForwardStack).Clear();
+                    this.BackStack.Clear();
+                    this.ForwardStack.Clear();
                 }
             }
         }
@@ -360,6 +285,8 @@ namespace ReactiveApp.Xaml.Controls
                 throw new ArgumentException("overlay must be UIElement");
             }
 
+            //The returning disposable needs to remove the overlay from the panel,
+            // or remove the object from the list of overlay objects.
             SerialDisposable disp = new SerialDisposable();
             Action<Panel> addFunction = panel =>
             {
@@ -374,14 +301,14 @@ namespace ReactiveApp.Xaml.Controls
             return new CompositeDisposable(disp, Disposable.Create(() => this.overlays.Remove(addFunction)));
         }
 
-        private IObservable<bool> NavigateToJournalEntry(IJournalEntry journalEntry, NavigationMode navigationMode, bool isNavigationInitiator)
+        private IObservable<Tuple<IJournalEntry, ReactiveView, bool>> NavigateToJournalEntry(IJournalEntry journalEntry, NavigationMode navigationMode)
         {
-            return this.NavigateInternal(() => this.loader.GetView(journalEntry), journalEntry, navigationMode, isNavigationInitiator);
+            return this.NavigateInternal(() => this.loader.GetView(journalEntry), journalEntry, navigationMode);
         }
 
-        private IObservable<bool> NavigateInternal(Func<ReactiveView> view, IJournalEntry journalEntry, NavigationMode navigationMode, bool isNavigationInitiator)
+        private IObservable<Tuple<IJournalEntry, ReactiveView, bool>> NavigateInternal(Func<ReactiveView> view, IJournalEntry journalEntry, NavigationMode navigationMode)
         {
-            return this.ViewJournal.SelectMany(async currentJournalEntry =>
+            return Observable.Defer(() => this.CurrentJournalEntry.FirstOrDefaultAsync()).SelectMany(async currentJournalEntry =>
             {
                 ReactiveView currentView = null;
                 ReactiveView newView = null;
@@ -398,7 +325,7 @@ namespace ReactiveApp.Xaml.Controls
 
                     this.Log().Info("Navigating started.");
 
-                    NavigatingInfo navigating = new NavigatingInfo(navigationMode, journalEntry, isNavigationInitiator, isNavigationInitiator);
+                    NavigatingInfo navigating = new NavigatingInfo(navigationMode, journalEntry);
                     if (!await this.PeformNavigating(currentView, navigating, () =>
                         {
                             this.Log().Info("Creating view.");
@@ -409,7 +336,7 @@ namespace ReactiveApp.Xaml.Controls
                         }))
                     {
                         this.Log().Info("Navigating aborted.");
-                        return false;
+                        return Tuple.Create(journalEntry, (ReactiveView)null, false);
                     }
                     this.Log().Info("Navigating completed.");
 
@@ -430,11 +357,8 @@ namespace ReactiveApp.Xaml.Controls
                         this.UpdateJournal(navigationMode, currentJournalEntry, journalEntry);
                     }
 
-                    this.viewJournal.OnNext(journalEntry);
-                    this.view.OnNext(newView);
-
                     this.Log().Info("Navigated started.");
-                    NavigatedInfo navigated = new NavigatedInfo(newView, navigationMode, journalEntry, isNavigationInitiator);
+                    NavigatedInfo navigated = new NavigatedInfo(newView, navigationMode, journalEntry);
                     await this.PeformNavigated(currentView, navigated, newView);
                     this.Log().Info("Navigated completed.");
 
@@ -450,9 +374,10 @@ namespace ReactiveApp.Xaml.Controls
 
                     RestoreContentPresenterInteractivity(newViewPresenter);
 
-                    return true;
+                    //return a tuple containing navigation information about the journal entry.
+                    return Tuple.Create(journalEntry, newView, true);
                 }
-            }).LoggedCatch(this);
+            }).LoggedCatch(this, Observable.Return(Tuple.Create(journalEntry, (ReactiveView)null, false)));
         }
 
         private async Task<bool> PeformNavigating(ReactiveView currentView, NavigatingInfo navigatingInfo, Func<ReactiveView> view)

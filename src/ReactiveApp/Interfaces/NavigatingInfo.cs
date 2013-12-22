@@ -19,14 +19,6 @@ namespace ReactiveApp.Interfaces
         ///   <c>true</c> to cancel the pending cancelable navigation; <c>false</c> to continue with navigation.
         /// </value>
         public bool Cancel { get; set; }
-        
-        /// <summary>
-        /// Gets a value indicating whether this navigation is cancellable.
-        /// </summary>
-        /// <value>
-        /// <c>true</c> if this navigation is cancellable; otherwise, <c>false</c>.
-        /// </value>
-        public bool IsCancellable { get; private set; }
 
         /// <summary>
         /// Gets the value of the mode parameter from the originating Navigate call.
@@ -45,24 +37,14 @@ namespace ReactiveApp.Interfaces
         public IJournalEntry Entry { get; private set; }
 
         /// <summary>
-        /// Gets a value indicating whether this navigation is initiated by the app.
-        /// </summary>
-        /// <value>
-        /// <c>true</c> if this instance is navigation initiator; otherwise, <c>false</c>.
-        /// </value>
-        public bool IsNavigationInitiator { get; private set; }
-
-        /// <summary>
         /// Initializes a new instance of the <see cref="AlternativeNavigatingCancelEventArgs" /> class.
         /// </summary>
         /// <param name="navigationMode">The navigation mode.</param>
         /// <param name="sourcePageType">Type of the source page.</param>
-        public NavigatingInfo(NavigationMode navigationMode, IJournalEntry entry, bool isNavigationInitiator, bool isCancellable)
+        public NavigatingInfo(NavigationMode navigationMode, IJournalEntry entry)
         {
             this.NavigationMode = navigationMode;
             this.Entry = entry;
-            this.IsCancellable = isCancellable;
-            this.IsNavigationInitiator = IsNavigationInitiator;
         }
     }
 }

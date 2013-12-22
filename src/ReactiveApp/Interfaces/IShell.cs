@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reactive;
+using System.Reactive.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ReactiveApp.Interfaces;
@@ -13,23 +14,11 @@ namespace ReactiveApp.Interfaces
         where T : class, IShell<T, U>
         where U : class, IView<T, U>
     {
-        IObservable<bool> BackViewAsync(IJournalEntry entry);
+        IObservable<bool> ViewAsync(IJournalEntry entry, NavigationMode mode);
 
-        IObservable<bool> BackViewAsync<V>(V view, object parameter = null) where V : U;
+        IObservable<bool> ViewAsync<V>(V view, NavigationMode mode, object parameter = null) where V : U;
 
-        IObservable<bool> CanBackView { get; }
-
-        IObservable<bool> ViewAsync(IJournalEntry entry);
-
-        IObservable<bool> ViewAsync<V>(V view, object parameter = null) where V : U;
-
-        IObservable<bool> CanView { get; }
-
-        IObservable<bool> ForwardViewAsync(IJournalEntry entry);
-
-        IObservable<bool> ForwardViewAsync<V>(V view, object parameter = null) where V : U;
-
-        IObservable<bool> CanForwardView { get; }
+        IObservable<bool> IsNavigationActive { get; }
 
         IReactiveList<IJournalEntry> BackStack { get; }
 
@@ -39,7 +28,7 @@ namespace ReactiveApp.Interfaces
 
         IObservable<NavigatedInfo> Navigated { get; }
 
-        IObservable<IJournalEntry> ViewJournal { get; }
+        IObservable<IJournalEntry> CurrentJournalEntry { get; }
 
         /// <summary>
         /// Gets the stream of views. Subscribing to this observable should always return a value immediately.
@@ -47,7 +36,7 @@ namespace ReactiveApp.Interfaces
         /// <value>
         /// The view.
         /// </value>
-        IObservable<U> View { get; }
+        IObservable<U> CurrentView { get; }
 
         /// <summary>
         /// Makes the shell visible on screen.
@@ -85,21 +74,35 @@ namespace ReactiveApp.Interfaces
             where T : class, IShell<T, U>
             where U : class, IView<T, U>
         {
-            return This.ViewAsync((IJournalEntry)new JournalEntry(viewType, parameter));
+            return This.ViewAsync((IJournalEntry)new JournalEntry(viewType, parameter), NavigationMode.New);
         }
 
         public static IObservable<bool> GoBackAsync<T, U>(this IShell<T, U> This)
             where T : class, IShell<T, U>
             where U : class, IView<T, U>
         {
-            return This.BackViewAsync(This.BackStack.Last());
+            if (This.BackStack.Count > 0)
+            {
+                return This.ViewAsync(This.BackStack.Last(), NavigationMode.Back);
+            }
+            else
+            {
+                return Observable.Return(false);
+            }
         }
 
         public static IObservable<bool> GoForwardAsync<T, U>(this IShell<T, U> This)
             where T : class, IShell<T, U>
             where U : class, IView<T, U>
         {
-            return This.ForwardViewAsync(This.ForwardStack.Last());
+            if (This.BackStack.Count > 0)
+            {
+                return This.ViewAsync(This.ForwardStack.Last(), NavigationMode.Forward);
+            }
+            else
+            {
+                return Observable.Return(false);
+            }
         }
     }
 }

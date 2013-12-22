@@ -15,7 +15,7 @@ namespace ReactiveApp.Interfaces
         /// <param name="parameter">The parameter.</param>
         public JournalEntry(Type sourceViewType, object parameter = null)
         {
-            this.SourceViewType = sourceViewType;
+            this.ViewType = sourceViewType;
             this.Parameter = parameter;
         }
 
@@ -25,7 +25,7 @@ namespace ReactiveApp.Interfaces
             private set;
         }
 
-        public Type SourceViewType
+        public Type ViewType
         {
             get;
             private set;
@@ -52,7 +52,7 @@ namespace ReactiveApp.Interfaces
                 return false;
             }
 
-            bool ret = this.SourceViewType.Equals(je.SourceViewType) &&
+            bool ret = this.ViewType.Equals(je.ViewType) &&
                 ((this.Parameter == null && je.Parameter == null) || (this.Parameter.Equals(je.Parameter)));
 
             return ret;
@@ -77,7 +77,7 @@ namespace ReactiveApp.Interfaces
                 hash = hash * 23;
             }
 
-            hash = hash * 23 + this.SourceViewType.GetHashCode();
+            hash = hash * 23 + this.ViewType.GetHashCode();
 
             return hash;
         }

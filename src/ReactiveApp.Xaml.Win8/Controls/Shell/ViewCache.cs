@@ -29,7 +29,7 @@ namespace ReactiveApp.Xaml.Controls
 
         /// <summary>
         /// Tries to retrieve the page for the specified JournalEntry.
-        /// If one is already cached - it removes it from the cache and returns true.
+        /// If one is already cached - it gets it from the cache and returns true.
         /// If one isn't cached - it returns false.
         /// </summary>
         /// <param name="type">The type.</param>
@@ -43,15 +43,8 @@ namespace ReactiveApp.Xaml.Controls
                 return true;
             }
 
-            if (!entryToViewMap.TryGetValue(entry, out cachedView))
-            {
-                cachedView = null;
-                return false;
-            }
-            else
-            {
-                return true;
-            }
+            cachedView = null;
+            return entryToViewMap.TryGetValue(entry, out cachedView);
         }
 
         /// <summary>

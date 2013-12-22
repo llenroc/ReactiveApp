@@ -34,15 +34,7 @@ namespace ReactiveApp.Interfaces
         /// The data type of the target page, represented as namespace.type or simply type.
         /// </value>
         public IJournalEntry Entry { get; private set; }
-
-        /// <summary>
-        /// Gets a value indicating whether this navigation is initiated by the app.
-        /// </summary>
-        /// <value>
-        /// <c>true</c> if this instance is navigation initiator; otherwise, <c>false</c>.
-        /// </value>
-        public bool IsNavigationInitiator { get; private set; }
-
+        
         /// <summary>
         /// Initializes a new instance of the <see cref="AlternativeNavigationEventArgs" /> class.
         /// </summary>
@@ -50,12 +42,11 @@ namespace ReactiveApp.Interfaces
         /// <param name="navigationMode">The navigation mode.</param>
         /// <param name="parameter">The parameter.</param>
         /// <param name="sourcePageType">Type of the source page.</param>
-        public NavigatedInfo(object content, NavigationMode navigationMode, IJournalEntry entry, bool isNavigationInitiator)
+        public NavigatedInfo(object content, NavigationMode navigationMode, IJournalEntry entry)
         {
             this.Content = content;
             this.NavigationMode = navigationMode;
             this.Entry = entry;
-            this.IsNavigationInitiator = isNavigationInitiator;
         }
     }
 }

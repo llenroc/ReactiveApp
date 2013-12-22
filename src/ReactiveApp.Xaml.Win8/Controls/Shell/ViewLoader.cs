@@ -31,7 +31,7 @@ namespace ReactiveApp.Xaml.Controls
             ReactiveView view;
             if (!cache.TryGet(journalEntry, out view))
             {
-                view = Activator.CreateInstance(journalEntry.SourceViewType) as ReactiveView;
+                view = Activator.CreateInstance(journalEntry.ViewType) as ReactiveView;
                 //set cacheMode.
                 if (view.NavigationCacheMode == NavigationCacheMode.Inherit)
                 {
@@ -42,7 +42,7 @@ namespace ReactiveApp.Xaml.Controls
             }
             if (view == null)
             {
-                throw new InvalidOperationException(string.Format("{0} should be of type ReactiveView", journalEntry.SourceViewType));
+                throw new InvalidOperationException(string.Format("{0} should be of type ReactiveView", journalEntry.ViewType));
             }
             return view;
         }
