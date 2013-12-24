@@ -75,8 +75,15 @@ namespace ReactiveApp.Xaml
             base.OnLaunched(args);
             this.launched.OnNext(args);
         }
+#endif
+
+#if !WINDOWS_PHONE
+        public void Close()
+        {
+            this.Exit();
+        }
 #else
-        public void Exit()
+        public void Close()
         {
             this.Terminate();
         }
