@@ -16,14 +16,8 @@ namespace ReactiveApp.Xaml
 {
     internal class XamlViewEvents : IViewEvents
     {
-        /// <summary>
-        /// A singleton instance of the <see cref="IApplicationStorage"/>.
-        /// </summary>
         private static Lazy<IViewEvents> instance = new Lazy<IViewEvents>(() => new XamlViewEvents());
 
-        /// <summary>
-        /// A singleton instance of the <see cref="IApplicationStorage"/>.
-        /// </summary>
         internal static IViewEvents Instance
         {
             get
@@ -40,11 +34,6 @@ namespace ReactiveApp.Xaml
                 null
             );
 
-        /// <summary>
-        /// Executes the handler the fist time the view is loaded.
-        /// </summary>
-        /// <param name="view">The view.</param>
-        /// <param name="handler">The handler.</param>
         public IObservable<object> OnFirstLoaded(object view)
         {
             var element = view as FrameworkElement;
@@ -59,11 +48,6 @@ namespace ReactiveApp.Xaml
             }
         }
 
-        /// <summary>
-        /// Executes the handler the next time the view's LayoutUpdated event fires.
-        /// </summary>
-        /// <param name="view">The view.</param>
-        /// <param name="handler">The handler.</param>
         public IObservable<object> OnLayoutUpdated(object view)
         {
             var element = view as FrameworkElement;
