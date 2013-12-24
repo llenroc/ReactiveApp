@@ -19,8 +19,6 @@ namespace ReactiveApp.Xaml.Controls
     /// </summary>
     public abstract class ViewTransition : DependencyObject
     {
-        /// <summary>
-        /// Creates a new Storyboard for a UIElement.
         public abstract Storyboard GetTransitionStoryboard(UIElement element);
     }
 }
