@@ -22,9 +22,7 @@ using System.Windows;
 
 namespace ReactiveApp.Xaml
 {
-    public abstract class ReactiveApplication<T, U> : Application, IEnableLogger
-        where T : class, IShell<T, U>
-        where U : class, IView<T, U>
+    public abstract class ReactiveApplication : Application, IEnableLogger
     {
 #if !WINDOWS_PHONE
         // an app can only launch once and we want to remember that value
@@ -59,7 +57,7 @@ namespace ReactiveApp.Xaml
 
         protected abstract IMutableDependencyResolver CreateDependencyResolver();
 
-        protected abstract IShell<T, U> CreateShell();
+        protected abstract ReactiveShell CreateShell();
 
         public abstract IObservable<Unit> View(string args);
 
@@ -95,7 +93,7 @@ namespace ReactiveApp.Xaml
         /// <value>
         /// The shell.
         /// </value>
-        public IShell<T, U> Shell { get; private set; }
+        public ReactiveShell Shell { get; private set; }
 
         /// <summary>
         /// Gets the suspension service.

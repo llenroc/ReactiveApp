@@ -7,5 +7,5 @@ using ReactiveApp.Xaml.Controls;
 
 namespace ReactiveApp.Xaml
 {
-    public abstract class ReactiveShellApplication : ReactiveApplication<ReactiveShell, ReactiveView> { }
+    public abstract class ReactiveShellApplication : ReactiveApplication { }
 }

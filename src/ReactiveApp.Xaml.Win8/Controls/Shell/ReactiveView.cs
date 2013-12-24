@@ -17,6 +17,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
+using Windows.UI.Xaml.Markup;
 #endif
 
 namespace ReactiveApp.Xaml.Controls

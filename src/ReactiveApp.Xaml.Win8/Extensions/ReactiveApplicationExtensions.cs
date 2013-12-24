@@ -19,9 +19,7 @@ namespace ReactiveApp.Xaml
         /// <typeparam name="T"></typeparam>
         /// <typeparam name="U"></typeparam>
         /// <param name="This">The this.</param>
-        public static void SetupStartup<T,U>(this ReactiveApplication<T,U> This)
-            where T : class, IShell<T, U>
-            where U : class, IView<T, U>
+        public static void SetupStartup(this ReactiveApplication This)
         {
             This.SuspensionService.SetupStartup(This);
         }
@@ -33,9 +31,7 @@ namespace ReactiveApp.Xaml
         /// <typeparam name="U"></typeparam>
         /// <param name="This">The this.</param>
         /// <param name="handler">The handler.</param>
-        public static void SetupErrorHandling<T,U>(this ReactiveApplication<T,U> This, IExceptionHandler handler = null)
-            where T : class, IShell<T, U>
-            where U : class, IView<T, U>
+        public static void SetupErrorHandling(this ReactiveApplication This, IExceptionHandler handler = null)
         {
             IExceptionHandler exceptionHandler = handler ?? RxApp.DependencyResolver.GetService<IExceptionHandler>();
 

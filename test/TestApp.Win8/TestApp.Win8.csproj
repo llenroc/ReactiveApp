@@ -146,6 +146,12 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.Threading.Tasks">
+      <HintPath>..\..\packages\Microsoft.Bcl.Async.1.0.165\lib\win8\Microsoft.Threading.Tasks.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Threading.Tasks.Extensions">
+      <HintPath>..\..\packages\Microsoft.Bcl.Async.1.0.165\lib\win8\Microsoft.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
     <Reference Include="ReactiveUI">
       <HintPath>..\..\packages\reactiveui-core.5.4.0\lib\Portable-Net45+WinRT45+WP8\ReactiveUI.dll</HintPath>
     </Reference>

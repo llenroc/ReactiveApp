@@ -65,7 +65,7 @@ namespace TestApp
         /// Creates the shell.
         /// </summary>
         /// <returns></returns>
-        protected override IShell<ReactiveShell, ReactiveView> CreateShell()
+        protected override ReactiveShell CreateShell()
         {
             ReactiveShell shell = new ReactiveShell();
             // Set the default language
