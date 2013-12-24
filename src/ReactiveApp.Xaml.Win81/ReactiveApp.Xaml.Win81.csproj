@@ -25,6 +25,7 @@
     <DefineConstants>DEBUG;TRACE;NETFX_CORE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Debug\ReactiveApp.Xaml.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -33,6 +34,7 @@
     <DefineConstants>TRACE;NETFX_CORE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Release\ReactiveApp.Xaml.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|ARM'">
     <DebugSymbols>true</DebugSymbols>
@@ -102,10 +104,6 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
-    <Page Include="Themes\generic.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\ReactiveApp.Xaml.Win8\Controls\Shell\ReactiveAppBar.cs">
@@ -146,6 +144,9 @@
     </Compile>
     <Compile Include="..\ReactiveApp.Xaml.Win8\ReactiveApplication.cs">
       <Link>ReactiveApplication.cs</Link>
+    </Compile>
+    <Compile Include="..\ReactiveApp.Xaml.Win8\ReactiveShellApplication.cs">
+      <Link>ReactiveShellApplication.cs</Link>
     </Compile>
     <Compile Include="..\ReactiveApp.Xaml.Win8\Services\WinRTSuspensionService.cs">
       <Link>Services\WinRTSuspensionService.cs</Link>
@@ -200,6 +201,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Themes\generic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ReactiveApp\ReactiveApp.csproj">
