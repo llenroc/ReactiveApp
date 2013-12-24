@@ -11,6 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 using ReactiveApp.Interfaces;
+using ReactiveApp.Subjects;
 using ReactiveUI;
 
 #if WINDOWS_PHONE
@@ -21,7 +22,6 @@ using System.Windows.Media;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml;
-using ReactiveApp.Subjects;
 #endif
 
 namespace ReactiveApp.Xaml.Controls
@@ -145,12 +145,6 @@ namespace ReactiveApp.Xaml.Controls
 
         #region Navigation
 
-        /// <summary>
-        /// Navigates to the view asynchronous.
-        /// </summary>
-        /// <typeparam name="V">The type of the view which must inherit from ReactiveView.</typeparam>
-        /// <param name="view">The view. If null, a new instance is optionally created based on the CacheMode parameter.</param>
-        /// <returns></returns>
         public IObservable<bool> ViewAsync<V>(V view, NavigationMode mode, object parameter = null) where V : ReactiveView
         {
             //create journal entry based on arguments.

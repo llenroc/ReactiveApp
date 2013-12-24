@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -41,5 +42,42 @@ namespace ReactiveApp.Xaml.Controls
         }
 
         #endregion  
+
+        #region MenuItems (Dependency Property)
+
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for  MenuItems.  This enables animation, styling, binding, etc...    
+        /// </summary>
+        public static readonly DependencyProperty MenuItemsProperty =
+            DependencyProperty.Register(
+                "MenuItems",
+                typeof(IList),
+                typeof(ReactiveAppBar),
+                new PropertyMetadata(null, new PropertyChangedCallback(OnMenuItemsChanged))
+            );
+
+        /// <summary>
+        /// The menu items for this AppBar.
+        /// </summary>
+        public IList MenuItems
+        {
+            get { return (IList)this.GetValue(MenuItemsProperty); }
+            set { this.SetValue(MenuItemsProperty, value); }
+        }
+
+        private static void OnMenuItemsChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
+        {
+            ((ReactiveAppBar)sender).OnMenuItemsChanged((IList)e.OldValue, (IList)e.NewValue);
+        }
+
+        /// <summary>
+        /// Called when the MenuItems is changed.
+        /// </summary>
+        protected virtual void OnMenuItemsChanged(IList oldMenuItems, IList newMenuItems)
+        {
+            
+        }
+
+        #endregion
     }
 }
