@@ -39,7 +39,7 @@ namespace ReactiveApp.Xaml
         {
             IExceptionHandler exceptionHandler = handler ?? RxApp.DependencyResolver.GetService<IExceptionHandler>();
 
-            if (handler != null)
+            if (exceptionHandler != null)
             {
                 var unhandled = Observable.FromEventPattern<UnhandledExceptionEventHandler, UnhandledExceptionEventArgs>(x => This.UnhandledException += x, x => This.UnhandledException -= x)
                     .Do(ue => ue.EventArgs.Handled = true)
