@@ -1,13 +1,14 @@
-﻿<appcontrols:ReactiveView
-    x:Class="TestApp.Win81.MainView"
+﻿<controls:ReactiveView
+    x:Class="TestApp.Views.MainView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:TestApp.Win81"
+    xmlns:local="using:TestApp"
+    xmlns:controls="using:ReactiveApp.Xaml.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:appcontrols="using:ReactiveApp.Xaml.Controls"
     mc:Ignorable="d">
 
-    <Grid Background="White">
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
     </Grid>
-</appcontrols:ReactiveView>
+</controls:ReactiveView>

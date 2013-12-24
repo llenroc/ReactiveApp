@@ -11,6 +11,7 @@ using ReactiveApp.Interfaces;
 using ReactiveApp.Xaml;
 using ReactiveApp.Xaml.Controls;
 using ReactiveUI;
+using TestApp.Views;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.Foundation;
@@ -25,12 +26,12 @@ using Windows.UI.Xaml.Navigation;
 
 // The Blank Application template is documented at http://go.microsoft.com/fwlink/?LinkId=234227
 
-namespace TestApp.Win81
+namespace TestApp
 {
     /// <summary>
     /// Provides application-specific behavior to supplement the default Application class.
     /// </summary>
-    sealed partial class App : ReactiveApplicationEx
+    sealed partial class App : ReactiveShellApplication
     {
         private IocContainer container;
 
@@ -88,6 +89,4 @@ namespace TestApp.Win81
             return this.Shell.NavigateAsync(typeof(MainView), args).SelectMany(this.Activate());
         }
     }
-
-    public abstract class ReactiveApplicationEx : ReactiveApplication<ReactiveShell, ReactiveView> { }
 }
