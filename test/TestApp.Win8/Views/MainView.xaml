@@ -9,5 +9,6 @@
     mc:Ignorable="d">
 
     <Grid Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
+        
     </Grid>
 </controls:ReactiveView>

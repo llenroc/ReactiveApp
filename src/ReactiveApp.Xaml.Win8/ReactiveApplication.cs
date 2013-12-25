@@ -40,9 +40,6 @@ namespace ReactiveApp.Xaml
 #endif
             this.SuspensionService = suspensionService;
 
-            this.Log().Info("Creating Shell.");
-            this.Shell = this.CreateShell();
-
             this.Log().Info("Creating Dependency Resolver.");
             var resolver = this.CreateDependencyResolver();
             this.Log().Info("Initialize Dependency Resolver.");
@@ -57,15 +54,9 @@ namespace ReactiveApp.Xaml
 
         protected abstract IMutableDependencyResolver CreateDependencyResolver();
 
-        protected abstract ReactiveShell CreateShell();
-
         public abstract IObservable<Unit> View(string args);
 
-        protected virtual IObservable<Unit> Activate()
-        {
-            this.Log().Info("Activating Shell.");
-            return this.Shell.Activate();
-        }
+        protected abstract IObservable<Unit> Activate();
 
 #if !WINDOWS_PHONE
         protected override void OnLaunched(LaunchActivatedEventArgs args)
@@ -86,14 +77,6 @@ namespace ReactiveApp.Xaml
             this.Terminate();
         }
 #endif
-
-        /// <summary>
-        /// Gets the shell.
-        /// </summary>
-        /// <value>
-        /// The shell.
-        /// </value>
-        public ReactiveShell Shell { get; private set; }
 
         /// <summary>
         /// Gets the suspension service.

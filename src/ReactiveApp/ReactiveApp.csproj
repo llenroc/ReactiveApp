@@ -37,6 +37,7 @@
     <Compile Include="Extensions\IConnectableObservableExtensions.cs" />
     <Compile Include="Extensions\IListExtensions.cs" />
     <Compile Include="Exceptions\IExceptionHandler.cs" />
+    <Compile Include="Interfaces\IApplication.cs" />
     <Compile Include="Interfaces\IJournalEntry.cs" />
     <Compile Include="Interfaces\IShell.cs" />
     <Compile Include="Interfaces\IView.cs" />
