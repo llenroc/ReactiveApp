@@ -11,7 +11,6 @@ using ReactiveApp.Services;
 using ReactiveApp.Xaml.Controls;
 using ReactiveApp.Xaml.Services;
 using ReactiveUI;
-using ReactiveUI.Mobile;
 
 #if !WINDOWS_PHONE
 using Windows.UI.Xaml;
@@ -46,6 +45,9 @@ namespace ReactiveApp.Xaml
             resolver.InitializeResolver();
             RxApp.DependencyResolver = resolver;
 
+            this.Log().Info("Creating Shell.");
+            this.Shell = this.CreateShell();
+
             this.Log().Info("Register services.");
             this.Configure();
         }
@@ -54,9 +56,15 @@ namespace ReactiveApp.Xaml
 
         protected abstract IMutableDependencyResolver CreateDependencyResolver();
 
-        public abstract IObservable<Unit> View(string args);
+        protected abstract ReactiveShell CreateShell();
 
-        protected abstract IObservable<Unit> Activate();
+        public abstract IObservable<Unit> View(string args);
+        
+        protected virtual IObservable<Unit> Activate()
+        {
+            this.Log().Info("Activating Shell.");
+            return this.Shell.Activate();
+        }
 
 #if !WINDOWS_PHONE
         protected override void OnLaunched(LaunchActivatedEventArgs args)
@@ -77,6 +85,14 @@ namespace ReactiveApp.Xaml
             this.Terminate();
         }
 #endif
+
+        /// <summary>
+        /// Gets the shell.
+        /// </summary>
+        /// <value>
+        /// The shell.
+        /// </value>
+        public ReactiveShell Shell { get; private set; }
 
         /// <summary>
         /// Gets the suspension service.

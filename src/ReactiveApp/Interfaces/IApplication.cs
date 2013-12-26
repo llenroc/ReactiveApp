@@ -6,9 +6,7 @@ using System.Threading.Tasks;
 
 namespace ReactiveApp.Interfaces
 {
-    public interface IApplication<T, U>        
-        where T : class, IShell<T, U>
-        where U : class, IView<T, U>
+    public interface IApplication
     {
         /// <summary>
         /// Gets the shell.
@@ -16,6 +14,6 @@ namespace ReactiveApp.Interfaces
         /// <value>
         /// The shell.
         /// </value>
-        T Shell { get; }
+        IShell Shell { get; }
     }
 }

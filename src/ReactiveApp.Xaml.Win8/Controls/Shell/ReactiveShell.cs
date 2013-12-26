@@ -29,7 +29,7 @@ namespace ReactiveApp.Xaml.Controls
     /// <summary>
     /// 
     /// </summary>
-    public class ReactiveShell : ContentControl, IShell<ReactiveShell, ReactiveView>, IEnableLogger
+    public class ReactiveShell : ContentControl, IEnableLogger /*, IShell*/
     {
         #region Fields
 

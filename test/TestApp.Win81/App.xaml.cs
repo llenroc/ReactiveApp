@@ -12,17 +12,6 @@ using ReactiveApp.Xaml;
 using ReactiveApp.Xaml.Controls;
 using ReactiveUI;
 using TestApp.Views;
-using Windows.ApplicationModel;
-using Windows.ApplicationModel.Activation;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
 
 // The Blank Application template is documented at http://go.microsoft.com/fwlink/?LinkId=234227
 
@@ -31,7 +20,7 @@ namespace TestApp
     /// <summary>
     /// Provides application-specific behavior to supplement the default Application class.
     /// </summary>
-    sealed partial class App : ReactiveShellApplication
+    sealed partial class App : ReactiveApplication
     {
         private IocContainer container;
 
@@ -86,7 +75,7 @@ namespace TestApp
                 this.DebugSettings.EnableFrameRateCounter = true;
             }
 #endif
-            return this.Shell.NavigateAsync(typeof(MainView), args).SelectMany(this.Activate());
+            return this.Shell.ViewAsync((IJournalEntry)new JournalEntry(typeof(MainView), args), NavigationMode.New).SelectMany(this.Activate());
         }
     }
 }

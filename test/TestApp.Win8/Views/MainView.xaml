@@ -9,6 +9,11 @@
     mc:Ignorable="d">
 
     <Grid Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
-        
+        <TextBlock Text="Test" Foreground="White" FontSize="36" />
+        <Button Content="Hoi" />
+        <Grid>
+            
+        </Grid>
+    
     </Grid>
 </controls:ReactiveView>

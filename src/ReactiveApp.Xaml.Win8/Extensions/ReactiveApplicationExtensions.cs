@@ -13,24 +13,11 @@ namespace ReactiveApp.Xaml
 {
     public static class ReactiveApplicationExtensions
     {
-        /// <summary>
-        /// Setups the startup logic.
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <typeparam name="U"></typeparam>
-        /// <param name="This">The this.</param>
         public static void SetupStartup(this ReactiveApplication This)
         {
             This.SuspensionService.SetupStartup(This);
         }
 
-        /// <summary>
-        /// Setups the error handling.
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <typeparam name="U"></typeparam>
-        /// <param name="This">The this.</param>
-        /// <param name="handler">The handler.</param>
         public static void SetupErrorHandling(this ReactiveApplication This, IExceptionHandler handler = null)
         {
             IExceptionHandler exceptionHandler = handler ?? RxApp.DependencyResolver.GetService<IExceptionHandler>();

@@ -11,7 +11,7 @@ namespace ReactiveApp.Interfaces
     /// </summary>
     /// <remarks>
     /// You use the NavigationCacheMode enumeration when setting the NavigationCacheMode property
-    /// of the <see cref="ReactiveView"/> class.
+    /// of the  class.
     /// You specify whether a new instance of the page is created for each visit to the page or whether
     /// a previously constructed instance of the page that has been saved in the cache is used for each visit.
     /// <p/>

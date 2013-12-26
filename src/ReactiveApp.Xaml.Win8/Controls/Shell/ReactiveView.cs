@@ -31,7 +31,7 @@ namespace ReactiveApp.Xaml.Controls
     /// Windows Phone:  Constructor, OnNavigatingToAsync, OnNavigatedToAsync, Loaded 
     /// 
     /// </summary>
-    public class ReactiveView : UserControl, IView<ReactiveShell, ReactiveView>
+    public class ReactiveView : UserControl/*, IView*/
     {
         private Binding dataContextBinding;
         private IObservable<Unit> completed;
@@ -79,7 +79,7 @@ namespace ReactiveApp.Xaml.Controls
         /// <summary>
         /// PageTransition Dependency Property
         /// </summary>
-        public static readonly DependencyProperty TransitionsProperty =
+        public static readonly DependencyProperty ViewTransitionsProperty =
             DependencyProperty.Register(
                 "Transitions",
                 typeof(ViewTransitions),
@@ -90,10 +90,10 @@ namespace ReactiveApp.Xaml.Controls
         /// Gets or sets the PageTransition property. This dependency property 
         /// indicates the PageTransition to use to transition to this page.
         /// </summary>
-        public ViewTransitions Transitions
+        public ViewTransitions ViewTransitions
         {
-            get { return (ViewTransitions)GetValue(TransitionsProperty); }
-            set { SetValue(TransitionsProperty, value); }
+            get { return (ViewTransitions)GetValue(ViewTransitionsProperty); }
+            set { SetValue(ViewTransitionsProperty, value); }
         }
 
         #endregion

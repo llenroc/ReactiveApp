@@ -1,8 +1,8 @@
-﻿<app:ReactiveShellApplication
+﻿<app:ReactiveApplication
     x:Class="TestApp.App"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:TestApp"
     xmlns:app="using:ReactiveApp.Xaml">
 
-</app:ReactiveShellApplication>
+</app:ReactiveApplication>

@@ -10,13 +10,11 @@ using ReactiveUI;
 
 namespace ReactiveApp.Interfaces
 {
-    public interface IShell<T, U>
-        where T : class, IShell<T, U>
-        where U : class, IView<T, U>
+    public interface IShell
     {
         IObservable<bool> ViewAsync(IJournalEntry entry, NavigationMode mode);
 
-        IObservable<bool> ViewAsync<V>(V view, NavigationMode mode, object parameter = null) where V : U;
+        IObservable<bool> ViewAsync<V>(V view, NavigationMode mode, object parameter = null) where V : IView;
 
         IObservable<bool> IsNavigationActive { get; }
 
@@ -36,7 +34,7 @@ namespace ReactiveApp.Interfaces
         /// <value>
         /// The view.
         /// </value>
-        IObservable<U> CurrentView { get; }
+        IObservable<IView> CurrentView { get; }
 
         /// <summary>
         /// Makes the shell visible on screen.
@@ -70,16 +68,12 @@ namespace ReactiveApp.Interfaces
 
     public static class IShellExtensions
     {
-        public static IObservable<bool> NavigateAsync<T, U>(this IShell<T, U> This, Type viewType, object parameter = null)
-            where T : class, IShell<T, U>
-            where U : class, IView<T, U>
+        public static IObservable<bool> NavigateAsync(this IShell This, Type viewType, object parameter = null)
         {
             return This.ViewAsync((IJournalEntry)new JournalEntry(viewType, parameter), NavigationMode.New);
         }
 
-        public static IObservable<bool> GoBackAsync<T, U>(this IShell<T, U> This)
-            where T : class, IShell<T, U>
-            where U : class, IView<T, U>
+        public static IObservable<bool> GoBackAsync(this IShell This)
         {
             if (This.BackStack.Count > 0)
             {
@@ -91,9 +85,7 @@ namespace ReactiveApp.Interfaces
             }
         }
 
-        public static IObservable<bool> GoForwardAsync<T, U>(this IShell<T, U> This)
-            where T : class, IShell<T, U>
-            where U : class, IView<T, U>
+        public static IObservable<bool> GoForwardAsync(this IShell This)
         {
             if (This.BackStack.Count > 0)
             {
