@@ -29,7 +29,7 @@ namespace ReactiveApp.Xaml.Controls
     /// <summary>
     /// 
     /// </summary>
-    public class ReactiveShell : ContentControl, IEnableLogger /*, IShell*/
+    public class ReactiveShell : ContentControl, IEnableLogger
     {
         #region Fields
 
@@ -40,7 +40,7 @@ namespace ReactiveApp.Xaml.Controls
         private IList<Action<Panel>> overlays;
 
         private readonly SemaphoreSubject<Tuple<IJournalEntry, NavigationMode>> navigations;
-        private readonly IObservable<Tuple<IJournalEntry, ReactiveView, bool>> journal;
+        private readonly IObservable<Tuple<IJournalEntry, IView, bool>> journal;
         private readonly ISubject<bool> isNavigationActive;
 
         private readonly Lazy<Subject<NavigatingInfo>> navigating;
@@ -145,7 +145,7 @@ namespace ReactiveApp.Xaml.Controls
 
         #region Navigation
 
-        public IObservable<bool> ViewAsync<V>(V view, NavigationMode mode, object parameter = null) where V : ReactiveView
+        public IObservable<bool> ViewAsync<V>(V view, NavigationMode mode, object parameter = null) where V : IView
         {
             //create journal entry based on arguments.
             return this.ViewAsync((IJournalEntry)new JournalEntry(typeof(V), parameter) { State = view }, mode);
@@ -207,7 +207,7 @@ namespace ReactiveApp.Xaml.Controls
             private set;
         }
 
-        public IObservable<ReactiveView> CurrentView
+        public IObservable<IView> CurrentView
         {
             get;
             private set;
@@ -295,12 +295,12 @@ namespace ReactiveApp.Xaml.Controls
             return new CompositeDisposable(disp, Disposable.Create(() => this.overlays.Remove(addFunction)));
         }
 
-        private IObservable<Tuple<IJournalEntry, ReactiveView, bool>> NavigateToJournalEntry(IJournalEntry journalEntry, NavigationMode navigationMode)
+        private IObservable<Tuple<IJournalEntry, IView, bool>> NavigateToJournalEntry(IJournalEntry journalEntry, NavigationMode navigationMode)
         {
             return this.NavigateInternal(() => this.loader.GetView(journalEntry), journalEntry, navigationMode);
         }
 
-        private IObservable<Tuple<IJournalEntry, ReactiveView, bool>> NavigateInternal(Func<ReactiveView> view, IJournalEntry journalEntry, NavigationMode navigationMode)
+        private IObservable<Tuple<IJournalEntry, IView, bool>> NavigateInternal(Func<ReactiveView> view, IJournalEntry journalEntry, NavigationMode navigationMode)
         {
             return Observable.Defer(() => this.CurrentJournalEntry.FirstOrDefaultAsync()).SelectMany(async currentJournalEntry =>
             {
@@ -324,13 +324,13 @@ namespace ReactiveApp.Xaml.Controls
                         {
                             this.Log().Info("Creating view.");
                             newView = view();
-                            newView.Shell = this;
+                            newView.Shell = null; //this;
                             this.Log().Info("Created view {0}.", newView.GetType());
                             return newView;
                         }))
                     {
                         this.Log().Info("Navigating aborted.");
-                        return Tuple.Create(journalEntry, (ReactiveView)null, false);
+                        return Tuple.Create(journalEntry, (IView)null, false);
                     }
                     this.Log().Info("Navigating completed.");
 
@@ -369,9 +369,9 @@ namespace ReactiveApp.Xaml.Controls
                     RestoreContentPresenterInteractivity(newViewPresenter);
 
                     //return a tuple containing navigation information about the journal entry.
-                    return Tuple.Create(journalEntry, newView, true);
+                    return Tuple.Create(journalEntry, (IView)null, true);
                 }
-            }).LoggedCatch(this, Observable.Return(Tuple.Create(journalEntry, (ReactiveView)null, false)));
+            }).LoggedCatch(this, Observable.Return(Tuple.Create(journalEntry, (IView)null, false)));
         }
 
         private async Task<bool> PeformNavigating(ReactiveView currentView, NavigatingInfo navigatingInfo, Func<ReactiveView> view)

@@ -12,7 +12,7 @@
         <TextBlock Text="Test" Foreground="White" FontSize="36" />
         <Button Content="Hoi" />
         <Grid>
-            
+            <TextBlock Text="Test" />
         </Grid>
     
     </Grid>

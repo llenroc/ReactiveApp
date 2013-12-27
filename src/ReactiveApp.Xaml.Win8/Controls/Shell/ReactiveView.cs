@@ -6,6 +6,7 @@ using System.Reactive.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ReactiveApp.Interfaces;
+using ReactiveUI;
 
 #if WINDOWS_PHONE
 using System.Windows.Controls;
@@ -31,7 +32,7 @@ namespace ReactiveApp.Xaml.Controls
     /// Windows Phone:  Constructor, OnNavigatingToAsync, OnNavigatedToAsync, Loaded 
     /// 
     /// </summary>
-    public class ReactiveView : UserControl/*, IView*/
+    public class ReactiveView : UserControl, IEnableLogger
     {
         private Binding dataContextBinding;
         private IObservable<Unit> completed;
@@ -46,7 +47,7 @@ namespace ReactiveApp.Xaml.Controls
         public static readonly DependencyProperty ShellProperty =
             DependencyProperty.Register(
                 "Frame",
-                typeof(ReactiveShell),
+                typeof(IShell),
                 typeof(ReactiveView),
                 new PropertyMetadata(null, new PropertyChangedCallback(OnShellChanged))
             );
@@ -54,21 +55,21 @@ namespace ReactiveApp.Xaml.Controls
         /// <summary>
         /// Gets the frame where this page is displayed.
         /// </summary>
-        public ReactiveShell Shell
+        public IShell Shell
         {
-            get { return (ReactiveShell)this.GetValue(ShellProperty); }
+            get { return (IShell)this.GetValue(ShellProperty); }
             set { this.SetValue(ShellProperty, value); }
         }
 
         private static void OnShellChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
         {
-            ((ReactiveView)sender).OnShellChanged((ReactiveShell)e.OldValue, (ReactiveShell)e.NewValue);
+            ((ReactiveView)sender).OnShellChanged((IShell)e.OldValue, (IShell)e.NewValue);
         }
 
         /// <summary>
         /// Called when the Frame is changed.
         /// </summary>
-        protected virtual void OnShellChanged(ReactiveShell oldFrame, ReactiveShell newFrame)
+        protected virtual void OnShellChanged(IShell oldFrame, IShell newFrame)
         {
         }
 

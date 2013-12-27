@@ -47,7 +47,7 @@ namespace App1
             throw new NotImplementedException();
         }
 
-        protected override ReactiveShell CreateShell()
+        protected override IShell CreateShell()
         {
             throw new NotImplementedException();
         }

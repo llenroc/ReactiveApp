@@ -54,12 +54,12 @@ namespace TestApp
         /// Creates the shell.
         /// </summary>
         /// <returns></returns>
-        protected override ReactiveShell CreateShell()
+        protected override IShell CreateShell()
         {
             ReactiveShell shell = new ReactiveShell();
             // Set the default language
             shell.Language = Windows.Globalization.ApplicationLanguages.Languages[0];
-            return shell;
+            return null;
         }
 
         /// <summary>

@@ -56,7 +56,7 @@ namespace ReactiveApp.Xaml
 
         protected abstract IMutableDependencyResolver CreateDependencyResolver();
 
-        protected abstract ReactiveShell CreateShell();
+        protected abstract IShell CreateShell();
 
         public abstract IObservable<Unit> View(string args);
         
@@ -92,7 +92,7 @@ namespace ReactiveApp.Xaml
         /// <value>
         /// The shell.
         /// </value>
-        public ReactiveShell Shell { get; private set; }
+        public IShell Shell { get; private set; }
 
         /// <summary>
         /// Gets the suspension service.
