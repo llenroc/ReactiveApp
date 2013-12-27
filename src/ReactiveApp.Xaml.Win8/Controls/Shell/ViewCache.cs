@@ -35,29 +35,29 @@ namespace ReactiveApp.Xaml.Controls
 
         public void Store(IJournalEntry entry, ReactiveView view)
         {
-            switch (view.NavigationCacheMode)
-            {
-                case NavigationCacheMode.Backward:
-                case NavigationCacheMode.BackwardAndForward:
-                case NavigationCacheMode.Forward:
-                    JournalEntry journalEntry = entry as JournalEntry;
-                    if (journalEntry != null)
-                    {
-                        journalEntry.State = view;
-                    }
-                    else
-                    {
-                        throw new InvalidOperationException("Expected JournalEntry");
-                    }
-                    break;
-                case NavigationCacheMode.Enabled:
-                    entryToViewMap[entry] = view;
-                    break;
-                case NavigationCacheMode.Inherit:
-                case NavigationCacheMode.Disabled:
-                default:
-                    break;
-            }
+            //switch (view.NavigationCacheMode)
+            //{
+            //    case NavigationCacheMode.Backward:
+            //    case NavigationCacheMode.BackwardAndForward:
+            //    case NavigationCacheMode.Forward:
+            //        JournalEntry journalEntry = entry as JournalEntry;
+            //        if (journalEntry != null)
+            //        {
+            //            journalEntry.State = view;
+            //        }
+            //        else
+            //        {
+            //            throw new InvalidOperationException("Expected JournalEntry");
+            //        }
+            //        break;
+            //    case NavigationCacheMode.Enabled:
+            //        entryToViewMap[entry] = view;
+            //        break;
+            //    case NavigationCacheMode.Inherit:
+            //    case NavigationCacheMode.Disabled:
+            //    default:
+            //        break;
+            //}
         }
     }
 }

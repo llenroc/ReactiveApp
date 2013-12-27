@@ -31,51 +31,27 @@ namespace TestApp
         public App()
         {
             this.InitializeComponent();
-
-            this.SetupStartup();
-            this.SetupErrorHandling();
         }
 
         protected override void Configure()
         {
         }
 
-        /// <summary>
-        /// Creates the dependency resolver based on Munq IoC.
-        /// </summary>
-        /// <returns></returns>
         protected override IMutableDependencyResolver CreateDependencyResolver()
         {
-            this.container = new IocContainer();
-            return new MunqDependencyResolver(this.container);
+            //this.container = new IocContainer();
+            //return new MunqDependencyResolver(this.container);
+            throw new NotImplementedException();
         }
 
-        /// <summary>
-        /// Creates the shell.
-        /// </summary>
-        /// <returns></returns>
         protected override IShell CreateShell()
         {
-            ReactiveShell shell = new ReactiveShell();
-            // Set the default language
-            shell.Language = Windows.Globalization.ApplicationLanguages.Languages[0];
-            return null;
+            throw new NotImplementedException();
         }
 
-        /// <summary>
-        /// Called when an app in launched or activated with the specified arguments.
-        /// </summary>
-        /// <param name="args">The arguments.</param>
-        /// <returns></returns>
-        public override IObservable<Unit> View(string args)
+        public override IObservable<System.Reactive.Unit> View(string args)
         {
-#if DEBUG
-            if (System.Diagnostics.Debugger.IsAttached)
-            {
-                this.DebugSettings.EnableFrameRateCounter = true;
-            }
-#endif
-            return this.Shell.ViewAsync((IJournalEntry)new JournalEntry(typeof(MainView), args), NavigationMode.New).SelectMany(this.Activate());
+            throw new NotImplementedException();
         }
     }
 }

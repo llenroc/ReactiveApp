@@ -9,6 +9,6 @@
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <TextBlock Text="Test" Foreground="White" FontSize="36" />
+        <TextBlock Text="MainView" Foreground="White" FontSize="36" HorizontalAlignment="Center" VerticalAlignment="Center" />
     </Grid>
 </controls:ReactiveView>

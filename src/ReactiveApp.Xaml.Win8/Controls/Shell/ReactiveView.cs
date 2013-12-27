@@ -32,7 +32,7 @@ namespace ReactiveApp.Xaml.Controls
     /// Windows Phone:  Constructor, OnNavigatingToAsync, OnNavigatedToAsync, Loaded 
     /// 
     /// </summary>
-    public class ReactiveView : UserControl, IEnableLogger
+    public class ReactiveView : UserControl
     {
         private Binding dataContextBinding;
         private IObservable<Unit> completed;
@@ -47,7 +47,7 @@ namespace ReactiveApp.Xaml.Controls
         public static readonly DependencyProperty ShellProperty =
             DependencyProperty.Register(
                 "Frame",
-                typeof(IShell),
+                typeof(ReactiveShell),
                 typeof(ReactiveView),
                 new PropertyMetadata(null, new PropertyChangedCallback(OnShellChanged))
             );
@@ -55,71 +55,22 @@ namespace ReactiveApp.Xaml.Controls
         /// <summary>
         /// Gets the frame where this page is displayed.
         /// </summary>
-        public IShell Shell
+        public ReactiveShell Shell
         {
-            get { return (IShell)this.GetValue(ShellProperty); }
+            get { return (ReactiveShell)this.GetValue(ShellProperty); }
             set { this.SetValue(ShellProperty, value); }
         }
 
         private static void OnShellChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
         {
-            ((ReactiveView)sender).OnShellChanged((IShell)e.OldValue, (IShell)e.NewValue);
+            ((ReactiveView)sender).OnShellChanged((ReactiveShell)e.OldValue, (ReactiveShell)e.NewValue);
         }
 
         /// <summary>
         /// Called when the Frame is changed.
         /// </summary>
-        protected virtual void OnShellChanged(IShell oldFrame, IShell newFrame)
+        protected virtual void OnShellChanged(ReactiveShell oldFrame, ReactiveShell newFrame)
         {
-        }
-
-        #endregion
-
-        #region PageTransitions
-
-        /// <summary>
-        /// PageTransition Dependency Property
-        /// </summary>
-        public static readonly DependencyProperty ViewTransitionsProperty =
-            DependencyProperty.Register(
-                "Transitions",
-                typeof(ViewTransitions),
-                typeof(ReactiveView),
-                new PropertyMetadata(null));
-
-        /// <summary>
-        /// Gets or sets the PageTransition property. This dependency property 
-        /// indicates the PageTransition to use to transition to this page.
-        /// </summary>
-        public ViewTransitions ViewTransitions
-        {
-            get { return (ViewTransitions)GetValue(ViewTransitionsProperty); }
-            set { SetValue(ViewTransitionsProperty, value); }
-        }
-
-        #endregion
-
-        #region NavigationCacheMode (Dependency Property)
-
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for NavigationCacheMode.  This enables animation, styling, binding, etc...    
-        /// </summary>
-        public static readonly DependencyProperty NavigationCacheModeProperty =
-            DependencyProperty.Register(
-                "NavigationCacheMode",
-                typeof(NavigationCacheMode),
-                typeof(ReactiveView),
-                new PropertyMetadata(NavigationCacheMode.Inherit)
-            );
-
-        /// <summary>
-        /// Specifies the cache mode for the current page. If not defined uses the 
-        /// default cache mode defined on the frame.
-        /// </summary>
-        public NavigationCacheMode NavigationCacheMode
-        {
-            get { return (NavigationCacheMode)this.GetValue(NavigationCacheModeProperty); }
-            set { this.SetValue(NavigationCacheModeProperty, value); }
         }
 
         #endregion

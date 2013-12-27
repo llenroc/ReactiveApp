@@ -21,7 +21,7 @@ using System.Windows;
 
 namespace ReactiveApp.Xaml
 {
-    public abstract class ReactiveApplication : Application, IEnableLogger
+    public abstract class ReactiveApplication : Application
     {
 #if !WINDOWS_PHONE
         // an app can only launch once and we want to remember that value
@@ -30,8 +30,8 @@ namespace ReactiveApp.Xaml
 
         public ReactiveApplication()
         {
-            this.Log().Info("Starting ReactiveApplication.");
-            this.Log().Info("Creating SuspensionService.");
+            //this.Log().Info("Starting ReactiveApplication.");
+            //this.Log().Info("Creating SuspensionService.");
 #if !WINDOWS_PHONE
             var suspensionService = new WinRTSuspensionService(this, launched);
 #else
@@ -39,16 +39,16 @@ namespace ReactiveApp.Xaml
 #endif
             this.SuspensionService = suspensionService;
 
-            this.Log().Info("Creating Dependency Resolver.");
+            //this.Log().Info("Creating Dependency Resolver.");
             var resolver = this.CreateDependencyResolver();
-            this.Log().Info("Initialize Dependency Resolver.");
+            //this.Log().Info("Initialize Dependency Resolver.");
             resolver.InitializeResolver();
             RxApp.DependencyResolver = resolver;
 
-            this.Log().Info("Creating Shell.");
+            //this.Log().Info("Creating Shell.");
             this.Shell = this.CreateShell();
 
-            this.Log().Info("Register services.");
+            //this.Log().Info("Register services.");
             this.Configure();
         }
 
@@ -62,7 +62,7 @@ namespace ReactiveApp.Xaml
         
         protected virtual IObservable<Unit> Activate()
         {
-            this.Log().Info("Activating Shell.");
+            //this.Log().Info("Activating Shell.");
             return this.Shell.Activate();
         }
 

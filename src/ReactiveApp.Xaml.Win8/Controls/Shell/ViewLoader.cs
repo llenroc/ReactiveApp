@@ -33,10 +33,10 @@ namespace ReactiveApp.Xaml.Controls
             {
                 view = Activator.CreateInstance(journalEntry.ViewType) as ReactiveView;
                 //set cacheMode.
-                if (view.NavigationCacheMode == NavigationCacheMode.Inherit)
-                {
-                    view.NavigationCacheMode = this.DefaultCacheMode;
-                }
+                //if (view.NavigationCacheMode == NavigationCacheMode.Inherit)
+                //{
+                //    view.NavigationCacheMode = this.DefaultCacheMode;
+                //}
                 //store new page
                 cache.Store(journalEntry, view);
             }
