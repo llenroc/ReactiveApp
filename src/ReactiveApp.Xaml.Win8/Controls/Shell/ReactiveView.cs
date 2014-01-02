@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ReactiveApp.Interfaces;
 using ReactiveUI;
+using Splat;
 
 #if WINDOWS_PHONE
 using System.Windows.Controls;
@@ -181,5 +182,22 @@ namespace ReactiveApp.Xaml.Controls
         }
 
         #endregion
+
+        /// <summary>
+        /// The designer does not seem to like interfaces so we just implement this method directly instead of via extension methods on IEnableLogger.
+        /// Drawback: We dont get the strongly typed class but its is better than nothing.
+        /// </summary>
+        /// <returns></returns>
+        /// <exception cref="System.Exception">ILogManager is null. This should never happen, your dependency resolver is broken</exception>
+        private IFullLogger Log()
+        {
+            var factory = Locator.Current.GetService<ILogManager>();
+            if (factory == null)
+            {
+                throw new Exception("ILogManager is null. This should never happen, your dependency resolver is broken");
+            }
+
+            return factory.GetLogger<ReactiveView>();
+        }
     }
 }

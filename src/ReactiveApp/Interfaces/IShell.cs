@@ -64,37 +64,5 @@ namespace ReactiveApp.Interfaces
         /// <param name="overlay">The overlay.</param>
         /// <returns></returns>
         IDisposable AddOverlay(object overlay);
-    }
-
-    public static class IShellExtensions
-    {
-        public static IObservable<bool> NavigateAsync(this IShell This, Type viewType, object parameter = null)
-        {
-            return This.ViewAsync((IJournalEntry)new JournalEntry(viewType, parameter), NavigationMode.New);
-        }
-
-        public static IObservable<bool> GoBackAsync(this IShell This)
-        {
-            if (This.BackStack.Count > 0)
-            {
-                return This.ViewAsync(This.BackStack.Last(), NavigationMode.Back);
-            }
-            else
-            {
-                return Observable.Return(false);
-            }
-        }
-
-        public static IObservable<bool> GoForwardAsync(this IShell This)
-        {
-            if (This.BackStack.Count > 0)
-            {
-                return This.ViewAsync(This.ForwardStack.Last(), NavigationMode.Forward);
-            }
-            else
-            {
-                return Observable.Return(false);
-            }
-        }
-    }
+    }    
 }

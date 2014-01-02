@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ReactiveApp.Interfaces;
-using ReactiveUI;
+using Splat;
 
 namespace ReactiveApp.Exceptions
 {

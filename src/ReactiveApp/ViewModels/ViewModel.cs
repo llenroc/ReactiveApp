@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ReactiveApp.Platform;
 using ReactiveUI;
+using Splat;
 
 namespace ReactiveApp.ViewModels
 {

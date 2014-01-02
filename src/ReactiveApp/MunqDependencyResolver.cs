@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 using Munq;
-using ReactiveUI;
+using Splat;
 
 namespace ReactiveApp
 {

@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 using ReactiveApp.Interfaces;
 using ReactiveApp.Subjects;
 using ReactiveUI;
+using Splat;
 
 #if WINDOWS_PHONE
 using System.Windows;
@@ -228,36 +229,7 @@ namespace ReactiveApp.Xaml.Controls
             }
         }
 
-        #endregion
-
-        #region Activation
-
-        public IObservable<Unit> Activated
-        {
-            get { return this.activated; }
-        }
-
-        public IObservable<Unit> Activate()
-        {
-#if !WINDOWS_PHONE
-            Func<Unit> func = () =>
-            {
-                if (Window.Current.Content != this)
-                {
-                    Window.Current.Content = this;
-                }
-                Window.Current.Activate();
-                //fire activated
-                activated.OnNext(Unit.Default);
-                return Unit.Default;
-            };
-            return Observable.Return<Unit>(func());
-#else
-            return Observable.Return<Unit>(Unit.Default);
-#endif
-        }
-
-        #endregion
+        #endregion        
 
         public NavigationCacheMode NavigationCacheMode
         {
@@ -317,22 +289,22 @@ namespace ReactiveApp.Xaml.Controls
                         currentView = (ReactiveView)currentViewPresenter.Content;
                     }
 
-                    //this.Log().Info("Navigating started.");
+                    this.Log().Info("Navigating started.");
 
                     NavigatingInfo navigating = new NavigatingInfo(navigationMode, journalEntry);
                     if (!await this.PeformNavigating(currentView, navigating, () =>
                         {
-                            //this.Log().Info("Creating view.");
+                            this.Log().Info("Creating view.");
                             newView = view();
                             newView.Shell = this;
-                            //this.Log().Info("Created view {0}.", newView.GetType());
+                            this.Log().Info("Created view {0}.", newView.GetType());
                             return newView;
                         }))
                     {
-                        //this.Log().Info("Navigating aborted.");
+                        this.Log().Info("Navigating aborted.");
                         return Tuple.Create(journalEntry, (ReactiveView)null, false);
                     }
-                    //this.Log().Info("Navigating completed.");
+                    this.Log().Info("Navigating completed.");
 
                     newViewPresenter = new ContentPresenter();
                     newViewPresenter.Content = newView;
@@ -351,10 +323,10 @@ namespace ReactiveApp.Xaml.Controls
                         this.UpdateJournal(navigationMode, currentJournalEntry, journalEntry);
                     }
 
-                    //this.Log().Info("Navigated started.");
+                    this.Log().Info("Navigated started.");
                     NavigatedInfo navigated = new NavigatedInfo(newView, navigationMode, journalEntry);
                     await this.PeformNavigated(currentView, navigated, newView);
-                    //this.Log().Info("Navigated completed.");
+                    this.Log().Info("Navigated completed.");
 
                     //remove old page presenter
                     if (viewPresentersPanel != null && currentViewPresenter != null)
@@ -498,6 +470,54 @@ namespace ReactiveApp.Xaml.Controls
             presenter.IsHitTestVisible = true;
         }
 
-        #endregion
+        #endregion  
+      
+        /// <summary>
+        /// The designer does not seem to like interfaces so we just implement this method directly instead of via extension methods on IEnableLogger.
+        /// </summary>
+        /// <returns></returns>
+        /// <exception cref="System.Exception">ILogManager is null. This should never happen, your dependency resolver is broken</exception>
+        private IFullLogger Log()
+        {
+            var factory = Locator.Current.GetService<ILogManager>();
+            if (factory == null)
+            {
+                throw new Exception("ILogManager is null. This should never happen, your dependency resolver is broken");
+            }
+
+            return factory.GetLogger<ReactiveShell>();
+        }
+    }
+
+    public static class ReactiveShellExtensions
+    {
+        public static IObservable<bool> NavigateAsync(this ReactiveShell This, Type viewType, object parameter = null)
+        {
+            return This.ViewAsync((IJournalEntry)new JournalEntry(viewType, parameter), NavigationMode.New);
+        }
+
+        public static IObservable<bool> GoBackAsync(this ReactiveShell This)
+        {
+            if (This.BackStack.Count > 0)
+            {
+                return This.ViewAsync(This.BackStack.Last(), NavigationMode.Back);
+            }
+            else
+            {
+                return Observable.Return(false);
+            }
+        }
+
+        public static IObservable<bool> GoForwardAsync(this ReactiveShell This)
+        {
+            if (This.BackStack.Count > 0)
+            {
+                return This.ViewAsync(This.ForwardStack.Last(), NavigationMode.Forward);
+            }
+            else
+            {
+                return Observable.Return(false);
+            }
+        }
     }
 }
