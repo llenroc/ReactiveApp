@@ -10,12 +10,4 @@
     <Application.Resources>
         <local:LocalizedStrings xmlns:local="clr-namespace:TestApp.WP8" x:Key="LocalizedStrings"/>
     </Application.Resources>
-
-    <Application.ApplicationLifetimeObjects>
-        <!--Required object that handles lifetime events for the application-->
-        <shell:PhoneApplicationService
-            Launching="Application_Launching" Closing="Application_Closing"
-            Activated="Application_Activated" Deactivated="Application_Deactivated"/>
-    </Application.ApplicationLifetimeObjects>
-
 </rxapp:ReactiveApplication>

@@ -1,45 +1,88 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Reactive;
+using System.Reactive.Linq;
 using System.Resources;
 using System.Windows;
 using System.Windows.Markup;
 using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
+using Munq;
+using ReactiveApp;
 using ReactiveApp.Interfaces;
 using ReactiveApp.Xaml;
+using ReactiveApp.Xaml.Controls;
+using ReactiveUI;
+using Splat;
 using TestApp.WP8.Resources;
 
 namespace TestApp.WP8
 {
     public partial class App : ReactiveApplication
     {
-        /// <summary>
-        /// Provides easy access to the root frame of the Phone Application.
-        /// </summary>
-        /// <returns>The root frame of the Phone Application.</returns>
-        public static PhoneApplicationFrame RootFrame { get; private set; }
+        private IocContainer container;
 
         /// <summary>
-        /// Constructor for the Application object.
+        /// Initializes the singleton application object.  This is the first line of authored code
+        /// executed, and as such is the logical equivalent of main() or WinMain().
         /// </summary>
         public App()
         {
-            // Global handler for uncaught exceptions.
-            UnhandledException += Application_UnhandledException;
+            this.InitializeComponent();
 
-            // Standard XAML initialization
-            InitializeComponent();
+            this.SetupStartup();
+            this.SetupErrorHandling();
+        }
 
-            // Phone-specific initialization
-            InitializePhoneApplication();
+        protected override void Configure()
+        {
+        }
 
-            // Language display initialization
-            InitializeLanguage();
 
-            // Show graphics profiling information while debugging.
-            if (Debugger.IsAttached)
+        /// <summary>
+        /// Creates the dependency resolver based on Munq IoC.
+        /// </summary>
+        /// <returns></returns>
+        protected override IMutableDependencyResolver CreateDependencyResolver()
+        {
+            this.container = new IocContainer();
+            return new MunqDependencyResolver(this.container);
+        }
+
+
+        /// <summary>
+        /// Creates the shell.
+        /// </summary>
+        /// <returns></returns>
+        protected override ReactiveShell CreateShell()
+        {
+            ReactiveShell shell = new ReactiveShell();
+            // Set the default language
+#if !WINDOWS_PHONE
+            shell.Language = Windows.Globalization.ApplicationLanguages.Languages[0];
+#else
+            shell.Language = XmlLanguage.GetLanguage("en-US");
+#endif
+            shell.FlowDirection = FlowDirection.LeftToRight;
+            return shell;
+        }
+
+
+        /// <summary>
+        /// Called when an app in launched or activated with the specified arguments.
+        /// </summary>
+        /// <param name="args">The arguments.</param>
+        /// <returns></returns>
+        public override IObservable<Unit> View(string args)
+        {
+#if DEBUG
+            if (System.Diagnostics.Debugger.IsAttached)
             {
+                
+#if !WINDOWS_PHONE
+                this.DebugSettings.EnableFrameRateCounter = true;
+#else
                 // Display the current frame rate counters.
                 Application.Current.Host.Settings.EnableFrameRateCounter = true;
 
@@ -55,165 +98,10 @@ namespace TestApp.WP8
                 // Caution:- Use this under debug mode only. Application that disables user idle detection will continue to run
                 // and consume battery power when the user is not using the phone.
                 PhoneApplicationService.Current.UserIdleDetectionMode = IdleDetectionMode.Disabled;
+#endif
             }
-
-        }
-
-        // Code to execute when the application is launching (eg, from Start)
-        // This code will not execute when the application is reactivated
-        private void Application_Launching(object sender, LaunchingEventArgs e)
-        {
-        }
-
-        // Code to execute when the application is activated (brought to foreground)
-        // This code will not execute when the application is first launched
-        private void Application_Activated(object sender, ActivatedEventArgs e)
-        {
-        }
-
-        // Code to execute when the application is deactivated (sent to background)
-        // This code will not execute when the application is closing
-        private void Application_Deactivated(object sender, DeactivatedEventArgs e)
-        {
-        }
-
-        // Code to execute when the application is closing (eg, user hit Back)
-        // This code will not execute when the application is deactivated
-        private void Application_Closing(object sender, ClosingEventArgs e)
-        {
-        }
-
-        // Code to execute if a navigation fails
-        private void RootFrame_NavigationFailed(object sender, NavigationFailedEventArgs e)
-        {
-            if (Debugger.IsAttached)
-            {
-                // A navigation has failed; break into the debugger
-                Debugger.Break();
-            }
-        }
-
-        // Code to execute on Unhandled Exceptions
-        private void Application_UnhandledException(object sender, ApplicationUnhandledExceptionEventArgs e)
-        {
-            if (Debugger.IsAttached)
-            {
-                // An unhandled exception has occurred; break into the debugger
-                Debugger.Break();
-            }
-        }
-
-        #region Phone application initialization
-
-        // Avoid double-initialization
-        private bool phoneApplicationInitialized = false;
-
-        // Do not add any additional code to this method
-        private void InitializePhoneApplication()
-        {
-            if (phoneApplicationInitialized)
-                return;
-
-            // Create the frame but don't set it as RootVisual yet; this allows the splash
-            // screen to remain active until the application is ready to render.
-            RootFrame = new PhoneApplicationFrame();
-            RootFrame.Navigated += CompleteInitializePhoneApplication;
-
-            // Handle navigation failures
-            RootFrame.NavigationFailed += RootFrame_NavigationFailed;
-            
-            // Ensure we don't initialize again
-            phoneApplicationInitialized = true;
-        }
-
-        // Do not add any additional code to this method
-        private void CompleteInitializePhoneApplication(object sender, NavigationEventArgs e)
-        {
-            // Set the root visual to allow the application to render
-            if (RootVisual != RootFrame)
-                RootVisual = RootFrame;
-
-            // Remove this handler since it is no longer needed
-            RootFrame.Navigated -= CompleteInitializePhoneApplication;
-        }
-               
-
-        #endregion
-
-        // Initialize the app's font and flow direction as defined in its localized resource strings.
-        //
-        // To ensure that the font of your application is aligned with its supported languages and that the
-        // FlowDirection for each of those languages follows its traditional direction, ResourceLanguage
-        // and ResourceFlowDirection should be initialized in each resx file to match these values with that
-        // file's culture. For example:
-        //
-        // AppResources.es-ES.resx
-        //    ResourceLanguage's value should be "es-ES"
-        //    ResourceFlowDirection's value should be "LeftToRight"
-        //
-        // AppResources.ar-SA.resx
-        //     ResourceLanguage's value should be "ar-SA"
-        //     ResourceFlowDirection's value should be "RightToLeft"
-        //
-        // For more info on localizing Windows Phone apps see http://go.microsoft.com/fwlink/?LinkId=262072.
-        //
-        private void InitializeLanguage()
-        {
-            try
-            {
-                // Set the font to match the display language defined by the
-                // ResourceLanguage resource string for each supported language.
-                //
-                // Fall back to the font of the neutral language if the Display
-                // language of the phone is not supported.
-                //
-                // If a compiler error is hit then ResourceLanguage is missing from
-                // the resource file.
-                RootFrame.Language = XmlLanguage.GetLanguage(AppResources.ResourceLanguage);
-
-                // Set the FlowDirection of all elements under the root frame based
-                // on the ResourceFlowDirection resource string for each
-                // supported language.
-                //
-                // If a compiler error is hit then ResourceFlowDirection is missing from
-                // the resource file.
-                FlowDirection flow = (FlowDirection)Enum.Parse(typeof(FlowDirection), AppResources.ResourceFlowDirection);
-                RootFrame.FlowDirection = flow;
-            }
-            catch
-            {
-                // If an exception is caught here it is most likely due to either
-                // ResourceLangauge not being correctly set to a supported language
-                // code or ResourceFlowDirection is set to a value other than LeftToRight
-                // or RightToLeft.
-
-                if (Debugger.IsAttached)
-                {
-                    Debugger.Break();
-                }
-
-                throw;
-            }
-        }
-
-        protected override void Configure()
-        {
-            throw new NotImplementedException();
-        }
-
-        protected override ReactiveUI.IMutableDependencyResolver CreateDependencyResolver()
-        {
-            throw new NotImplementedException();
-        }
-
-        protected override IShell CreateShell()
-        {
-            throw new NotImplementedException();
-        }
-
-        public override IObservable<System.Reactive.Unit> View(string args)
-        {
-            throw new NotImplementedException();
+#endif
+            return this.Shell.NavigateAsync(typeof(MainView), args).SelectMany(this.Activate());
         }
     }
 }

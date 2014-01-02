@@ -14,7 +14,7 @@
     <Resource Language="x-generate" />
   </Resources>
   <Applications>
-    <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="TestApp.App">
+    <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="TestApp.TestApp">
       <VisualElements DisplayName="TestApp.Win8" Logo="Assets\Logo.png" SmallLogo="Assets\SmallLogo.png" Description="TestApp.Win8" ForegroundText="light" BackgroundColor="#464646">
         <DefaultTile ShowName="logoOnly" />
         <SplashScreen Image="Assets\SplashScreen.png" />
