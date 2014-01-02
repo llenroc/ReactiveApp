@@ -18,20 +18,25 @@ namespace ReactiveApp.Xaml.Services
     /// <summary>
     /// Based on WP8SuspensionHost in ReactiveUI.Mobile
     /// </summary>
-    public class WP8SuspensionService : ISuspensionService
+    internal class WP8SuspensionService : ISuspensionService
     {
-        public WP8SuspensionService(Application app)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="WP8SuspensionService"/> class.
+        /// </summary>
+        /// <param name="app">The application.</param>
+        /// <param name="frameHelper">The frame helper.</param>
+        public WP8SuspensionService(Application app, IPhoneFrameHelper frameHelper)
         {
             this.IsLaunchingNew =
                 Observable.FromEventPattern<LaunchingEventArgs>(
                     x => PhoneApplicationService.Current.Launching += x, x => PhoneApplicationService.Current.Launching -= x)
-                    .Select(_ => (string)null);
+                    .SelectMany(_ => frameHelper.Arguments.FirstOrDefaultAsync());
 
             this.IsUnpausing =
                 Observable.FromEventPattern<ActivatedEventArgs>(
                     x => PhoneApplicationService.Current.Activated += x, x => PhoneApplicationService.Current.Activated -= x)
                     .Where(x => x.EventArgs.IsApplicationInstancePreserved)
-                    .Select(_ => (string)null);
+                    .SelectMany(_ => frameHelper.Arguments.FirstOrDefaultAsync());
 
             // NB: "Applications should not perform resource-intensive tasks 
             // such as loading from isolated storage or a network resource 
@@ -41,8 +46,7 @@ namespace ReactiveApp.Xaml.Services
                 Observable.FromEventPattern<ActivatedEventArgs>(
                     x => PhoneApplicationService.Current.Activated += x, x => PhoneApplicationService.Current.Activated -= x)
                     .Where(x => !x.EventArgs.IsApplicationInstancePreserved)
-                    .Select(_ => (string)null)
-                    .ObserveOn(RxApp.TaskpoolScheduler);
+                    .SelectMany(_ => frameHelper.Arguments.FirstOrDefaultAsync());
 
             // NB: No way to tell OS that we need time to suspend, we have to
             // do it in-process
