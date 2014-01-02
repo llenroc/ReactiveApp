@@ -79,5 +79,41 @@ namespace ReactiveApp.Xaml.Controls
         }
 
         #endregion
+
+        #region Mode (Dependency Property)
+
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for  Mode.  This enables animation, styling, binding, etc...    
+        /// </summary>
+        public static readonly DependencyProperty ModeProperty =
+            DependencyProperty.Register(
+                "Mode",
+                typeof(ReactiveAppBarMode),
+                typeof(ReactiveAppBar),
+                new PropertyMetadata(ReactiveAppBarMode.Hidden, new PropertyChangedCallback(OnModeChanged))
+            );
+
+        /// <summary>
+        /// The mode the AppBar is in when it is not opened.
+        /// </summary>
+        public ReactiveAppBarMode Mode
+        {
+            get { return (ReactiveAppBarMode)this.GetValue(ModeProperty); }
+            set { this.SetValue(ModeProperty, value); }
+        }
+
+        private static void OnModeChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
+        {
+            ((ReactiveAppBar)sender).OnModeChanged((ReactiveAppBarMode)e.OldValue, (ReactiveAppBarMode)e.NewValue);
+        }
+
+        /// <summary>
+        /// Called when the Mode is changed.
+        /// </summary>
+        protected virtual void OnModeChanged(ReactiveAppBarMode oldMode, ReactiveAppBarMode newMode)
+        {
+        }
+
+        #endregion
     }
 }
