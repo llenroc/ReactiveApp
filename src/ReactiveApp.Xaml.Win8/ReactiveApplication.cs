@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using ReactiveApp.Interfaces;
 using ReactiveApp.Services;
 using ReactiveApp.Xaml.Controls;
-using ReactiveApp.Xaml.Services;
+using ReactiveApp.Xaml.Controls;
 using ReactiveUI;
 using Splat;
 
