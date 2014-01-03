@@ -129,8 +129,10 @@
       <DependentUpon>BackwardsCompatibilityPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\IPhoneFrameHelper.cs" />
-    <Compile Include="Services\PhoneFrameHelper.cs" />
+    <Compile Include="Controls\IPhoneFrameHelper.cs" />
+    <Compile Include="Controls\PhoneFrameHelper.cs" />
+    <Compile Include="Services\DisplayOrientations.cs" />
+    <Compile Include="Services\OrientationManager.cs" />
     <Compile Include="Services\WP8SuspensionService.cs" />
   </ItemGroup>
   <ItemGroup>

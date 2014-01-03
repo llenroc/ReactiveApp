@@ -13,7 +13,7 @@ using System.Windows.Threading;
 using Microsoft.Phone.Controls;
 using ReactiveApp.Xaml.Controls;
 
-namespace ReactiveApp.Xaml.Services
+namespace ReactiveApp.Xaml.Controls
 {
     /// <summary>
     /// 

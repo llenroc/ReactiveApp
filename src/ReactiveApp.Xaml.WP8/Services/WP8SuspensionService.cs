@@ -7,9 +7,9 @@ using System.Reactive.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-
 using Microsoft.Phone.Shell;
 using ReactiveApp.Services;
+using ReactiveApp.Xaml.Controls;
 using ReactiveUI;
 using ReactiveUI.Mobile;
 
