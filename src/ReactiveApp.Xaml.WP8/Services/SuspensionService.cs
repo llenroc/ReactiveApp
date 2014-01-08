@@ -18,14 +18,14 @@ namespace ReactiveApp.Xaml.Services
     /// <summary>
     /// Based on WP8SuspensionHost in ReactiveUI.Mobile
     /// </summary>
-    internal class WP8SuspensionService : ISuspensionService
+    internal class SuspensionService : ISuspensionService
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="WP8SuspensionService"/> class.
+        /// Initializes a new instance of the <see cref="SuspensionService"/> class.
         /// </summary>
         /// <param name="app">The application.</param>
         /// <param name="frameHelper">The frame helper.</param>
-        public WP8SuspensionService(Application app, IPhoneFrameHelper frameHelper)
+        public SuspensionService(Application app, IPhoneFrameHelper frameHelper)
         {
             this.IsLaunchingNew =
                 Observable.FromEventPattern<LaunchingEventArgs>(
