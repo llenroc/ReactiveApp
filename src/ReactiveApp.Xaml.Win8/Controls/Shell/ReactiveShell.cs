@@ -19,6 +19,7 @@ using Splat;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using System.Diagnostics;
 #else
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
@@ -487,6 +488,15 @@ namespace ReactiveApp.Xaml.Controls
 
             return factory.GetLogger<ReactiveShell>();
         }
+
+#if DEBUG
+        ~ReactiveShell()
+        {
+            string debug = string.Format("ReactiveShell {0} finalised.", this.GetHashCode());
+            Debug.WriteLine(debug);
+            this.Log().Debug(debug);
+        }
+#endif
     }
 
     public static class ReactiveShellExtensions

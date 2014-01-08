@@ -20,6 +20,7 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Markup;
+using System.Diagnostics;
 #endif
 
 namespace ReactiveApp.Xaml.Controls
@@ -37,6 +38,11 @@ namespace ReactiveApp.Xaml.Controls
     {
         private Binding dataContextBinding;
         private IObservable<Unit> completed;
+
+        private IDisposable topAppBarDisposable;
+        private IDisposable rightAppBarDisposable;
+        private IDisposable leftAppBarDisposable;
+        private IDisposable bottomAppBarDisposable;
 
         #region Dependency Properties
 
@@ -72,6 +78,206 @@ namespace ReactiveApp.Xaml.Controls
         /// </summary>
         protected virtual void OnShellChanged(ReactiveShell oldFrame, ReactiveShell newFrame)
         {
+        }
+
+        #endregion
+
+        #region TopAppBar (Dependency Property)
+
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for  TopAppBar.  This enables animation, styling, binding, etc...    
+        /// </summary>
+        public static readonly DependencyProperty TopAppBarProperty =
+            DependencyProperty.Register(
+                "TopAppBar",
+                typeof(ReactiveAppBar),
+                typeof(ReactiveView),
+                new PropertyMetadata(null, new PropertyChangedCallback(OnTopAppBarChanged))
+            );
+
+        /// <summary>
+        /// The top application bar.
+        /// </summary>
+        public ReactiveAppBar TopAppBar
+        {
+            get { return (ReactiveAppBar)this.GetValue(TopAppBarProperty); }
+            set { this.SetValue(TopAppBarProperty, value); }
+        }
+
+        private static void OnTopAppBarChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
+        {
+            ((ReactiveView)sender).OnTopAppBarChanged((ReactiveAppBar)e.OldValue, (ReactiveAppBar)e.NewValue);
+        }
+
+        /// <summary>
+        /// Called when the TopAppBar is changed.
+        /// </summary>
+        protected virtual void OnTopAppBarChanged(ReactiveAppBar oldTopAppBar, ReactiveAppBar newTopAppBar)
+        {
+            if (topAppBarDisposable != null)
+            {
+                oldTopAppBar.DataContext = null;
+                topAppBarDisposable.Dispose();
+                if (newTopAppBar != null)
+                {
+                    newTopAppBar.PlacementMode = PlacementMode.Top;
+                    if (newTopAppBar.DataContext == null)
+                    {
+                        newTopAppBar.SetBinding(ReactiveAppBar.DataContextProperty, dataContextBinding);
+                    }
+                    topAppBarDisposable = ReactiveAppBarManager.Instance.RegisterAppBar(newTopAppBar);
+                }
+            }
+        }
+
+        #endregion
+
+        #region RightAppBar (Dependency Property)
+
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for  RightAppBar.  This enables animation, styling, binding, etc...    
+        /// </summary>
+        public static readonly DependencyProperty RightAppBarProperty =
+            DependencyProperty.Register(
+                "RightAppBar",
+                typeof(ReactiveAppBar),
+                typeof(ReactiveView),
+                new PropertyMetadata(null, new PropertyChangedCallback(OnRightAppBarChanged))
+            );
+
+        /// <summary>
+        /// The right application bar.
+        /// </summary>
+        public ReactiveAppBar RightAppBar
+        {
+            get { return (ReactiveAppBar)this.GetValue(RightAppBarProperty); }
+            set { this.SetValue(RightAppBarProperty, value); }
+        }
+
+        private static void OnRightAppBarChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
+        {
+            ((ReactiveView)sender).OnRightAppBarChanged((ReactiveAppBar)e.OldValue, (ReactiveAppBar)e.NewValue);
+        }
+
+        /// <summary>
+        /// Called when the RightAppBar is changed.
+        /// </summary>
+        protected virtual void OnRightAppBarChanged(ReactiveAppBar oldRightAppBar, ReactiveAppBar newRightAppBar)
+        {
+            if (rightAppBarDisposable != null)
+            {
+                oldRightAppBar.DataContext = null;
+                rightAppBarDisposable.Dispose();
+                if (newRightAppBar != null)
+                {
+                    newRightAppBar.PlacementMode = PlacementMode.Right;
+                    if (newRightAppBar.DataContext == null)
+                    {
+                        newRightAppBar.SetBinding(ReactiveAppBar.DataContextProperty, dataContextBinding);
+                    }
+                    rightAppBarDisposable = ReactiveAppBarManager.Instance.RegisterAppBar(newRightAppBar);
+                }
+            }
+        }
+
+        #endregion
+
+        #region BottomAppBar (Dependency Property)
+
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for  BottomAppBar.  This enables animation, styling, binding, etc...    
+        /// </summary>
+        public static readonly DependencyProperty BottomAppBarProperty =
+            DependencyProperty.Register(
+                "BottomAppBar",
+                typeof(ReactiveAppBar),
+                typeof(ReactiveView),
+                new PropertyMetadata(null, new PropertyChangedCallback(OnBottomAppBarChanged))
+            );
+
+        /// <summary>
+        /// The bottom application bar.
+        /// </summary>
+        public ReactiveAppBar BottomAppBar
+        {
+            get { return (ReactiveAppBar)this.GetValue(BottomAppBarProperty); }
+            set { this.SetValue(BottomAppBarProperty, value); }
+        }
+
+        private static void OnBottomAppBarChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
+        {
+            ((ReactiveView)sender).OnBottomAppBarChanged((ReactiveAppBar)e.OldValue, (ReactiveAppBar)e.NewValue);
+        }
+
+        /// <summary>
+        /// Called when the BottomAppBar is changed.
+        /// </summary>
+        protected virtual void OnBottomAppBarChanged(ReactiveAppBar oldBottomAppBar, ReactiveAppBar newBottomAppBar)
+        {
+            if (bottomAppBarDisposable != null)
+            {
+                oldBottomAppBar.DataContext = null;
+                bottomAppBarDisposable.Dispose();
+                if (newBottomAppBar != null)
+                {
+                    newBottomAppBar.PlacementMode = PlacementMode.Bottom;
+                    if (newBottomAppBar.DataContext == null)
+                    {
+                        newBottomAppBar.SetBinding(ReactiveAppBar.DataContextProperty, dataContextBinding);
+                    }
+                    bottomAppBarDisposable = ReactiveAppBarManager.Instance.RegisterAppBar(newBottomAppBar);
+                }
+            }
+        }
+
+        #endregion
+
+        #region LeftAppBar (Dependency Property)
+
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for  LeftAppBar.  This enables animation, styling, binding, etc...    
+        /// </summary>
+        public static readonly DependencyProperty LeftAppBarProperty =
+            DependencyProperty.Register(
+                "LeftAppBar",
+                typeof(ReactiveAppBar),
+                typeof(ReactiveView),
+                new PropertyMetadata(null, new PropertyChangedCallback(OnLeftAppBarChanged))
+            );
+
+        /// <summary>
+        /// The left application bar.
+        /// </summary>
+        public ReactiveAppBar LeftAppBar
+        {
+            get { return (ReactiveAppBar)this.GetValue(LeftAppBarProperty); }
+            set { this.SetValue(LeftAppBarProperty, value); }
+        }
+
+        private static void OnLeftAppBarChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
+        {
+            ((ReactiveView)sender).OnLeftAppBarChanged((ReactiveAppBar)e.OldValue, (ReactiveAppBar)e.NewValue);
+        }
+
+        /// <summary>
+        /// Called when the LeftAppBar is changed.
+        /// </summary>
+        protected virtual void OnLeftAppBarChanged(ReactiveAppBar oldLeftAppBar, ReactiveAppBar newLeftAppBar)
+        {
+            if (leftAppBarDisposable != null)
+            {
+                oldLeftAppBar.DataContext = null;
+                leftAppBarDisposable.Dispose();
+                if (newLeftAppBar != null)
+                {
+                    newLeftAppBar.PlacementMode = PlacementMode.Right;
+                    if (newLeftAppBar.DataContext == null)
+                    {
+                        newLeftAppBar.SetBinding(ReactiveAppBar.DataContextProperty, dataContextBinding);
+                    }
+                    leftAppBarDisposable = ReactiveAppBarManager.Instance.RegisterAppBar(newLeftAppBar);
+                }
+            }
         }
 
         #endregion
@@ -143,8 +349,9 @@ namespace ReactiveApp.Xaml.Controls
             return completed;
         }
 
-        internal IObservable<Unit> OnNavigatedFromInternalAsync(ReactiveShell frame, NavigatedInfo e)
+        internal IObservable<Unit> OnNavigatedFromInternalAsync(ReactiveShell shell, NavigatedInfo e)
         {
+            this.UnregisterAppBars();
             return OnNavigatedFromAsync(e);
         }
 
@@ -162,8 +369,10 @@ namespace ReactiveApp.Xaml.Controls
             return completed;
         }
 
-        internal IObservable<Unit> OnNavigatedToInternalAsync(ReactiveShell frame, NavigatedInfo e)
+        internal IObservable<Unit> OnNavigatedToInternalAsync(ReactiveShell shell, NavigatedInfo e)
         {
+            this.UnregisterAppBars();
+            this.RegisterAppBars();
             return OnNavigatedToAsync(e);
         }
 
@@ -199,5 +408,42 @@ namespace ReactiveApp.Xaml.Controls
 
             return factory.GetLogger<ReactiveView>();
         }
+
+        private void RegisterAppBars()
+        {
+            this.topAppBarDisposable = ReactiveAppBarManager.Instance.RegisterAppBar(this.TopAppBar);
+            this.rightAppBarDisposable = ReactiveAppBarManager.Instance.RegisterAppBar(this.RightAppBar);
+            this.bottomAppBarDisposable = ReactiveAppBarManager.Instance.RegisterAppBar(this.BottomAppBar);
+            this.leftAppBarDisposable = ReactiveAppBarManager.Instance.RegisterAppBar(this.LeftAppBar);
+        }
+
+        private void UnregisterAppBars()
+        {
+            if (this.topAppBarDisposable != null)
+            {
+                this.topAppBarDisposable.Dispose();
+            }
+            if (this.rightAppBarDisposable != null)
+            {
+                this.rightAppBarDisposable.Dispose();
+            }
+            if (this.leftAppBarDisposable != null)
+            {
+                this.leftAppBarDisposable.Dispose();
+            }
+            if (this.bottomAppBarDisposable != null)
+            {
+                this.bottomAppBarDisposable.Dispose();
+            }
+        }
+
+#if DEBUG
+        ~ReactiveView()
+        {
+            string debug = string.Format("ReactiveView {0} finalised.", this.GetHashCode());
+            Debug.WriteLine(debug);
+            this.Log().Debug(debug);
+        }
+#endif
     }
 }
