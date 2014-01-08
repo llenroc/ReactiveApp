@@ -103,11 +103,17 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="..\ReactiveApp.Xaml.Win8\Controls\Shell\ReactiveAppBar.cs">
-      <Link>Controls\Shell\ReactiveAppBar.cs</Link>
+    <Compile Include="..\ReactiveApp.Xaml.Win8\Controls\AppBar\IReactiveAppBarManager.cs">
+      <Link>Controls\AppBar\IReactiveAppBarManager.cs</Link>
     </Compile>
-    <Compile Include="..\ReactiveApp.Xaml.Win8\Controls\Shell\ReactiveAppBarMode.cs">
-      <Link>Controls\Shell\ReactiveAppBarMode.cs</Link>
+    <Compile Include="..\ReactiveApp.Xaml.Win8\Controls\AppBar\ReactiveAppBar.cs">
+      <Link>Controls\AppBar\ReactiveAppBar.cs</Link>
+    </Compile>
+    <Compile Include="..\ReactiveApp.Xaml.Win8\Controls\AppBar\ReactiveAppBarManager.cs">
+      <Link>Controls\AppBar\ReactiveAppBarManager.cs</Link>
+    </Compile>
+    <Compile Include="..\ReactiveApp.Xaml.Win8\Controls\AppBar\ReactiveAppBarMode.cs">
+      <Link>Controls\AppBar\ReactiveAppBarMode.cs</Link>
     </Compile>
     <Compile Include="..\ReactiveApp.Xaml.Win8\Controls\Shell\ReactiveShell.cs">
       <Link>Controls\Shell\ReactiveShell.cs</Link>
@@ -145,8 +151,11 @@
     <Compile Include="..\ReactiveApp.Xaml.Win8\ReactiveApplication.cs">
       <Link>ReactiveApplication.cs</Link>
     </Compile>
-    <Compile Include="..\ReactiveApp.Xaml.Win8\Services\WinRTSuspensionService.cs">
-      <Link>Services\WinRTSuspensionService.cs</Link>
+    <Compile Include="..\ReactiveApp.Xaml.Win8\Services\SuspensionService.cs">
+      <Link>Services\SuspensionService.cs</Link>
+    </Compile>
+    <Compile Include="..\ReactiveApp.Xaml.Win8\Services\SystemTrayManager.cs">
+      <Link>Services\SystemTrayManager.cs</Link>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\OrientationManager.cs" />
@@ -164,13 +173,11 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="ReactiveUI, Version=5.99.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\reactiveui-core.5.99.0-beta\lib\Portable-Net45+WinRT45+WP8\ReactiveUI.dll</HintPath>
+    <Reference Include="ReactiveUI">
+      <HintPath>..\..\packages\reactiveui-core.5.99.1-beta\lib\Portable-Net45+WinRT45+WP8\ReactiveUI.dll</HintPath>
     </Reference>
-    <Reference Include="ReactiveUI.Xaml, Version=5.99.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\reactiveui-platforms.5.99.0-beta\lib\WinRT45\ReactiveUI.Xaml.dll</HintPath>
+    <Reference Include="ReactiveUI.Xaml">
+      <HintPath>..\..\packages\reactiveui-platforms.5.99.1-beta\lib\WinRT45\ReactiveUI.Xaml.dll</HintPath>
     </Reference>
     <Reference Include="Splat">
       <HintPath>..\..\packages\Splat.1.1.1\lib\NetCore45\Splat.dll</HintPath>
@@ -203,6 +210,7 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '12.0' ">
     <VisualStudioVersion>12.0</VisualStudioVersion>
   </PropertyGroup>

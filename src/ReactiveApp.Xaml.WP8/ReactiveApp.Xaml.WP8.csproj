@@ -83,11 +83,17 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="..\ReactiveApp.Xaml.Win8\Controls\Shell\ReactiveAppBar.cs">
-      <Link>Controls\Shell\ReactiveAppBar.cs</Link>
+    <Compile Include="..\ReactiveApp.Xaml.Win8\Controls\AppBar\IReactiveAppBarManager.cs">
+      <Link>Controls\AppBar\IReactiveAppBarManager.cs</Link>
     </Compile>
-    <Compile Include="..\ReactiveApp.Xaml.Win8\Controls\Shell\ReactiveAppBarMode.cs">
-      <Link>Controls\Shell\ReactiveAppBarMode.cs</Link>
+    <Compile Include="..\ReactiveApp.Xaml.Win8\Controls\AppBar\ReactiveAppBar.cs">
+      <Link>Controls\AppBar\ReactiveAppBar.cs</Link>
+    </Compile>
+    <Compile Include="..\ReactiveApp.Xaml.Win8\Controls\AppBar\ReactiveAppBarManager.cs">
+      <Link>Controls\AppBar\ReactiveAppBarManager.cs</Link>
+    </Compile>
+    <Compile Include="..\ReactiveApp.Xaml.Win8\Controls\AppBar\ReactiveAppBarMode.cs">
+      <Link>Controls\AppBar\ReactiveAppBarMode.cs</Link>
     </Compile>
     <Compile Include="..\ReactiveApp.Xaml.Win8\Controls\Shell\ReactiveShell.cs">
       <Link>Controls\Shell\ReactiveShell.cs</Link>
@@ -133,7 +139,8 @@
     <Compile Include="Controls\PhoneFrameHelper.cs" />
     <Compile Include="Services\DisplayOrientations.cs" />
     <Compile Include="Services\OrientationManager.cs" />
-    <Compile Include="Services\WP8SuspensionService.cs" />
+    <Compile Include="Services\SystemTrayManager.cs" />
+    <Compile Include="Services\SuspensionService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ReactiveApp\ReactiveApp.csproj">
@@ -142,17 +149,17 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="ReactiveUI, Version=5.99.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="ReactiveUI, Version=5.99.1.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\reactiveui-core.5.99.0-beta\lib\Portable-Net45+WinRT45+WP8\ReactiveUI.dll</HintPath>
+      <HintPath>..\..\packages\reactiveui-core.5.99.1-beta\lib\Portable-Net45+WinRT45+WP8\ReactiveUI.dll</HintPath>
     </Reference>
-    <Reference Include="ReactiveUI.Blend, Version=5.99.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="ReactiveUI.Blend, Version=5.99.1.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\reactiveui-platforms.5.99.0-beta\lib\WP8\ReactiveUI.Blend.dll</HintPath>
+      <HintPath>..\..\packages\reactiveui-platforms.5.99.1-beta\lib\WP8\ReactiveUI.Blend.dll</HintPath>
     </Reference>
-    <Reference Include="ReactiveUI.Xaml, Version=5.99.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="ReactiveUI.Xaml, Version=5.99.1.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\reactiveui-platforms.5.99.0-beta\lib\WP8\ReactiveUI.Xaml.dll</HintPath>
+      <HintPath>..\..\packages\reactiveui-platforms.5.99.1-beta\lib\WP8\ReactiveUI.Xaml.dll</HintPath>
     </Reference>
     <Reference Include="Splat">
       <HintPath>..\..\packages\Splat.1.1.1\lib\wp8\Splat.dll</HintPath>
@@ -191,6 +198,7 @@
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkVersion)\Microsoft.$(TargetFrameworkIdentifier).$(TargetFrameworkVersion).Overrides.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkVersion)\Microsoft.$(TargetFrameworkIdentifier).CSharp.targets" />
   <ProjectExtensions />
