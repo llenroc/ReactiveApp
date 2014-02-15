@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Reactive;
+using System.Reactive.Disposables;
 using System.Reactive.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,7 +22,6 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Markup;
-using System.Diagnostics;
 #endif
 
 namespace ReactiveApp.Xaml.Controls
@@ -38,11 +39,12 @@ namespace ReactiveApp.Xaml.Controls
     {
         private Binding dataContextBinding;
         private IObservable<Unit> completed;
+        private bool areAppBarsregistered = false;
 
-        private IDisposable topAppBarDisposable;
-        private IDisposable rightAppBarDisposable;
-        private IDisposable leftAppBarDisposable;
-        private IDisposable bottomAppBarDisposable;
+        private IDisposable topAppBarDisposable = Disposable.Empty;
+        private IDisposable rightAppBarDisposable = Disposable.Empty;
+        private IDisposable leftAppBarDisposable = Disposable.Empty;
+        private IDisposable bottomAppBarDisposable = Disposable.Empty;
 
         #region Dependency Properties
 
@@ -53,7 +55,7 @@ namespace ReactiveApp.Xaml.Controls
         /// </summary>
         public static readonly DependencyProperty ShellProperty =
             DependencyProperty.Register(
-                "Frame",
+                "Shell",
                 typeof(ReactiveShell),
                 typeof(ReactiveView),
                 new PropertyMetadata(null, new PropertyChangedCallback(OnShellChanged))
@@ -114,18 +116,23 @@ namespace ReactiveApp.Xaml.Controls
         /// </summary>
         protected virtual void OnTopAppBarChanged(ReactiveAppBar oldTopAppBar, ReactiveAppBar newTopAppBar)
         {
-            if (topAppBarDisposable != null)
+            topAppBarDisposable.Dispose();
+            if (oldTopAppBar != null)
             {
                 oldTopAppBar.DataContext = null;
-                topAppBarDisposable.Dispose();
-                if (newTopAppBar != null)
+            }
+            if (newTopAppBar != null)
+            {
+                newTopAppBar.PlacementMode = PlacementMode.Top;
+                newTopAppBar.HorizontalAlignment = HorizontalAlignment.Stretch;
+                newTopAppBar.VerticalAlignment = VerticalAlignment.Top;
+                if (newTopAppBar.DataContext == null)
                 {
-                    newTopAppBar.PlacementMode = PlacementMode.Top;
-                    if (newTopAppBar.DataContext == null)
-                    {
-                        newTopAppBar.SetBinding(ReactiveAppBar.DataContextProperty, dataContextBinding);
-                    }
-                    topAppBarDisposable = ReactiveAppBarManager.Instance.RegisterAppBar(newTopAppBar);
+                    newTopAppBar.SetBinding(ReactiveAppBar.DataContextProperty, dataContextBinding);
+                }
+                if (areAppBarsregistered)
+                {
+                    topAppBarDisposable = ReactiveAppBarManager.Instance.AddAppBar(newTopAppBar);
                 }
             }
         }
@@ -164,18 +171,23 @@ namespace ReactiveApp.Xaml.Controls
         /// </summary>
         protected virtual void OnRightAppBarChanged(ReactiveAppBar oldRightAppBar, ReactiveAppBar newRightAppBar)
         {
-            if (rightAppBarDisposable != null)
+            rightAppBarDisposable.Dispose();
+            if (oldRightAppBar != null)
             {
                 oldRightAppBar.DataContext = null;
-                rightAppBarDisposable.Dispose();
-                if (newRightAppBar != null)
+            }
+            if (newRightAppBar != null)
+            {
+                newRightAppBar.PlacementMode = PlacementMode.Right;
+                newRightAppBar.HorizontalAlignment = HorizontalAlignment.Right;
+                newRightAppBar.VerticalAlignment = VerticalAlignment.Stretch;
+                if (newRightAppBar.DataContext == null)
                 {
-                    newRightAppBar.PlacementMode = PlacementMode.Right;
-                    if (newRightAppBar.DataContext == null)
-                    {
-                        newRightAppBar.SetBinding(ReactiveAppBar.DataContextProperty, dataContextBinding);
-                    }
-                    rightAppBarDisposable = ReactiveAppBarManager.Instance.RegisterAppBar(newRightAppBar);
+                    newRightAppBar.SetBinding(ReactiveAppBar.DataContextProperty, dataContextBinding);
+                }
+                if (this.areAppBarsregistered)
+                {
+                    rightAppBarDisposable = ReactiveAppBarManager.Instance.AddAppBar(newRightAppBar);
                 }
             }
         }
@@ -214,18 +226,23 @@ namespace ReactiveApp.Xaml.Controls
         /// </summary>
         protected virtual void OnBottomAppBarChanged(ReactiveAppBar oldBottomAppBar, ReactiveAppBar newBottomAppBar)
         {
-            if (bottomAppBarDisposable != null)
+            bottomAppBarDisposable.Dispose();
+            if (oldBottomAppBar != null)
             {
                 oldBottomAppBar.DataContext = null;
-                bottomAppBarDisposable.Dispose();
-                if (newBottomAppBar != null)
+            }
+            if (newBottomAppBar != null)
+            {
+                newBottomAppBar.PlacementMode = PlacementMode.Bottom;
+                newBottomAppBar.HorizontalAlignment = HorizontalAlignment.Stretch;
+                newBottomAppBar.VerticalAlignment = VerticalAlignment.Bottom;
+                if (newBottomAppBar.DataContext == null)
                 {
-                    newBottomAppBar.PlacementMode = PlacementMode.Bottom;
-                    if (newBottomAppBar.DataContext == null)
-                    {
-                        newBottomAppBar.SetBinding(ReactiveAppBar.DataContextProperty, dataContextBinding);
-                    }
-                    bottomAppBarDisposable = ReactiveAppBarManager.Instance.RegisterAppBar(newBottomAppBar);
+                    newBottomAppBar.SetBinding(ReactiveAppBar.DataContextProperty, dataContextBinding);
+                }
+                if (this.areAppBarsregistered)
+                {
+                    bottomAppBarDisposable = ReactiveAppBarManager.Instance.AddAppBar(newBottomAppBar);
                 }
             }
         }
@@ -264,18 +281,23 @@ namespace ReactiveApp.Xaml.Controls
         /// </summary>
         protected virtual void OnLeftAppBarChanged(ReactiveAppBar oldLeftAppBar, ReactiveAppBar newLeftAppBar)
         {
-            if (leftAppBarDisposable != null)
+            leftAppBarDisposable.Dispose();
+            if (oldLeftAppBar != null)
             {
                 oldLeftAppBar.DataContext = null;
-                leftAppBarDisposable.Dispose();
-                if (newLeftAppBar != null)
+            }
+            if (newLeftAppBar != null)
+            {
+                newLeftAppBar.PlacementMode = PlacementMode.Left;
+                newLeftAppBar.HorizontalAlignment = HorizontalAlignment.Left;
+                newLeftAppBar.VerticalAlignment = VerticalAlignment.Stretch;
+                if (newLeftAppBar.DataContext == null)
                 {
-                    newLeftAppBar.PlacementMode = PlacementMode.Right;
-                    if (newLeftAppBar.DataContext == null)
-                    {
-                        newLeftAppBar.SetBinding(ReactiveAppBar.DataContextProperty, dataContextBinding);
-                    }
-                    leftAppBarDisposable = ReactiveAppBarManager.Instance.RegisterAppBar(newLeftAppBar);
+                    newLeftAppBar.SetBinding(ReactiveAppBar.DataContextProperty, dataContextBinding);
+                }
+                if (this.areAppBarsregistered)
+                {
+                    leftAppBarDisposable = ReactiveAppBarManager.Instance.AddAppBar(newLeftAppBar);
                 }
             }
         }
@@ -286,6 +308,9 @@ namespace ReactiveApp.Xaml.Controls
 
         #region Constructors
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ReactiveView"/> class.
+        /// </summary>
         public ReactiveView()
         {
             dataContextBinding = new Binding() { Source = this, Path = new PropertyPath("DataContext") };
@@ -371,7 +396,6 @@ namespace ReactiveApp.Xaml.Controls
 
         internal IObservable<Unit> OnNavigatedToInternalAsync(ReactiveShell shell, NavigatedInfo e)
         {
-            this.UnregisterAppBars();
             this.RegisterAppBars();
             return OnNavigatedToAsync(e);
         }
@@ -411,30 +435,20 @@ namespace ReactiveApp.Xaml.Controls
 
         private void RegisterAppBars()
         {
-            this.topAppBarDisposable = ReactiveAppBarManager.Instance.RegisterAppBar(this.TopAppBar);
-            this.rightAppBarDisposable = ReactiveAppBarManager.Instance.RegisterAppBar(this.RightAppBar);
-            this.bottomAppBarDisposable = ReactiveAppBarManager.Instance.RegisterAppBar(this.BottomAppBar);
-            this.leftAppBarDisposable = ReactiveAppBarManager.Instance.RegisterAppBar(this.LeftAppBar);
+            this.topAppBarDisposable = this.TopAppBar != null ? ReactiveAppBarManager.Instance.AddAppBar(this.TopAppBar) : Disposable.Empty;
+            this.rightAppBarDisposable = this.RightAppBar != null ? ReactiveAppBarManager.Instance.AddAppBar(this.RightAppBar) : Disposable.Empty;
+            this.bottomAppBarDisposable = this.BottomAppBar != null ? ReactiveAppBarManager.Instance.AddAppBar(this.BottomAppBar) : Disposable.Empty;
+            this.leftAppBarDisposable = this.LeftAppBar != null ? ReactiveAppBarManager.Instance.AddAppBar(this.LeftAppBar) : Disposable.Empty;
+            this.areAppBarsregistered = true;
         }
 
         private void UnregisterAppBars()
         {
-            if (this.topAppBarDisposable != null)
-            {
-                this.topAppBarDisposable.Dispose();
-            }
-            if (this.rightAppBarDisposable != null)
-            {
-                this.rightAppBarDisposable.Dispose();
-            }
-            if (this.leftAppBarDisposable != null)
-            {
-                this.leftAppBarDisposable.Dispose();
-            }
-            if (this.bottomAppBarDisposable != null)
-            {
-                this.bottomAppBarDisposable.Dispose();
-            }
+            this.areAppBarsregistered = false;
+            this.topAppBarDisposable.Dispose();
+            this.rightAppBarDisposable.Dispose();
+            this.leftAppBarDisposable.Dispose();
+            this.bottomAppBarDisposable.Dispose();
         }
 
 #if DEBUG
