@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Reactive;
 using System.Reactive.Concurrency;
@@ -19,7 +20,6 @@ using Splat;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
-using System.Diagnostics;
 #else
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
@@ -437,10 +437,10 @@ namespace ReactiveApp.Xaml.Controls
 
         private IDisposable DisableFrameInteractivity()
         {
-            this.IsHitTestVisible = true;
+            this.IsHitTestVisible = false;
             return Disposable.Create(() =>
             {
-                this.IsHitTestVisible = false;
+                this.IsHitTestVisible = true;
             });
         }
 
