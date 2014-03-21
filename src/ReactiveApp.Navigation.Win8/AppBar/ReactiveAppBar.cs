@@ -25,7 +25,7 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Animation;
 #endif
 
-namespace ReactiveApp.Xaml.Controls
+namespace ReactiveApp.Navigation
 {
     [TemplatePart(Name = LayoutRootPartName, Type = typeof(FrameworkElement))]
     [TemplatePart(Name = ContentPartName, Type = typeof(ContentPresenter))]
@@ -391,7 +391,7 @@ namespace ReactiveApp.Xaml.Controls
 
         /// <summary>
         /// Gets or sets the distance that the ReactiveAppBar extends into a page when the 
-        /// <see cref="P:Methylium.Xaml.Controls.ReactiveAppBar.Mode"/> property is set to <see cref="F:Methylium.Xaml.Controls.ReactiveAppBarMode.Expanded"/>.
+        /// <see cref="P:Methylium.Navigation.ReactiveAppBar.Mode"/> property is set to <see cref="F:Methylium.Navigation.ReactiveAppBarMode.Expanded"/>.
         /// </summary>
         /// <returns>
         /// The distance that the ReactiveAppBar extends into a page.
@@ -420,7 +420,7 @@ namespace ReactiveApp.Xaml.Controls
 
         /// <summary>
         /// Gets or sets the distance that the ReactiveAppBar extends into a page when the 
-        /// <see cref="P:Methylium.Xaml.Controls.ReactiveAppBar.Mode"/> property is set to <see cref="F:Methylium.Xaml.Controls.ReactiveAppBarMode.Minimized"/>.
+        /// <see cref="P:Methylium.Navigation.ReactiveAppBar.Mode"/> property is set to <see cref="F:Methylium.Navigation.ReactiveAppBarMode.Minimized"/>.
         /// </summary>
         /// <returns>
         /// The distance that the ReactiveAppBar extends into a page.

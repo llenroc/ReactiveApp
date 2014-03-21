@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace ReactiveApp.Xaml.Controls
+namespace ReactiveApp.Navigation
 {
     /// <summary>
     /// Specifies the different modes of the ReactiveAppBar when it is not opened.

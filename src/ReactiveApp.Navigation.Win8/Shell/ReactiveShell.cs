@@ -26,7 +26,7 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml;
 #endif
 
-namespace ReactiveApp.Xaml.Controls
+namespace ReactiveApp.Navigation
 {
     /// <summary>
     /// 

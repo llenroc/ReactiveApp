@@ -24,7 +24,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Markup;
 #endif
 
-namespace ReactiveApp.Xaml.Controls
+namespace ReactiveApp.Navigation
 {
     /// <summary>
     /// Class similar to the Page class on Windows and PhoneApplicationPage on Windows Phone.

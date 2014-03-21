@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ReactiveApp.Interfaces;
 
-namespace ReactiveApp.Xaml.Controls
+namespace ReactiveApp.Navigation
 {
     internal class ViewCache
     {
