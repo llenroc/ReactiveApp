@@ -106,14 +106,20 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controls\AppBar\IReactiveAppBarManager.cs" />
+    <Compile Include="Controls\Animation\Animator.cs" />
+    <Compile Include="Services\IOrientationManager.cs" />
+    <Compile Include="Services\IReactiveAppBarManager.cs" />
     <Compile Include="Controls\AppBar\ReactiveAppBar.cs" />
-    <Compile Include="Controls\AppBar\ReactiveAppBarManager.cs" />
+    <Compile Include="Services\ISystemTrayManager.cs" />
+    <Compile Include="Services\ReactiveAppBarManager.cs" />
     <Compile Include="Controls\AppBar\ReactiveAppBarMode.cs" />
     <Compile Include="Controls\Shell\ReactiveShell.cs" />
     <Compile Include="Controls\Shell\ReactiveView.cs" />
     <Compile Include="Controls\Shell\ViewCache.cs" />
     <Compile Include="Controls\Shell\ViewLoader.cs" />
+    <Compile Include="Controls\SystemTray\IProgressIndicator.cs" />
+    <Compile Include="Controls\SystemTray\ProgressIndicator.cs" />
+    <Compile Include="Controls\SystemTray\SystemTray.cs" />
     <Compile Include="Controls\Transitions\ViewTransition.cs" />
     <Compile Include="Controls\Transitions\ViewTransitionMode.cs" />
     <Compile Include="Controls\Transitions\ViewTransitions.cs" />
@@ -123,6 +129,7 @@
     <Compile Include="Platform\XamlViewEvents.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReactiveApplication.cs" />
+    <Compile Include="Services\GestureService.cs" />
     <Compile Include="Services\OrientationManager.cs" />
     <Compile Include="Services\SuspensionService.cs" />
     <Compile Include="Services\SystemTrayManager.cs" />
@@ -134,14 +141,20 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="ReactiveUI">
-      <HintPath>..\..\packages\reactiveui-core.5.99.1-beta\lib\Portable-Net45+WinRT45+WP8\ReactiveUI.dll</HintPath>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\..\packages\Newtonsoft.Json.6.0.1\lib\netcore45\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="ReactiveUI.Xaml">
-      <HintPath>..\..\packages\reactiveui-platforms.5.99.1-beta\lib\WinRT45\ReactiveUI.Xaml.dll</HintPath>
+    <Reference Include="ReactiveUI, Version=5.99.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\reactiveui-core.5.99.4-beta\lib\Portable-Net45+WinRT45+WP8\ReactiveUI.dll</HintPath>
     </Reference>
-    <Reference Include="Splat">
-      <HintPath>..\..\packages\Splat.1.1.1\lib\NetCore45\Splat.dll</HintPath>
+    <Reference Include="ReactiveUI.Xaml, Version=5.99.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\reactiveui-platforms.5.99.4-beta\lib\WinRT45\ReactiveUI.Xaml.dll</HintPath>
+    </Reference>
+    <Reference Include="Splat, Version=1.2.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Splat.1.2.1\lib\NetCore45\Splat.dll</HintPath>
     </Reference>
     <Reference Include="System.Reactive.Core, Version=2.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -157,7 +170,7 @@
     </Reference>
     <Reference Include="System.Reactive.PlatformServices, Version=2.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Rx-PlatformServices.2.2.2\lib\windows8\System.Reactive.PlatformServices.dll</HintPath>
+      <HintPath>..\..\packages\Rx-PlatformServices.2.2.3\lib\windows8\System.Reactive.PlatformServices.dll</HintPath>
     </Reference>
     <Reference Include="System.Reactive.Windows.Threading, Version=2.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
