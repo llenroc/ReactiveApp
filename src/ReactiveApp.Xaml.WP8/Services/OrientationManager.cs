@@ -4,29 +4,42 @@ using System.Linq;
 using System.Reactive.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
 using ReactiveApp.Xaml.Controls;
 
 namespace ReactiveApp.Xaml.Services
 {
-    public class OrientationManager
+    public class OrientationManager : IOrientationManager
     {
-        private static IPhoneFrameHelper frameHelper;
+        private static ReactiveApplication rxApp;
         private static DisplayOrientations preferred = DisplayOrientations.Landscape | DisplayOrientations.Portrait;
 
-        internal static void Initialize(IPhoneFrameHelper f)
+        private static Lazy<OrientationManager> instance = new Lazy<OrientationManager>(() => new OrientationManager());
+
+        public static IOrientationManager Instance
         {
-            frameHelper = f;
+            get { return instance.Value; }
+        }
 
-            OrientationChanged = Observable.FromEventPattern<OrientationChangedEventArgs>(h => frameHelper.Frame.OrientationChanged += h, h => frameHelper.Frame.OrientationChanged -= h)
-               .Select(_ => _.EventArgs.Orientation.AsDisplayOrientations()).Publish().RefCount();
+        private OrientationManager()
+        {
+            rxApp = Application.Current as ReactiveApplication;
 
-            Observable.FromEventPattern<NavigatedEventHandler, NavigationEventArgs>(h => frameHelper.Frame.Navigated += h, h => frameHelper.Frame.Navigated -= h)
+            if (rxApp == null)
+            {
+                throw new InvalidOperationException("OrientationManager requires ReactiveApplication.");
+            }
+                
+            OrientationChanged = Observable.FromEventPattern<OrientationChangedEventArgs>(h => rxApp.frameHelper.Frame.OrientationChanged += h, h => rxApp.frameHelper.Frame.OrientationChanged -= h)
+                .Select(_ => _.EventArgs.Orientation.AsDisplayOrientations()).Publish().RefCount();
+
+            Observable.FromEventPattern<NavigatedEventHandler, NavigationEventArgs>(h => rxApp.frameHelper.Frame.Navigated += h, h => rxApp.frameHelper.Frame.Navigated -= h)
                 .Where(ep => ep.EventArgs.Content != null).Subscribe(ep =>
             {
                 PhoneApplicationPage page = ep.EventArgs.Content as PhoneApplicationPage;
-                if (page != null)
+                if (page != null && page.GetType() == typeof(BackwardsCompatibilityPage))
                 {
                     page.SupportedOrientations = preferred.AsSupportedPageOrientation();
                 }
@@ -35,7 +48,7 @@ namespace ReactiveApp.Xaml.Services
 
         public static DisplayOrientations Orientation
         {
-            get { return frameHelper.Frame.Orientation.AsDisplayOrientations(); }
+            get { return rxApp.frameHelper.Frame.Orientation.AsDisplayOrientations(); }
         }
 
         public static DisplayOrientations PreferredOrientation
@@ -44,7 +57,7 @@ namespace ReactiveApp.Xaml.Services
             set
             {
                 preferred = value;
-                PhoneApplicationPage page = frameHelper.Frame.Content as PhoneApplicationPage;
+                PhoneApplicationPage page = rxApp.frameHelper.Frame.Content as PhoneApplicationPage;
                 if (page != null)
                 {
                     page.SupportedOrientations = preferred.AsSupportedPageOrientation();
@@ -55,7 +68,7 @@ namespace ReactiveApp.Xaml.Services
         public static IObservable<DisplayOrientations> OrientationChanged { get; private set; }
     }
 
-    private static class OrientationExtensions
+    public static class OrientationExtensions
     {
         public static DisplayOrientations AsDisplayOrientations(this PageOrientation o)
         {

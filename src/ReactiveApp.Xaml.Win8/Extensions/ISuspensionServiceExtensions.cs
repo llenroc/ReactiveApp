@@ -13,7 +13,7 @@ namespace ReactiveApp.Xaml
     {
         public static void SetupStartup(this ISuspensionService This, ReactiveApplication app)
         {
-            Observable.Merge(This.IsLaunchingNew, This.IsResuming, This.IsUnpausing).SelectMany(args => app.View(args)).Subscribe();
+            Observable.Merge(This.IsLaunchingNew, This.IsResuming, This.IsUnpausing).SelectMany(args => app.View(args).FirstOrDefaultAsync()).Subscribe();
         }
     }
 }

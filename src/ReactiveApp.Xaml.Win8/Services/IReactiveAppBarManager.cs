@@ -8,6 +8,6 @@ namespace ReactiveApp.Xaml.Controls
 {
     public interface IReactiveAppBarManager
     {
-        IDisposable RegisterAppBar(ReactiveAppBar appbar);
+        IDisposable AddAppBar(ReactiveAppBar appbar);
     }
 }

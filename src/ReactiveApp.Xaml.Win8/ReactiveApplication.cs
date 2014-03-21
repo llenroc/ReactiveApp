@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reactive;
+using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 using ReactiveApp.Interfaces;
 using ReactiveApp.Services;
 using ReactiveApp.Xaml.Controls;
-using ReactiveApp.Xaml.Controls;
+using ReactiveApp.Xaml.Services;
 using ReactiveUI;
 using Splat;
 
@@ -19,7 +20,6 @@ using Windows.ApplicationModel.Activation;
 #else
 using System.Windows;
 using Microsoft.Phone.Shell;
-using System.Reactive.Linq;
 #endif
 
 namespace ReactiveApp.Xaml
@@ -51,13 +51,13 @@ namespace ReactiveApp.Xaml
 
             this.Log().Info("Creating SuspensionService.");
 #if !WINDOWS_PHONE
-            var suspensionService = new WinRTSuspensionService(this, launched);
+            var suspensionService = new SuspensionService(this, launched);
 #else
             this.ApplicationLifetimeObjects.Add(new PhoneApplicationService());
-            var suspensionService = new WP8SuspensionService(this, this.frameHelper);
+            var suspensionService = new SuspensionService(this, this.frameHelper);
 #endif
-            this.SuspensionService = suspensionService;            
-
+            this.SuspensionService = suspensionService;  
+          
             this.Log().Info("Register services.");
             this.Configure();
         }
@@ -72,11 +72,17 @@ namespace ReactiveApp.Xaml
         
         protected virtual IObservable<Unit> Activate()
         {
+#if !WINDOWS_PHONE
+            SystemTrayManager.Initialize();
+#else
+            OrientationManager.Initialize(this.frameHelper);
+            SystemTrayManager.Initialize(this.frameHelper);
+#endif
             this.Log().Info("Activating Shell.");
 #if !WINDOWS_PHONE
-            if (Window.Current.Content != this)
+            if (Window.Current.Content != this.Shell)
             {
-                Window.Current.Content = this;
+                Window.Current.Content = this.Shell;
             }
             Window.Current.Activate();
             return Observable.Return<Unit>(Unit.Default);
