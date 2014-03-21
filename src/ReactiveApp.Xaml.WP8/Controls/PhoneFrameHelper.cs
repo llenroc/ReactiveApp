@@ -91,14 +91,14 @@ namespace ReactiveApp.Xaml.Controls
         {
             this.content = content;
 
-            this.BackwardsCompatibilityFrame = new PhoneApplicationFrame();
-            this.BackwardsCompatibilityFrame.UriMapper = new ReactiveAppUriMapper();
+            this.Frame = new PhoneApplicationFrame();
+            this.Frame.UriMapper = new ReactiveAppUriMapper();
 
             this.arguments = new Subject<string>();
             this.activated = new AsyncSubject<Unit>();
         }
         
-        public PhoneApplicationFrame BackwardsCompatibilityFrame
+        public PhoneApplicationFrame Frame
         {
             get { return this.backwardsCompatibilityFrame; }
             set
@@ -133,9 +133,9 @@ namespace ReactiveApp.Xaml.Controls
                         if (this.backwardsCompatibilityPage.Content == null)
                         {
                             this.backwardsCompatibilityPage.Content = this.content;
-                            if (Application.Current.RootVisual != this.BackwardsCompatibilityFrame)
+                            if (Application.Current.RootVisual != this.Frame)
                             {
-                                Application.Current.RootVisual = this.BackwardsCompatibilityFrame;
+                                Application.Current.RootVisual = this.Frame;
                             }
                             if (!this.activated.IsCompleted)
                             {
