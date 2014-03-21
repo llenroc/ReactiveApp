@@ -83,7 +83,7 @@ namespace TestApp
             {
 
 #if !WINDOWS_PHONE
-                this.DebugSettings.EnableFrameRateCounter = true;
+                //this.DebugSettings.EnableFrameRateCounter = true;
 #else
                 // Display the current frame rate counters.
                 Application.Current.Host.Settings.EnableFrameRateCounter = true;
@@ -103,7 +103,7 @@ namespace TestApp
 #endif
             }
 #endif
-            return this.Shell.NavigateAsync(typeof(MainView), args).SelectMany(this.Activate());
+            return this.Shell.NavigateAsync(typeof(MainView), args).SelectMany(b => this.Activate());
         }
     }
 }

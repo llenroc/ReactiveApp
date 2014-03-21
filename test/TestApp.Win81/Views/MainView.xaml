@@ -7,6 +7,17 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
+    
+    <controls:ReactiveView.BottomAppBar>
+        <controls:ReactiveAppBar Background="White">
+            <StackPanel />
+        </controls:ReactiveAppBar>
+    </controls:ReactiveView.BottomAppBar>
+    <controls:ReactiveView.TopAppBar>
+        <controls:ReactiveAppBar Background="White">
+            <StackPanel />
+        </controls:ReactiveAppBar>
+    </controls:ReactiveView.TopAppBar>
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <TextBlock Text="MainView" Foreground="White" FontSize="36" HorizontalAlignment="Center" VerticalAlignment="Center" />
