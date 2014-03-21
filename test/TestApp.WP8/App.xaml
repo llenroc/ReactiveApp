@@ -1,0 +1,13 @@
+﻿<rxapp:ReactiveApplication
+    x:Class="TestApp.WP8.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:rxapp="clr-namespace:ReactiveApp.Xaml;assembly=ReactiveApp.Xaml"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone">
+
+    <!--Application Resources-->
+    <Application.Resources>
+        <local:LocalizedStrings xmlns:local="clr-namespace:TestApp.WP8" x:Key="LocalizedStrings"/>
+    </Application.Resources>
+</rxapp:ReactiveApplication>
