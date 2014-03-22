@@ -10,7 +10,7 @@ using Windows.UI;
 using System.Windows.Media;
 #endif
 
-namespace ReactiveApp.Xaml.Controls
+namespace ReactiveApp.Navigation
 {
     public interface IProgressIndicator
     {  

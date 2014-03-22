@@ -9,7 +9,7 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Media;
 
-namespace ReactiveApp.Xaml.Controls
+namespace ReactiveApp.Navigation
 {
     [TemplatePart(Name = PART_ProgressIndicator, Type = typeof(ProgressBar))]
     [TemplatePart(Name = PART_Text, Type = typeof(TextBlock))]

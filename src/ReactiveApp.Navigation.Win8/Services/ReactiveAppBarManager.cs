@@ -28,7 +28,7 @@ using Microsoft.Phone.Shell;
 using System.Windows.Input;
 #endif
 
-namespace ReactiveApp.Xaml.Controls
+namespace ReactiveApp.Navigation
 {
     /// <summary>
     /// 
@@ -96,11 +96,11 @@ namespace ReactiveApp.Xaml.Controls
 
             grid.Children.Add(dismissLayer);
 
-            ReactiveApplication app = Application.Current as ReactiveApplication;
-            if(app != null)
-            {
-                app.Shell.AddOverlay(grid);
-            }
+            //ReactiveApplication app = Application.Current as ReactiveApplication;
+            //if(app != null)
+            //{
+            //    app.Shell.AddOverlay(grid);
+            //}
         }
 
         public IDisposable AddAppBar(ReactiveAppBar appbar)

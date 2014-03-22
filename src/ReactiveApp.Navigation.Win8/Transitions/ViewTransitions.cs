@@ -10,7 +10,7 @@ using System.Windows;
 using Windows.UI.Xaml;
 #endif
 
-namespace ReactiveApp.Xaml.Controls
+namespace ReactiveApp.Navigation
 {
     public class ViewTransitions : DependencyObject
     {
