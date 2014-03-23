@@ -14,6 +14,9 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 #else
+using System.Windows;
+using System.Windows.Input;
+using System.Windows.Media;
 #endif
 
 namespace ReactiveApp.Xaml.Services
@@ -25,7 +28,11 @@ namespace ReactiveApp.Xaml.Services
         private WeakReference gestureSource;
         private Point gestureOrigin;
 
+#if !WINDOWS_PHONE
         private IObservable<EventPattern<ManipulationDeltaRoutedEventArgs>> drag;
+#else
+        private IObservable<EventPattern<ManipulationDeltaEventArgs>> drag;
+#endif
         
         public IObservable<GestureStart> GestureStart
         {
@@ -83,20 +90,20 @@ namespace ReactiveApp.Xaml.Services
                 .Select(ep => new GestureDrag(ep.EventArgs.Cumulative.Translation, ep.EventArgs.Delta.Translation, ep.EventArgs.Position));
 #else        
             this.GestureStart = 
-                Observable.FromEventPattern<ManipulationStartedEventHandler, ManipulationStartedRoutedEventArgs>(h => this.Target.ManipulationStarted += h, h => this.Target.ManipulationStarted -= h)
+                Observable.FromEventPattern<ManipulationStartedEventArgs>(h => this.Target.ManipulationStarted += h, h => this.Target.ManipulationStarted -= h)
                     .Select(ep => this.StartMove(ep.EventArgs.ManipulationContainer, ep.EventArgs.ManipulationOrigin))
                     .Publish().PermaRef();
             this.GestureEnd =   
-                Observable.FromEventPattern<ManipulationStartedEventHandler, ManipulationStartedRoutedEventArgs>(h => this.Target.ManipulationStarted += h, h => this.Target.ManipulationStarted -= h)
+                Observable.FromEventPattern<ManipulationCompletedEventArgs>(h => this.Target.ManipulationCompleted += h, h => this.Target.ManipulationCompleted -= h)
                     .Select(ep => this.EndMove(ep.EventArgs.IsInertial, ep.EventArgs.TotalManipulation, ep.EventArgs.FinalVelocities, ep.EventArgs.ManipulationOrigin))
                     .Publish().PermaRef();
-            this.drag = Observable.FromEventPattern<ManipulationDeltaEventHandler, ManipulationDeltaRoutedEventArgs>(h => this.Target.ManipulationDelta += h, h => this.Target.ManipulationDelta -= h)
-                .Where(ep => Math.Abs(ep.EventArgs.Cumulative.Translation.X) > this.DeadZoneInPixels.Width || Math.Abs(ep.EventArgs.Cumulative.Translation.Y) > this.DeadZoneInPixels.Height)
+            this.drag = Observable.FromEventPattern<ManipulationDeltaEventArgs>(h => this.Target.ManipulationDelta += h, h => this.Target.ManipulationDelta -= h)
+                .Where(ep => Math.Abs(ep.EventArgs.CumulativeManipulation.Translation.X) > this.DeadZoneInPixels.Width || Math.Abs(ep.EventArgs.CumulativeManipulation.Translation.Y) > this.DeadZoneInPixels.Height)
                 .Publish().RefCount();
-            this.HorizontalDrag = this.drag.Where(ep => this.GetDragLockForMove(ep.EventArgs.Cumulative) == DragLock.Horizontal && ep.EventArgs.Delta.Translation.X != 0.0)
-                .Select(ep => new GestureDrag(ep.EventArgs.Cumulative.Translation, ep.EventArgs.Delta.Translation, ep.EventArgs.Position));
-            this.VerticalDrag = this.drag.Where(ep => this.GetDragLockForMove(ep.EventArgs.Cumulative) == DragLock.Vertical && ep.EventArgs.Delta.Translation.Y != 0.0)
-                .Select(ep => new GestureDrag(ep.EventArgs.Cumulative.Translation, ep.EventArgs.Delta.Translation, ep.EventArgs.Position));
+            this.HorizontalDrag = this.drag.Where(ep => this.GetDragLockForMove(ep.EventArgs.CumulativeManipulation) == DragLock.Horizontal && ep.EventArgs.DeltaManipulation.Translation.X != 0.0)
+                .Select(ep => new GestureDrag(ep.EventArgs.CumulativeManipulation.Translation, ep.EventArgs.DeltaManipulation.Translation, ep.EventArgs.ManipulationOrigin));
+            this.VerticalDrag = this.drag.Where(ep => this.GetDragLockForMove(ep.EventArgs.CumulativeManipulation) == DragLock.Vertical && ep.EventArgs.DeltaManipulation.Translation.Y != 0.0)
+                .Select(ep => new GestureDrag(ep.EventArgs.CumulativeManipulation.Translation, ep.EventArgs.DeltaManipulation.Translation, ep.EventArgs.ManipulationOrigin));
 #endif
         }
 
@@ -116,7 +123,7 @@ namespace ReactiveApp.Xaml.Services
             double angle = 0.0;
             if (isInertial)
             {
-                angle = GestureService.AngleFromVector(velocities.Linear.X, velocities.Linear.Y);
+                angle = GestureService.AngleFromVector(velocities.LinearVelocity.X, velocities.LinearVelocity.Y);
                 if (angle <= 45.0 || angle >= 315.0)
                 {
                     angle = 0.0;

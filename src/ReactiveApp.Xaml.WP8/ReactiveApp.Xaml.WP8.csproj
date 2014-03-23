@@ -98,6 +98,9 @@
     <Compile Include="..\ReactiveApp.Xaml.Win8\ReactiveApplication.cs">
       <Link>ReactiveApplication.cs</Link>
     </Compile>
+    <Compile Include="..\ReactiveApp.Xaml.Win8\Services\GestureService.cs">
+      <Link>Services\GestureService.cs</Link>
+    </Compile>
     <Compile Include="..\ReactiveApp.Xaml.Win8\Services\IOrientationManager.cs">
       <Link>Services\IOrientationManager.cs</Link>
     </Compile>
