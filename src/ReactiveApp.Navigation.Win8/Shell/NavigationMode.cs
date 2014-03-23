@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ReactiveApp.Interfaces
+﻿
+namespace ReactiveApp.Navigation
 {
     /// <summary>
     /// Specifies the type of navigation that is occurring.

@@ -7,12 +7,8 @@ using System.Reactive.Concurrency;
 using System.Reactive.Disposables;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
-using System.Reactive.Threading.Tasks;
-using System.Text;
 using System.Threading.Tasks;
 
-using ReactiveApp.Interfaces;
-using ReactiveApp.Subjects;
 using ReactiveUI;
 using Splat;
 

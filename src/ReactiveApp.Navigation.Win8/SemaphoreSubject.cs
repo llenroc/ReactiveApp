@@ -1,15 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Reactive.Concurrency;
 using System.Reactive.Subjects;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using ReactiveUI;
 using Splat;
 
-namespace ReactiveApp.Subjects
+namespace ReactiveApp
 {
     internal class SemaphoreSubject<T> : ISubject<T>, IEnableLogger
     {

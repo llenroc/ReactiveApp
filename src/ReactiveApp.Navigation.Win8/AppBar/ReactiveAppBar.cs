@@ -2,11 +2,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 using System.Reactive;
 using System.Reactive.Subjects;
-using System.Text;
-using System.Threading.Tasks;
 using Splat;
 
 #if WINDOWS_PHONE

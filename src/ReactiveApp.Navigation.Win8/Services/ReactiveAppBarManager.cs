@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Reactive;
 using System.Reactive.Disposables;
 using System.Reactive.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 using Splat;
 
@@ -21,7 +18,6 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Input;
 #else
 using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
 using System.Windows;
 using System.Windows.Media;
 using Microsoft.Phone.Shell;

@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
 using Microsoft.Phone.Controls;
@@ -10,7 +6,7 @@ using Microsoft.Phone.Shell;
 
 namespace ReactiveApp.Navigation
 {
-    internal class PhoneSystemTray : ISystemTray
+    internal class PhoneSystemTray
     {
         private Color foreground;
         private Color background;

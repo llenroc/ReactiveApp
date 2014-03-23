@@ -185,10 +185,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <CodeAnalysisDictionary Include="BackwardsCompatibilityPage.xaml">
+    <Page Include="BackwardsCompatibilityPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </CodeAnalysisDictionary>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <CodeAnalysisDictionary Include="Themes\generic.xaml">

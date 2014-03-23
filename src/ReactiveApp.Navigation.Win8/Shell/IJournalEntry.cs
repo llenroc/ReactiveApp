@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ReactiveApp.Interfaces
+namespace ReactiveApp.Navigation
 {
     public interface IJournalEntry
     {
