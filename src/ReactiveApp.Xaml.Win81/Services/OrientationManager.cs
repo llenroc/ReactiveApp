@@ -8,17 +8,25 @@ using Windows.Graphics.Display;
 
 namespace ReactiveApp.Xaml.Services
 {
-    public class OrientationManager
+    public class OrientationManager : IOrientationManager
     {
         private static DisplayInformation di;
-        static OrientationManager()
+
+        private static Lazy<OrientationManager> instance = new Lazy<OrientationManager>(() => new OrientationManager());
+
+        public static IOrientationManager Instance
+        {
+            get { return instance.Value; }
+        }
+
+        private OrientationManager()
         {
             di = DisplayInformation.GetForCurrentView();
             OrientationChanged = WindowsObservable.FromEventPattern<DisplayInformation, object>(h => di.OrientationChanged += h, h => di.OrientationChanged -= h)
                 .Select(_ => di.CurrentOrientation).Publish().RefCount();
         }
 
-        public static DisplayOrientations Orientation
+        public DisplayOrientations Orientation
         {
             get
             {
@@ -26,12 +34,12 @@ namespace ReactiveApp.Xaml.Services
             }
         }
 
-        public static DisplayOrientations PreferredOrientation
+        public DisplayOrientations PreferredOrientation
         {
             get { return DisplayInformation.AutoRotationPreferences; }
             set { DisplayInformation.AutoRotationPreferences = value; }
         }
 
-        public static IObservable<DisplayOrientations> OrientationChanged { get; private set; }
+        public IObservable<DisplayOrientations> OrientationChanged { get; private set; }
     }
 }

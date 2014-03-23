@@ -99,30 +99,7 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
-    <Page Include="Themes\Generic.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Controls\Animation\Animator.cs" />
     <Compile Include="Services\IOrientationManager.cs" />
-    <Compile Include="Services\IReactiveAppBarManager.cs" />
-    <Compile Include="Controls\AppBar\ReactiveAppBar.cs" />
-    <Compile Include="Services\ISystemTrayManager.cs" />
-    <Compile Include="Services\ReactiveAppBarManager.cs" />
-    <Compile Include="Controls\AppBar\ReactiveAppBarMode.cs" />
-    <Compile Include="Controls\Shell\ReactiveShell.cs" />
-    <Compile Include="Controls\Shell\ReactiveView.cs" />
-    <Compile Include="Controls\Shell\ViewCache.cs" />
-    <Compile Include="Controls\Shell\ViewLoader.cs" />
-    <Compile Include="Controls\SystemTray\IProgressIndicator.cs" />
-    <Compile Include="Controls\SystemTray\ProgressIndicator.cs" />
-    <Compile Include="Controls\SystemTray\SystemTray.cs" />
-    <Compile Include="Controls\Transitions\ViewTransition.cs" />
-    <Compile Include="Controls\Transitions\ViewTransitionMode.cs" />
-    <Compile Include="Controls\Transitions\ViewTransitions.cs" />
     <Compile Include="Extensions\ISuspensionServiceExtensions.cs" />
     <Compile Include="Extensions\ReactiveApplicationExtensions.cs" />
     <Compile Include="Platform\CurrentPlatformProvider.cs" />
@@ -132,7 +109,6 @@
     <Compile Include="Services\GestureService.cs" />
     <Compile Include="Services\OrientationManager.cs" />
     <Compile Include="Services\SuspensionService.cs" />
-    <Compile Include="Services\SystemTrayManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ReactiveApp\ReactiveApp.csproj">
@@ -183,6 +159,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Themes\Generic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '11.0' ">
     <VisualStudioVersion>11.0</VisualStudioVersion>

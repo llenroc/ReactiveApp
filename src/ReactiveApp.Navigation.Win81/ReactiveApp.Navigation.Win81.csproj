@@ -6,11 +6,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{896C4B33-1725-4ED0-AF57-798A955D36A9}</ProjectGuid>
+    <ProjectGuid>{158C21AC-80A6-4941-BE95-1FFC60CC45A0}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ReactiveApp.Xaml</RootNamespace>
-    <AssemblyName>ReactiveApp.Xaml</AssemblyName>
+    <RootNamespace>ReactiveApp.Navigation</RootNamespace>
+    <AssemblyName>ReactiveApp.Navigation</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformVersion>8.1</TargetPlatformVersion>
     <MinimumVisualStudioVersion>12</MinimumVisualStudioVersion>
@@ -25,7 +25,6 @@
     <DefineConstants>DEBUG;TRACE;NETFX_CORE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Debug\ReactiveApp.Xaml.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -34,7 +33,6 @@
     <DefineConstants>TRACE;NETFX_CORE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Release\ReactiveApp.Xaml.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|ARM'">
     <DebugSymbols>true</DebugSymbols>
@@ -103,82 +101,106 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="..\ReactiveApp.Xaml.Win8\Extensions\ISuspensionServiceExtensions.cs">
-      <Link>Extensions\ISuspensionServiceExtensions.cs</Link>
+    <Compile Include="..\ReactiveApp.Navigation.Win8\Animation\Animator.cs">
+      <Link>Animation\Animator.cs</Link>
     </Compile>
-    <Compile Include="..\ReactiveApp.Xaml.Win8\Extensions\ReactiveApplicationExtensions.cs">
-      <Link>Extensions\ReactiveApplicationExtensions.cs</Link>
+    <Compile Include="..\ReactiveApp.Navigation.Win8\AppBar\ReactiveAppBar.cs">
+      <Link>AppBar\ReactiveAppBar.cs</Link>
     </Compile>
-    <Compile Include="..\ReactiveApp.Xaml.Win8\Platform\CurrentPlatformProvider.cs">
-      <Link>Platform\CurrentPlatformProvider.cs</Link>
+    <Compile Include="..\ReactiveApp.Navigation.Win8\AppBar\ReactiveAppBarMode.cs">
+      <Link>AppBar\ReactiveAppBarMode.cs</Link>
     </Compile>
-    <Compile Include="..\ReactiveApp.Xaml.Win8\Platform\XamlViewEvents.cs">
-      <Link>Platform\XamlViewEvents.cs</Link>
+    <Compile Include="..\ReactiveApp.Navigation.Win8\Extensions\IListExtensions.cs">
+      <Link>Extensions\IListExtensions.cs</Link>
     </Compile>
-    <Compile Include="..\ReactiveApp.Xaml.Win8\ReactiveApplication.cs">
-      <Link>ReactiveApplication.cs</Link>
+    <Compile Include="..\ReactiveApp.Navigation.Win8\SemaphoreSubject.cs">
+      <Link>SemaphoreSubject.cs</Link>
     </Compile>
-    <Compile Include="..\ReactiveApp.Xaml.Win8\Services\GestureService.cs">
-      <Link>Services\GestureService.cs</Link>
+    <Compile Include="..\ReactiveApp.Navigation.Win8\Services\IReactiveAppBarManager.cs">
+      <Link>Services\IReactiveAppBarManager.cs</Link>
     </Compile>
-    <Compile Include="..\ReactiveApp.Xaml.Win8\Services\IOrientationManager.cs">
-      <Link>Services\IOrientationManager.cs</Link>
+    <Compile Include="..\ReactiveApp.Navigation.Win8\Services\ReactiveAppBarManager.cs">
+      <Link>Services\ReactiveAppBarManager.cs</Link>
     </Compile>
-    <Compile Include="..\ReactiveApp.Xaml.Win8\Services\SuspensionService.cs">
-      <Link>Services\SuspensionService.cs</Link>
+    <Compile Include="..\ReactiveApp.Navigation.Win8\Shell\IJournalEntry.cs">
+      <Link>Shell\IJournalEntry.cs</Link>
+    </Compile>
+    <Compile Include="..\ReactiveApp.Navigation.Win8\Shell\IShell.cs">
+      <Link>Shell\IShell.cs</Link>
+    </Compile>
+    <Compile Include="..\ReactiveApp.Navigation.Win8\Shell\IView.cs">
+      <Link>Shell\IView.cs</Link>
+    </Compile>
+    <Compile Include="..\ReactiveApp.Navigation.Win8\Shell\JournalEntry.cs">
+      <Link>Shell\JournalEntry.cs</Link>
+    </Compile>
+    <Compile Include="..\ReactiveApp.Navigation.Win8\Shell\NavigatedInfo.cs">
+      <Link>Shell\NavigatedInfo.cs</Link>
+    </Compile>
+    <Compile Include="..\ReactiveApp.Navigation.Win8\Shell\NavigatingInfo.cs">
+      <Link>Shell\NavigatingInfo.cs</Link>
+    </Compile>
+    <Compile Include="..\ReactiveApp.Navigation.Win8\Shell\NavigationCacheMode.cs">
+      <Link>Shell\NavigationCacheMode.cs</Link>
+    </Compile>
+    <Compile Include="..\ReactiveApp.Navigation.Win8\Shell\NavigationMode.cs">
+      <Link>Shell\NavigationMode.cs</Link>
+    </Compile>
+    <Compile Include="..\ReactiveApp.Navigation.Win8\Shell\ReactiveShell.cs">
+      <Link>Shell\ReactiveShell.cs</Link>
+    </Compile>
+    <Compile Include="..\ReactiveApp.Navigation.Win8\Shell\ReactiveView.cs">
+      <Link>Shell\ReactiveView.cs</Link>
+    </Compile>
+    <Compile Include="..\ReactiveApp.Navigation.Win8\Shell\ViewCache.cs">
+      <Link>Shell\ViewCache.cs</Link>
+    </Compile>
+    <Compile Include="..\ReactiveApp.Navigation.Win8\Shell\ViewLoader.cs">
+      <Link>Shell\ViewLoader.cs</Link>
+    </Compile>
+    <Compile Include="..\ReactiveApp.Navigation.Win8\SystemTray\IProgressIndicator.cs">
+      <Link>SystemTray\IProgressIndicator.cs</Link>
+    </Compile>
+    <Compile Include="..\ReactiveApp.Navigation.Win8\SystemTray\ProgressIndicator.cs">
+      <Link>SystemTray\ProgressIndicator.cs</Link>
+    </Compile>
+    <Compile Include="..\ReactiveApp.Navigation.Win8\SystemTray\SystemTray.cs">
+      <Link>SystemTray\SystemTray.cs</Link>
+    </Compile>
+    <Compile Include="..\ReactiveApp.Navigation.Win8\Transitions\ViewTransition.cs">
+      <Link>Transitions\ViewTransition.cs</Link>
+    </Compile>
+    <Compile Include="..\ReactiveApp.Navigation.Win8\Transitions\ViewTransitionMode.cs">
+      <Link>Transitions\ViewTransitionMode.cs</Link>
+    </Compile>
+    <Compile Include="..\ReactiveApp.Navigation.Win8\Transitions\ViewTransitions.cs">
+      <Link>Transitions\ViewTransitions.cs</Link>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\OrientationManager.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Themes\generic.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\ReactiveApp\ReactiveApp.csproj">
-      <Project>{5022e311-8709-4fac-8114-ad2955ec198d}</Project>
-      <Name>ReactiveApp</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\..\packages\Newtonsoft.Json.6.0.1\lib\netcore45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="ReactiveUI, Version=5.99.4.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="ReactiveUI">
       <HintPath>..\..\packages\reactiveui-core.5.99.4-beta\lib\Portable-Net45+WinRT45+WP8\ReactiveUI.dll</HintPath>
     </Reference>
-    <Reference Include="ReactiveUI.Xaml, Version=5.99.4.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\reactiveui-platforms.5.99.4-beta\lib\WinRT451\ReactiveUI.Xaml.dll</HintPath>
-    </Reference>
-    <Reference Include="Splat, Version=1.2.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="Splat">
       <HintPath>..\..\packages\Splat.1.2.1\lib\NetCore45\Splat.dll</HintPath>
     </Reference>
-    <Reference Include="System.Reactive.Core, Version=2.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="System.Reactive.Core">
       <HintPath>..\..\packages\Rx-Core.2.2.2\lib\windows8\System.Reactive.Core.dll</HintPath>
     </Reference>
-    <Reference Include="System.Reactive.Interfaces, Version=2.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="System.Reactive.Interfaces">
       <HintPath>..\..\packages\Rx-Interfaces.2.2.2\lib\windows8\System.Reactive.Interfaces.dll</HintPath>
     </Reference>
-    <Reference Include="System.Reactive.Linq, Version=2.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="System.Reactive.Linq">
       <HintPath>..\..\packages\Rx-Linq.2.2.2\lib\windows8\System.Reactive.Linq.dll</HintPath>
     </Reference>
     <Reference Include="System.Reactive.PlatformServices">
       <HintPath>..\..\packages\Rx-PlatformServices.2.2.3\lib\windows8\System.Reactive.PlatformServices.dll</HintPath>
     </Reference>
-    <Reference Include="System.Reactive.Windows.Threading, Version=2.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="System.Reactive.Windows.Threading">
       <HintPath>..\..\packages\Rx-WindowStoreApps.2.2.2\lib\windows8\System.Reactive.Windows.Threading.dll</HintPath>
     </Reference>
-    <Reference Include="System.Reactive.WindowsRuntime, Version=2.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="System.Reactive.WindowsRuntime">
       <HintPath>..\..\packages\Rx-WinRT.2.2.2\lib\windows8\System.Reactive.WindowsRuntime.dll</HintPath>
     </Reference>
   </ItemGroup>
@@ -186,6 +208,12 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup />
+  <ItemGroup>
+    <CodeAnalysisDictionary Include="Themes\Generic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </CodeAnalysisDictionary>
+  </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '12.0' ">
     <VisualStudioVersion>12.0</VisualStudioVersion>
   </PropertyGroup>
