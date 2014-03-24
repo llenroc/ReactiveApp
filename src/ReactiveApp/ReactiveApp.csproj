@@ -76,12 +76,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ReactiveApp.Munq\ReactiveApp.Munq.csproj">
-      <Project>{d479f55d-0af3-437a-84af-4b638917c14e}</Project>
-      <Name>ReactiveApp.Munq</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Folder Include="Interfaces\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
