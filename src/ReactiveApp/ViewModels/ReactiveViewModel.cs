@@ -11,7 +11,7 @@ using Splat;
 
 namespace ReactiveApp.ViewModels
 {
-    public class ViewModel : ReactiveObject, IActivate, IDeactivate, IClose, IViewAware, IEnableLogger
+    public class ReactiveViewModel : ReactiveObject, IReactiveViewModel, IActivate, IDeactivate, IClose, IViewAware, IEnableLogger
     {
         private object view;
         private ISubject<ActivationInfo> activated;
@@ -21,10 +21,10 @@ namespace ReactiveApp.ViewModels
         private ISubject<object> viewReady;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ViewModel"/> class.
+        /// Initializes a new instance of the <see cref="ReactiveViewModel"/> class.
         /// </summary>
         /// <param name="cacheView">if set to <c>true</c> [cache view].</param>
-        public ViewModel(bool cacheView = true)
+        public ReactiveViewModel(bool cacheView = true)
         {
             this.activated = new Subject<ActivationInfo>();
             this.deactivated = new Subject<DeactivationInfo>();
