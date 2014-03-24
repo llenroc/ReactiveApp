@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reactive;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ReactiveApp.Interfaces
+namespace ReactiveApp.App
 {
-    public interface IReactiveApplication
+    public interface IStartup
     {
+        IObservable<Unit> Start(object hint = null);
     }
 }
