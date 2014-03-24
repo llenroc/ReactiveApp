@@ -23,6 +23,7 @@ namespace ReactiveApp
             Contract.Requires(container != null);
 
             this.container = container;
+            this.container.DefaultLifetimeManager = new AlwaysNewLifetime();
         }
 
         public void Register(Func<object> factory, Type serviceType, string contract = null)
