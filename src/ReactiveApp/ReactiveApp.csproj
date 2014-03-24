@@ -37,6 +37,8 @@
     <Compile Include="Exceptions\DefaultExceptionHandler.cs" />
     <Compile Include="Extensions\IConnectableObservableExtensions.cs" />
     <Compile Include="Exceptions\IExceptionHandler.cs" />
+    <Compile Include="Interfaces\IReactiveApplication.cs" />
+    <Compile Include="MunqDependencyResolver.cs" />
     <Compile Include="Platform\IPlatformProvider.cs" />
     <Compile Include="Platform\IViewEvents.cs" />
     <Compile Include="Platform\PlatformProvider.cs" />
@@ -80,6 +82,12 @@
   <ItemGroup>
     <Folder Include="Interfaces\" />
   </ItemGroup>
+    <ProjectReference Include="..\ReactiveApp.Munq\ReactiveApp.Munq.csproj">
+      <Project>{d479f55d-0af3-437a-84af-4b638917c14e}</Project>
+      <Name>ReactiveApp.Munq</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

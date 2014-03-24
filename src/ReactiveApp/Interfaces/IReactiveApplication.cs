@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ReactiveApp.Interfaces;
 
-namespace ReactiveApp
+namespace ReactiveApp.Interfaces
 {
-    public class ReactiveApplication : IReactiveApplication
+    public interface IReactiveApplication
     {
     }
 }
