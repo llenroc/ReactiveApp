@@ -41,6 +41,7 @@
     <Compile Include="Container\IDependencyRegistrar.cs" />
     <Compile Include="Container\IDependencyResolver.cs" />
     <Compile Include="LifetimeManagers\ILifetimeManager.cs" />
+    <Compile Include="MunqDependencyResolver.cs" />
     <Compile Include="Registrations\IRegistration.cs" />
     <Compile Include="Registrations\IRegistrationKey.cs" />
     <Compile Include="LifetimeManagers\LifetimeExtensions.cs" />
@@ -51,6 +52,14 @@
     <Compile Include="Registrations\Registration.cs" />
     <Compile Include="Registrations\TypeRegistry.cs" />
     <Compile Include="Registrations\UnNamedRegistrationKey.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Splat">
+      <HintPath>..\..\packages\Splat.1.2.1\lib\Portable-Net45+WinRT45+WP8\Splat.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
