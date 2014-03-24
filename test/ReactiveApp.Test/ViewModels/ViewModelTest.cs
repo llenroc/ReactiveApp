@@ -25,7 +25,7 @@ namespace ReactiveApp.Test.ViewModels
         {
             PlatformProvider.Instance = provider;
 
-            ViewModel vm = new ViewModel();
+            ReactiveViewModel vm = new ReactiveViewModel();
 
             object view = new object();
             vm.AttachView(view);
@@ -38,7 +38,7 @@ namespace ReactiveApp.Test.ViewModels
         {
             PlatformProvider.Instance = provider;
 
-            ViewModel vm = new ViewModel(false);
+            ReactiveViewModel vm = new ReactiveViewModel(false);
 
             object view = new object();
             vm.AttachView(view);
@@ -66,7 +66,7 @@ namespace ReactiveApp.Test.ViewModels
         [TestMethod]
         public void ActivateDeactivateTest()
         {
-            ViewModel vm = new ViewModel();
+            ReactiveViewModel vm = new ReactiveViewModel();
 
             Assert.IsFalse(vm.IsInitialized);
             Assert.IsFalse(vm.IsActive);
@@ -104,7 +104,7 @@ namespace ReactiveApp.Test.ViewModels
         }
     }
 
-    class TestViewModel : ViewModel
+    class TestViewModel : ReactiveViewModel
     {
         public TestViewModel(bool cacheView = true)
             : base(cacheView)
