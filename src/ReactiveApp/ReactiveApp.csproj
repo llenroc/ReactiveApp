@@ -37,7 +37,6 @@
     <Compile Include="Exceptions\DefaultExceptionHandler.cs" />
     <Compile Include="Extensions\IConnectableObservableExtensions.cs" />
     <Compile Include="Exceptions\IExceptionHandler.cs" />
-    <Compile Include="MunqDependencyResolver.cs" />
     <Compile Include="Platform\IPlatformProvider.cs" />
     <Compile Include="Platform\IViewEvents.cs" />
     <Compile Include="Platform\PlatformProvider.cs" />
