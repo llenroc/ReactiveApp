@@ -36,6 +36,8 @@
   <ItemGroup>
     <Compile Include="Application\IStartup.cs" />
     <Compile Include="Application\Startup.cs" />
+    <Compile Include="Debugging\IObjectTracker.cs" />
+    <Compile Include="Debugging\ObjectTracker.cs" />
     <Compile Include="Exceptions\DefaultExceptionHandler.cs" />
     <Compile Include="Extensions\IConnectableObservableExtensions.cs" />
     <Compile Include="Exceptions\IExceptionHandler.cs" />

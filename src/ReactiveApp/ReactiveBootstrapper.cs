@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ReactiveApp.App;
+using ReactiveApp.Debugging;
 using ReactiveApp.Exceptions;
 using ReactiveApp.Interfaces;
 using ReactiveApp.Settings;
@@ -57,8 +58,20 @@ namespace ReactiveApp
 
         protected virtual void InitializeDebugServices()
         {
-            
+            this.InitializeObjectTracker();
         }
+
+        protected virtual IObjectTracker CreateObjectTracker()
+        {
+            return new ObjectTracker();
+        }
+
+        protected virtual void InitializeObjectTracker()
+        {
+            var objectTracker = this.CreateObjectTracker();
+            Locator.CurrentMutable.RegisterConstant<IObjectTracker>(objectTracker);
+        }
+
 
         protected virtual void InitializePlatformServices()
         {
