@@ -83,11 +83,11 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="..\ReactiveApp.Xaml.Win8\Extensions\IExceptionHandlerExtensions.cs">
+      <Link>Extensions\IExceptionHandlerExtensions.cs</Link>
+    </Compile>
     <Compile Include="..\ReactiveApp.Xaml.Win8\Extensions\ISuspensionServiceExtensions.cs">
       <Link>Extensions\ISuspensionServiceExtensions.cs</Link>
-    </Compile>
-    <Compile Include="..\ReactiveApp.Xaml.Win8\Extensions\ReactiveApplicationExtensions.cs">
-      <Link>Extensions\ReactiveApplicationExtensions.cs</Link>
     </Compile>
     <Compile Include="..\ReactiveApp.Xaml.Win8\Platform\CurrentPlatformProvider.cs">
       <Link>Platform\CurrentPlatformProvider.cs</Link>

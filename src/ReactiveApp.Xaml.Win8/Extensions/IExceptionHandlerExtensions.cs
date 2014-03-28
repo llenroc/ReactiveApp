@@ -10,31 +10,27 @@ using Splat;
 
 #if !WINDOWS_PHONE
 using Windows.UI.Xaml;
+using ReactiveApp.Services;
 #else
 using System.Windows;
 #endif
 
 namespace ReactiveApp.Xaml
 {
-    public static class ReactiveApplicationExtensions
+    public static class ApplicationExtensions
     {
-        public static void SetupStartup(this ReactiveApplication This)
+        public static void SetupErrorHandling(this IExceptionHandler This, Application app = null)
         {
-            This.SuspensionService.SetupStartup(This);
-        }
+            Application application = app ?? Application.Current;
 
-        public static void SetupErrorHandling(this ReactiveApplication This, IExceptionHandler handler = null)
-        {
-            IExceptionHandler exceptionHandler = handler ?? Locator.Current.GetService<IExceptionHandler>();
-
-            if (exceptionHandler != null)
+            if (application != null)
             {
 #if !WINDOWS_PHONE
-                var unhandled = Observable.FromEventPattern<UnhandledExceptionEventHandler, UnhandledExceptionEventArgs>(x => This.UnhandledException += x, x => This.UnhandledException -= x)
+                var unhandled = Observable.FromEventPattern<UnhandledExceptionEventHandler, UnhandledExceptionEventArgs>(x => application.UnhandledException += x, x => application.UnhandledException -= x)
                     .Do(ue => ue.EventArgs.Handled = true)
                     .Select(ue => ue.EventArgs.Exception);
 #else
-                var unhandled = Observable.FromEventPattern<ApplicationUnhandledExceptionEventArgs>(x => This.UnhandledException += x, x => This.UnhandledException -= x)
+                var unhandled = Observable.FromEventPattern<ApplicationUnhandledExceptionEventArgs>(x => application.UnhandledException += x, x => application.UnhandledException -= x)
                     .Do(ue => ue.EventArgs.Handled = true)
                     .Select(ue => ue.EventArgs.ExceptionObject);
 #endif
@@ -43,7 +39,7 @@ namespace ReactiveApp.Xaml
                     .Do(ue => ue.EventArgs.SetObserved())
                     .Select(ue => ue.EventArgs.Exception);
 
-                unhandled.Merge(unobserved).Subscribe(exceptionHandler.HandleException);
+                unhandled.Merge(unobserved).Subscribe(This.HandleException);
             }
         }
     }

@@ -101,7 +101,7 @@
   <ItemGroup>
     <Compile Include="Services\IOrientationManager.cs" />
     <Compile Include="Extensions\ISuspensionServiceExtensions.cs" />
-    <Compile Include="Extensions\ReactiveApplicationExtensions.cs" />
+    <Compile Include="Extensions\IExceptionHandlerExtensions.cs" />
     <Compile Include="Platform\CurrentPlatformProvider.cs" />
     <Compile Include="Platform\XamlViewEvents.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -109,6 +109,7 @@
     <Compile Include="Services\GestureService.cs" />
     <Compile Include="Services\OrientationManager.cs" />
     <Compile Include="Services\SuspensionService.cs" />
+    <Compile Include="WinRTBootstrapper.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ReactiveApp\ReactiveApp.csproj">
