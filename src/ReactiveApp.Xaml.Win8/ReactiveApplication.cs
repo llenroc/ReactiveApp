@@ -35,21 +35,10 @@ namespace ReactiveApp.Xaml
 
         public ReactiveApplication()
         {
-            this.Log().Info("Starting ReactiveApplication.");
-            this.Log().Info("Creating Dependency Resolver.");
-            var resolver = this.CreateDependencyResolver();
-            this.Log().Info("Initialize Dependency Resolver.");
-            resolver.InitializeSplat();
-            resolver.InitializeReactiveUI();
-            Locator.Current = resolver;
-
-            this.Log().Info("Creating Shell.");
-            this.Shell = this.CreateShell();
 #if WINDOWS_PHONE
             this.frameHelper = new PhoneFrameHelper(this.Shell);
 #endif
 
-            this.Log().Info("Creating SuspensionService.");
 #if !WINDOWS_PHONE
             var suspensionService = new SuspensionService(this, launched);
 #else
@@ -58,15 +47,10 @@ namespace ReactiveApp.Xaml
 #endif
             this.SuspensionService = suspensionService;  
           
-            this.Log().Info("Register services.");
             this.Configure();
         }
 
         protected abstract void Configure();
-
-        protected abstract IMutableDependencyResolver CreateDependencyResolver();
-
-        protected abstract ReactiveShell CreateShell();
 
         public abstract IObservable<Unit> View(string args);
         
@@ -78,7 +62,6 @@ namespace ReactiveApp.Xaml
             OrientationManager.Initialize(this.frameHelper);
             SystemTrayManager.Initialize(this.frameHelper);
 #endif
-            this.Log().Info("Activating Shell.");
 #if !WINDOWS_PHONE
             if (Window.Current.Content != this.Shell)
             {
@@ -91,22 +74,6 @@ namespace ReactiveApp.Xaml
 #endif
         }
 
-        /// <summary>
-        /// The designer does not seem to like interfaces so we just implement this method directly instead of via extension methods on IEnableLogger.
-        /// </summary>
-        /// <returns></returns>
-        /// <exception cref="System.Exception">ILogManager is null. This should never happen, your dependency resolver is broken</exception>
-        private IFullLogger Log()
-        {
-            var factory = Locator.Current.GetService<ILogManager>();
-            if (factory == null)
-            {
-                throw new Exception("ILogManager is null. This should never happen, your dependency resolver is broken");
-            }
-
-            return factory.GetLogger<ReactiveApplication>();
-        }
-
 #if !WINDOWS_PHONE
         protected override void OnLaunched(LaunchActivatedEventArgs args)
         {
@@ -114,26 +81,6 @@ namespace ReactiveApp.Xaml
             this.launched.OnNext(args);
         }
 #endif
-
-#if !WINDOWS_PHONE
-        public void Close()
-        {
-            this.Exit();
-        }
-#else
-        public void Close()
-        {
-            this.Terminate();
-        }
-#endif
-
-        /// <summary>
-        /// Gets the shell.
-        /// </summary>
-        /// <value>
-        /// The shell.
-        /// </value>
-        public ReactiveShell Shell { get; private set; }
 
         /// <summary>
         /// Gets the suspension service.
