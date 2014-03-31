@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ReactiveApp.Debugging
 {
-    interface IObjectTracker
+    public interface IObjectTracker
     {
         void TrackObject(object objectToTrack);
 

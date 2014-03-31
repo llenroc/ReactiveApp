@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ReactiveApp.Interfaces
+namespace ReactiveApp.Services
 {
-    interface IViewPresenter
+    public interface IViewPresenter
     {
     }
 }
