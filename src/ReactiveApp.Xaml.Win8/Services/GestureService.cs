@@ -123,7 +123,11 @@ namespace ReactiveApp.Xaml.Services
             double angle = 0.0;
             if (isInertial)
             {
+#if !WINDOWS_PHONE
+                angle = GestureService.AngleFromVector(velocities.Linear.X, velocities.Linear.Y);
+#else
                 angle = GestureService.AngleFromVector(velocities.LinearVelocity.X, velocities.LinearVelocity.Y);
+#endif
                 if (angle <= 45.0 || angle >= 315.0)
                 {
                     angle = 0.0;
