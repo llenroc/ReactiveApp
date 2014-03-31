@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Reactive.Subjects;
 using System.Text;
@@ -19,10 +20,8 @@ namespace ReactiveApp.Xaml
 
         protected WinRTBootstrapper(ISubject<LaunchActivatedEventArgs> launched)
         {
-            if(this.launched == null)
-            {
-                throw new ArgumentNullException("launched");
-            }
+            Contract.Requires<ArgumentNullException>(launched != null, "launched");
+
             this.launched = launched;
         }
 
@@ -50,7 +49,7 @@ namespace ReactiveApp.Xaml
 
         protected virtual ISuspensionService CreateSuspensionService()
         {
-            return new SuspensionService(this.launched);
+            return new SuspensionService(Application.Current, this.launched);
         }
 
         protected virtual void InitializeSuspensionService()
