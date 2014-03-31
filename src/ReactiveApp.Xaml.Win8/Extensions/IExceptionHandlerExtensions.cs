@@ -5,7 +5,7 @@ using System.Reactive.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ReactiveApp.Exceptions;
-using ReactiveApp.Interfaces;
+using ReactiveApp.Services;
 using Splat;
 
 #if !WINDOWS_PHONE

@@ -10,7 +10,7 @@ using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using Munq;
 using ReactiveApp;
-using ReactiveApp.Interfaces;
+using ReactiveApp.Services;
 using ReactiveApp.Xaml;
 using ReactiveApp.Xaml.Controls;
 using ReactiveUI;

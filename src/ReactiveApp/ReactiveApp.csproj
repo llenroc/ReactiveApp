@@ -43,9 +43,11 @@
     <Compile Include="Exceptions\IExceptionHandler.cs" />
     <Compile Include="Extensions\IMutableDependencyResolverExtensions.cs" />
     <Compile Include="Extensions\IReactiveApplicationExtensions.cs" />
+    <Compile Include="Services\DisplayOrientations.cs" />
     <Compile Include="Services\IMainThreadDispatcher.cs" />
     <Compile Include="Services\INavigationSerializer.cs" />
     <Compile Include="Application\IReactiveApplication.cs" />
+    <Compile Include="Services\IOrientationManager.cs" />
     <Compile Include="Services\IViewPresenter.cs" />
     <Compile Include="Settings\ReactiveAppSettings.cs" />
     <Compile Include="Settings\IReactiveAppSettings.cs" />
@@ -68,7 +70,7 @@
   </ItemGroup>
   <ItemGroup>
     <Reference Include="ReactiveUI">
-      <HintPath>..\..\packages\reactiveui-core.5.99.4-beta\lib\Portable-Net45+WinRT45+WP8\ReactiveUI.dll</HintPath>
+      <HintPath>..\..\packages\reactiveui-core.5.99.5-beta\lib\Portable-Net45+WinRT45+WP8\ReactiveUI.dll</HintPath>
     </Reference>
     <Reference Include="Splat">
       <HintPath>..\..\packages\Splat.1.2.1\lib\Portable-Net45+WinRT45+WP8\Splat.dll</HintPath>
@@ -89,9 +91,7 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Interfaces\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -7,7 +7,7 @@ using System.Reactive.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Munq;
 using ReactiveApp;
-using ReactiveApp.Interfaces;
+using ReactiveApp.Services;
 using ReactiveApp.Xaml;
 using ReactiveApp.Xaml.Controls;
 using ReactiveUI;

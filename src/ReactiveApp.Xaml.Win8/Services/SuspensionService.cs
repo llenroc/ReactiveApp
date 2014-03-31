@@ -8,7 +8,6 @@ using System.Reactive.Subjects;
 using System.Text;
 using System.Threading.Tasks;
 
-using ReactiveApp.Interfaces;
 using ReactiveApp.Services;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
@@ -22,7 +21,7 @@ namespace ReactiveApp.Xaml.Services
         /// Initializes a new instance of the <see cref="SuspensionService"/> class.
         /// Based on WinRTSuspensionHost in ReactiveUI.Mobile
         /// </summary>
-        public SuspensionService(ISubject<LaunchActivatedEventArgs> launched)
+        public SuspensionService(Application app, ISubject<LaunchActivatedEventArgs> launched)
         {
             var launchNew = new[] { ApplicationExecutionState.ClosedByUser, ApplicationExecutionState.NotRunning, };
             this.IsLaunchingNew = launched
@@ -39,7 +38,7 @@ namespace ReactiveApp.Xaml.Services
                 .Select(x => x.Arguments);
 
             var shouldPersistState = new Subject<SuspendingEventArgs>();
-            Application.Current.Suspending += (o, e) => shouldPersistState.OnNext(e);
+            app.Suspending += (o, e) => shouldPersistState.OnNext(e);
             this.ShouldPersistState =
                 shouldPersistState.Select(x =>
                 {
@@ -48,7 +47,7 @@ namespace ReactiveApp.Xaml.Services
                 });
 
             var shouldInvalidateState = new Subject<Unit>();
-            Application.Current.UnhandledException += (o, e) => shouldInvalidateState.OnNext(Unit.Default);
+            app.UnhandledException += (o, e) => shouldInvalidateState.OnNext(Unit.Default);
             this.ShouldInvalidateState = shouldInvalidateState;
         }
 

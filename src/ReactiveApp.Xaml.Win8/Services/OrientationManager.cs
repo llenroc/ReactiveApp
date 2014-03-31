@@ -4,7 +4,7 @@ using System.Linq;
 using System.Reactive.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Windows.Graphics.Display;
+using ReactiveApp.Services;
 
 namespace ReactiveApp.Xaml.Services
 {
@@ -22,22 +22,24 @@ namespace ReactiveApp.Xaml.Services
         /// </summary>
         private OrientationManager()
         {
-            OrientationChanged = Observable.FromEventPattern<DisplayPropertiesEventHandler, object>(h => DisplayProperties.OrientationChanged += h, h => DisplayProperties.OrientationChanged -= h)
-                .Select(_ => DisplayProperties.CurrentOrientation).Publish().RefCount();
+            OrientationChanged = Observable.FromEventPattern<Windows.Graphics.Display.DisplayPropertiesEventHandler, object>(
+                h => Windows.Graphics.Display.DisplayProperties.OrientationChanged += h, 
+                h => Windows.Graphics.Display.DisplayProperties.OrientationChanged -= h)
+                .Select(_ => (DisplayOrientations)Windows.Graphics.Display.DisplayProperties.CurrentOrientation).Publish().RefCount();
         }
 
         public DisplayOrientations Orientation
         {
             get
             {
-                return DisplayProperties.CurrentOrientation;
+                return (DisplayOrientations)Windows.Graphics.Display.DisplayProperties.CurrentOrientation;
             }
         }
 
         public DisplayOrientations PreferredOrientation
         {
-            get { return DisplayProperties.AutoRotationPreferences; }
-            set { DisplayProperties.AutoRotationPreferences = value; }
+            get { return (DisplayOrientations)Windows.Graphics.Display.DisplayProperties.AutoRotationPreferences; }
+            set { Windows.Graphics.Display.DisplayProperties.AutoRotationPreferences = (Windows.Graphics.Display.DisplayOrientations)value; }
         }
 
         public IObservable<DisplayOrientations> OrientationChanged { get; private set; }

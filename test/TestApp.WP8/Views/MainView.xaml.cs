@@ -8,7 +8,7 @@ using System.Windows.Controls;
 using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
-using ReactiveApp.Interfaces;
+using ReactiveApp.Services;
 using ReactiveApp.Xaml.Controls;
 using TestApp.WP8.Resources;
 

@@ -14,10 +14,9 @@ namespace ReactiveApp.Debugging
     {
         private static readonly object monitor = new object();
         private static readonly List<WeakReference> objects = new List<WeakReference>();
-        private static bool? _ShouldTrack;
-
-
-        public void Track(object objectToTrack)
+        private static bool? shouldTrack;
+        
+        public void TrackObject(object objectToTrack)
         {
             if (ShouldTrack())
             {
@@ -30,15 +29,15 @@ namespace ReactiveApp.Debugging
 
         private bool ShouldTrack()
         {
-            if (_ShouldTrack == null)
+            if (shouldTrack == null)
             {
-                _ShouldTrack = Debugger.IsAttached;
+                shouldTrack = Debugger.IsAttached;
             }
 
-            return _ShouldTrack.Value;
+            return shouldTrack.Value;
         }
 
-        public IEnumerable<object> GetAllLiveTrackedObjects()
+        public IEnumerable<object> GetLiveTrackedObjects()
         {
             lock (monitor)
             {
@@ -56,7 +55,7 @@ namespace ReactiveApp.Debugging
             GC.WaitForPendingFinalizers();
             GC.Collect();
 
-            var liveObjects = this.GetAllLiveTrackedObjects();
+            var liveObjects = this.GetLiveTrackedObjects();
             
             StringBuilder sbStatus = new StringBuilder();
             

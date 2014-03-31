@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using ReactiveApp.App;
 using ReactiveApp.Debugging;
 using ReactiveApp.Exceptions;
-using ReactiveApp.Interfaces;
+using ReactiveApp.Services;
 using ReactiveApp.Settings;
 using ReactiveUI;
 using Splat;
@@ -71,8 +71,7 @@ namespace ReactiveApp
             var objectTracker = this.CreateObjectTracker();
             Locator.CurrentMutable.RegisterConstant<IObjectTracker>(objectTracker);
         }
-
-
+        
         protected virtual void InitializePlatformServices()
         {
             // do nothing by default
@@ -127,6 +126,7 @@ namespace ReactiveApp
 
         protected virtual INavigationSerializer CreateNavigationSerializer()
         {
+            //TODO: default implementation
             return null;
         }
 

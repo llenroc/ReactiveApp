@@ -5,10 +5,8 @@ using System.Reactive.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ReactiveApp.App;
-using ReactiveApp.Interfaces;
 using ReactiveApp.Services;
 using Splat;
-using Windows.UI.Xaml;
 
 namespace ReactiveApp.Xaml
 {
