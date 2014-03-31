@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using Microsoft.Phone.Shell;
 using ReactiveApp.Services;
-using ReactiveApp.Xaml.Controls;
+using ReactiveApp.Xaml.Adapters;
 using ReactiveUI;
 using ReactiveUI.Mobile;
 
@@ -24,19 +24,18 @@ namespace ReactiveApp.Xaml.Services
         /// Initializes a new instance of the <see cref="SuspensionService"/> class.
         /// </summary>
         /// <param name="app">The application.</param>
-        /// <param name="frameHelper">The frame helper.</param>
-        public SuspensionService(Application app, IPhoneFrameHelper frameHelper)
+        public SuspensionService(Application app, IArgumentsProvider arguments)
         {
             this.IsLaunchingNew =
                 Observable.FromEventPattern<LaunchingEventArgs>(
                     x => PhoneApplicationService.Current.Launching += x, x => PhoneApplicationService.Current.Launching -= x)
-                    .SelectMany(_ => frameHelper.Arguments.FirstOrDefaultAsync());
+                    .SelectMany(_ => arguments.Arguments.FirstOrDefaultAsync());
 
             this.IsUnpausing =
                 Observable.FromEventPattern<ActivatedEventArgs>(
                     x => PhoneApplicationService.Current.Activated += x, x => PhoneApplicationService.Current.Activated -= x)
                     .Where(x => x.EventArgs.IsApplicationInstancePreserved)
-                    .SelectMany(_ => frameHelper.Arguments.FirstOrDefaultAsync());
+                    .SelectMany(_ => arguments.Arguments.FirstOrDefaultAsync());
 
             // NB: "Applications should not perform resource-intensive tasks 
             // such as loading from isolated storage or a network resource 
@@ -46,7 +45,7 @@ namespace ReactiveApp.Xaml.Services
                 Observable.FromEventPattern<ActivatedEventArgs>(
                     x => PhoneApplicationService.Current.Activated += x, x => PhoneApplicationService.Current.Activated -= x)
                     .Where(x => !x.EventArgs.IsApplicationInstancePreserved)
-                    .SelectMany(_ => frameHelper.Arguments.FirstOrDefaultAsync());
+                    .SelectMany(_ => arguments.Arguments.FirstOrDefaultAsync());
 
             // NB: No way to tell OS that we need time to suspend, we have to
             // do it in-process
@@ -91,11 +90,6 @@ namespace ReactiveApp.Xaml.Services
         {
             get;
             private set;
-        }
-
-        public void SetupDefaultSuspendResume(ISuspensionDriver driver = null)
-        {
-
         }
     }
 }

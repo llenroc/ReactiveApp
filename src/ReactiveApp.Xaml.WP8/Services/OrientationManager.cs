@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Reactive.Linq;
 using System.Text;
@@ -7,16 +8,22 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
-using ReactiveApp.Xaml.Controls;
+using ReactiveApp.Services;
 
 namespace ReactiveApp.Xaml.Services
 {
-    public class OrientationManager : IOrientationManager
+    public class OrientationManager : IInternalOrientationManager
     {
-        private static ReactiveApplication rxApp;
+        private PhoneApplicationFrame frame;
+
         private static DisplayOrientations preferred = DisplayOrientations.Landscape | DisplayOrientations.Portrait;
 
         private static Lazy<OrientationManager> instance = new Lazy<OrientationManager>(() => new OrientationManager());
+
+        internal static IInternalOrientationManager InternalInstance
+        {
+            get { return instance.Value; }
+        }
 
         public static IOrientationManager Instance
         {
@@ -24,40 +31,41 @@ namespace ReactiveApp.Xaml.Services
         }
 
         private OrientationManager()
-        {
-            rxApp = Application.Current as ReactiveApplication;
+        { 
+        }
 
-            if (rxApp == null)
-            {
-                throw new InvalidOperationException("OrientationManager requires ReactiveApplication.");
-            }
-                
-            OrientationChanged = Observable.FromEventPattern<OrientationChangedEventArgs>(h => rxApp.frameHelper.Frame.OrientationChanged += h, h => rxApp.frameHelper.Frame.OrientationChanged -= h)
+        void IInternalOrientationManager.Initialize(PhoneApplicationFrame frame)
+        {
+            Contract.Requires<ArgumentNullException>(frame != null, "frame");
+
+            this.frame = frame;
+
+            OrientationChanged = Observable.FromEventPattern<OrientationChangedEventArgs>(h => frame.OrientationChanged += h, h => frame.OrientationChanged -= h)
                 .Select(_ => _.EventArgs.Orientation.AsDisplayOrientations()).Publish().RefCount();
 
-            Observable.FromEventPattern<NavigatedEventHandler, NavigationEventArgs>(h => rxApp.frameHelper.Frame.Navigated += h, h => rxApp.frameHelper.Frame.Navigated -= h)
+            Observable.FromEventPattern<NavigatedEventHandler, NavigationEventArgs>(h => frame.Navigated += h, h => frame.Navigated -= h)
                 .Where(ep => ep.EventArgs.Content != null).Subscribe(ep =>
-            {
-                PhoneApplicationPage page = ep.EventArgs.Content as PhoneApplicationPage;
-                if (page != null && page.GetType() == typeof(BackwardsCompatibilityPage))
                 {
-                    page.SupportedOrientations = preferred.AsSupportedPageOrientation();
-                }
-            });
+                    PhoneApplicationPage page = ep.EventArgs.Content as PhoneApplicationPage;
+                    if (page != null)
+                    {
+                        page.SupportedOrientations = preferred.AsSupportedPageOrientation();
+                    }
+                });
         }
 
-        public static DisplayOrientations Orientation
+        public DisplayOrientations Orientation
         {
-            get { return rxApp.frameHelper.Frame.Orientation.AsDisplayOrientations(); }
+            get { return frame.Orientation.AsDisplayOrientations(); }
         }
 
-        public static DisplayOrientations PreferredOrientation
+        public DisplayOrientations PreferredOrientation
         {
             get { return preferred; }
             set
             {
                 preferred = value;
-                PhoneApplicationPage page = rxApp.frameHelper.Frame.Content as PhoneApplicationPage;
+                PhoneApplicationPage page = frame.Content as PhoneApplicationPage;
                 if (page != null)
                 {
                     page.SupportedOrientations = preferred.AsSupportedPageOrientation();
@@ -65,7 +73,7 @@ namespace ReactiveApp.Xaml.Services
             }
         }
 
-        public static IObservable<DisplayOrientations> OrientationChanged { get; private set; }
+        public IObservable<DisplayOrientations> OrientationChanged { get; private set; }
     }
 
     public static class OrientationExtensions
