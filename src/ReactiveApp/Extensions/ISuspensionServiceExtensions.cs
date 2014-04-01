@@ -8,7 +8,7 @@ using ReactiveApp.App;
 using ReactiveApp.Services;
 using Splat;
 
-namespace ReactiveApp.Xaml
+namespace ReactiveApp
 {
     public static class ISuspensionServiceExtensions
     {

@@ -43,6 +43,7 @@
     <Compile Include="Exceptions\IExceptionHandler.cs" />
     <Compile Include="Extensions\IMutableDependencyResolverExtensions.cs" />
     <Compile Include="Extensions\IReactiveApplicationExtensions.cs" />
+    <Compile Include="Extensions\ISuspensionServiceExtensions.cs" />
     <Compile Include="Services\DisplayOrientations.cs" />
     <Compile Include="Services\IMainThreadDispatcher.cs" />
     <Compile Include="Services\INavigationSerializer.cs" />

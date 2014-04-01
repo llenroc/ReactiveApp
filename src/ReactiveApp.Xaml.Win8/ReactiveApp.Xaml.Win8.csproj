@@ -99,7 +99,6 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Extensions\ISuspensionServiceExtensions.cs" />
     <Compile Include="Extensions\IExceptionHandlerExtensions.cs" />
     <Compile Include="Platform\CurrentPlatformProvider.cs" />
     <Compile Include="Platform\XamlViewEvents.cs" />
