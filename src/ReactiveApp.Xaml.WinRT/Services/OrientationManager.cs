@@ -12,7 +12,7 @@ namespace ReactiveApp.Xaml.Services
     {
         private static Windows.Graphics.Display.DisplayInformation di;
 
-        internal static Lazy<OrientationManager> instance = new Lazy<OrientationManager>(() => new OrientationManager());
+        private static Lazy<OrientationManager> instance = new Lazy<OrientationManager>(() => new OrientationManager());
 
         public static IOrientationManager Instance
         {

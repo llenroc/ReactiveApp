@@ -12,7 +12,7 @@ using ReactiveApp.Services;
 
 namespace ReactiveApp.Xaml.Services
 {
-    public class OrientationManager : IInternalOrientationManager
+    public class OrientationManager : IPhoneOrientationManager
     {
         private PhoneApplicationFrame frame;
 
@@ -20,7 +20,7 @@ namespace ReactiveApp.Xaml.Services
 
         private static Lazy<OrientationManager> instance = new Lazy<OrientationManager>(() => new OrientationManager());
 
-        internal static IInternalOrientationManager InternalInstance
+        internal static IPhoneOrientationManager InternalInstance
         {
             get { return instance.Value; }
         }
@@ -34,7 +34,7 @@ namespace ReactiveApp.Xaml.Services
         { 
         }
 
-        void IInternalOrientationManager.Initialize(PhoneApplicationFrame frame)
+        void IPhoneOrientationManager.Initialize(PhoneApplicationFrame frame)
         {
             Contract.Requires<ArgumentNullException>(frame != null, "frame");
 
