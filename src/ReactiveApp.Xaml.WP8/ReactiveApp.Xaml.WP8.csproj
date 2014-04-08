@@ -100,7 +100,7 @@
     <Compile Include="Adapters\IPhoneNavigationProvider.cs" />
     <Compile Include="PhoneBootstrapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\IInternalOrientationManager.cs" />
+    <Compile Include="Services\IPhoneOrientationManager.cs" />
     <Compile Include="Services\OrientationManager.cs" />
     <Compile Include="Services\SuspensionService.cs" />
   </ItemGroup>
