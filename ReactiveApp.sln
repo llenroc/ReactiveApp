@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReactiveApp", "src\Reactive
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReactiveApp.Xaml.WP8", "src\ReactiveApp.Xaml.WP8\ReactiveApp.Xaml.WP8.csproj", "{738D45F2-91E6-43CC-90D3-5F0877B5F6CA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReactiveApp.Xaml.WinRT", "src\ReactiveApp.Xaml.Win81\ReactiveApp.Xaml.WinRT.csproj", "{896C4B33-1725-4ED0-AF57-798A955D36A9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReactiveApp.Xaml.WinRT", "src\ReactiveApp.Xaml.WinRT\ReactiveApp.Xaml.WinRT.csproj", "{896C4B33-1725-4ED0-AF57-798A955D36A9}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReactiveApp.Xaml.Win8", "src\ReactiveApp.Xaml.Win8\ReactiveApp.Xaml.Win8.csproj", "{21175907-4C1D-42DB-813D-9CC2C8E7A8FF}"
 EndProject
@@ -41,7 +41,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ReactiveApp.Navigation", "R
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReactiveApp.Navigation.Win8", "src\ReactiveApp.Navigation.Win8\ReactiveApp.Navigation.Win8.csproj", "{58CEABAA-B9EB-4394-8F2B-D36B3F87B4FA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReactiveApp.Navigation.WinRT", "src\ReactiveApp.Navigation.Win81\ReactiveApp.Navigation.WinRT.csproj", "{158C21AC-80A6-4941-BE95-1FFC60CC45A0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReactiveApp.Navigation.WinRT", "src\ReactiveApp.Navigation.WinRT\ReactiveApp.Navigation.WinRT.csproj", "{158C21AC-80A6-4941-BE95-1FFC60CC45A0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReactiveApp.Navigation.WP8", "src\ReactiveApp.Navigation.WP8\ReactiveApp.Navigation.WP8.csproj", "{81A6D910-3A31-4CE2-AD86-F39063BA01F1}"
 EndProject
