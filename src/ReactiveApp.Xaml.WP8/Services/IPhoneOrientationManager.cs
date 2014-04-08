@@ -8,7 +8,7 @@ using ReactiveApp.Services;
 
 namespace ReactiveApp.Xaml.Services
 {
-    internal interface IInternalOrientationManager : IOrientationManager
+    internal interface IPhoneOrientationManager : IOrientationManager
     {
         void Initialize(PhoneApplicationFrame frame);
     }
