@@ -108,9 +108,9 @@
       <Project>{d479f55d-0af3-437a-84af-4b638917c14e}</Project>
       <Name>ReactiveApp.Munq</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\ReactiveApp.Xaml.Win81\ReactiveApp.Xaml.Win81.csproj">
+    <ProjectReference Include="..\..\src\ReactiveApp.Xaml.WinRT\ReactiveApp.Xaml.WinRT.csproj">
       <Project>{896c4b33-1725-4ed0-af57-798a955d36a9}</Project>
-      <Name>ReactiveApp.Xaml.Win81</Name>
+      <Name>ReactiveApp.Xaml.WinRT</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\ReactiveApp\ReactiveApp.csproj">
       <Project>{5022e311-8709-4fac-8114-ad2955ec198d}</Project>
