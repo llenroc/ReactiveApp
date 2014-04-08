@@ -8,10 +8,10 @@ using ReactiveApp.Exceptions;
 using ReactiveApp.Services;
 using Splat;
 
-#if !WINDOWS_PHONE
+#if NETFX_CORE
 using Windows.UI.Xaml;
 using ReactiveApp.Services;
-#else
+#elif WINDOWS_PHONE
 using System.Windows;
 #endif
 
@@ -25,11 +25,11 @@ namespace ReactiveApp.Xaml
 
             if (application != null)
             {
-#if !WINDOWS_PHONE
+#if NETFX_CORE
                 var unhandled = Observable.FromEventPattern<UnhandledExceptionEventHandler, UnhandledExceptionEventArgs>(x => application.UnhandledException += x, x => application.UnhandledException -= x)
                     .Do(ue => ue.EventArgs.Handled = true)
                     .Select(ue => ue.EventArgs.Exception);
-#else
+#elif WINDOWS_PHONE
                 var unhandled = Observable.FromEventPattern<ApplicationUnhandledExceptionEventArgs>(x => application.UnhandledException += x, x => application.UnhandledException -= x)
                     .Do(ue => ue.EventArgs.Handled = true)
                     .Select(ue => ue.EventArgs.ExceptionObject);
