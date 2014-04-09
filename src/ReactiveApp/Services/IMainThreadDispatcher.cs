@@ -14,7 +14,7 @@ namespace ReactiveApp.Services
 
         IObservable<T> RunOnMainThread<T>(Func<T> func);
 
-        IObservable<Unit> RunOnMainThread<T>(Func<CancellationToken, Task> task);
+        IObservable<Unit> RunOnMainThread(Func<CancellationToken, Task> task);
 
         IObservable<T> RunOnMainThread<T>(Func<CancellationToken, Task<T>> task);
     }

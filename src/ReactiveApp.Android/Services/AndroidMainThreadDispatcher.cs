@@ -32,7 +32,7 @@ namespace ReactiveApp.Android.Services
             return Observable.Start(func, this.scheduler);
         }
 
-        public IObservable<Unit> RunOnMainThread<T>(Func<CancellationToken, Task> actionAsync)
+        public IObservable<Unit> RunOnMainThread(Func<CancellationToken, Task> actionAsync)
         {
             return ObservableEx.StartAsync(actionAsync, this.scheduler);
         }
