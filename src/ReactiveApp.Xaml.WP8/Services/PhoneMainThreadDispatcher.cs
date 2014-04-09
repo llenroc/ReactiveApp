@@ -14,7 +14,7 @@ namespace ReactiveApp.Xaml.Services
 {
     public class PhoneMainThreadDispatcher : IMainThreadDispatcher
     {
-        private IScheduler scheduler;
+        private readonly IScheduler scheduler;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PhoneMainThreadDispatcher"/> class.

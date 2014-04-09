@@ -14,7 +14,7 @@ namespace ReactiveApp.iOS.Services
 {
     public class iOSMainThreadDispatcher : IMainThreadDispatcher
     {
-        private IScheduler scheduler;
+        private readonly IScheduler scheduler;
 
         public iOSMainThreadDispatcher()
         {

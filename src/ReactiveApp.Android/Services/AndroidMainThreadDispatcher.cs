@@ -15,7 +15,7 @@ namespace ReactiveApp.Android.Services
 {
     public class AndroidMainThreadDispatcher : IMainThreadDispatcher
     {
-        private IScheduler scheduler;
+        private readonly IScheduler scheduler;
 
         public AndroidMainThreadDispatcher()
         {

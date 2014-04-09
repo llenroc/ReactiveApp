@@ -14,7 +14,7 @@ namespace ReactiveApp.Xaml.Services
 {
     public class WinRTMainThreadDispatcher : IMainThreadDispatcher
     {
-        private IScheduler scheduler;
+        private readonly IScheduler scheduler;
 
         public WinRTMainThreadDispatcher()
         {
