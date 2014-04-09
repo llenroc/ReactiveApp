@@ -38,6 +38,7 @@
     <Compile Include="iOSBootstrapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReactiveApplicationDelegate.cs" />
+    <Compile Include="Services\OrientationManager.cs" />
     <Compile Include="Services\SuspensionService.cs" />
   </ItemGroup>
   <ItemGroup>
