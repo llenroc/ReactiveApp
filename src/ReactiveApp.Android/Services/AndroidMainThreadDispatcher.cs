@@ -11,7 +11,7 @@ using Android.App;
 using ReactiveApp.Services;
 using ReactiveUI;
 
-namespace ReactiveApp.Xaml.Services
+namespace ReactiveApp.Android.Services
 {
     public class AndroidMainThreadDispatcher : IMainThreadDispatcher
     {

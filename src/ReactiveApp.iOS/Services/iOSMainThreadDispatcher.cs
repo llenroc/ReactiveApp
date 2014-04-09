@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 using ReactiveApp.Services;
 using ReactiveUI;
 
-namespace ReactiveApp.Xaml.Services
+namespace ReactiveApp.iOS.Services
 {
     public class iOSMainThreadDispatcher : IMainThreadDispatcher
     {
