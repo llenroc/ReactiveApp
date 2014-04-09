@@ -116,6 +116,9 @@
     <Compile Include="..\ReactiveApp.Xaml.WP8\Services\OrientationManager.cs">
       <Link>Services\OrientationManager.cs</Link>
     </Compile>
+    <Compile Include="..\ReactiveApp.Xaml.WP8\Services\PhoneMainThreadDispatcher.cs">
+      <Link>Services\PhoneMainThreadDispatcher.cs</Link>
+    </Compile>
     <Compile Include="..\ReactiveApp.Xaml.WP8\Services\SuspensionService.cs">
       <Link>Services\SuspensionService.cs</Link>
     </Compile>

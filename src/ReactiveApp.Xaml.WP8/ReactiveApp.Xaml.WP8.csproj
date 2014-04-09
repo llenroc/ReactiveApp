@@ -95,9 +95,6 @@
     <Compile Include="..\ReactiveApp.Xaml.Win8\Services\GestureService.cs">
       <Link>Services\GestureService.cs</Link>
     </Compile>
-    <Compile Include="..\ReactiveApp.Xaml.Win8\Services\WinRTMainThreadDispatcher.cs">
-      <Link>Services\WinRTMainThreadDispatcher.cs</Link>
-    </Compile>
     <Compile Include="Adapters\IArgumentsProvider.cs" />
     <Compile Include="Adapters\INavigationProvider.cs" />
     <Compile Include="Adapters\IPhoneNavigationProvider.cs" />
@@ -106,6 +103,7 @@
     <Compile Include="Services\IPhoneOrientationManager.cs" />
     <Compile Include="Services\OrientationManager.cs" />
     <Compile Include="Services\SuspensionService.cs" />
+    <Compile Include="Services\PhoneMainThreadDispatcher.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ReactiveApp\ReactiveApp.csproj">
