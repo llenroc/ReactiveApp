@@ -95,6 +95,9 @@
     <Compile Include="..\ReactiveApp.Xaml.Win8\Services\GestureService.cs">
       <Link>Services\GestureService.cs</Link>
     </Compile>
+    <Compile Include="..\ReactiveApp.Xaml.Win8\Services\WinRTMainThreadDispatcher.cs">
+      <Link>Services\WinRTMainThreadDispatcher.cs</Link>
+    </Compile>
     <Compile Include="Adapters\IArgumentsProvider.cs" />
     <Compile Include="Adapters\INavigationProvider.cs" />
     <Compile Include="Adapters\IPhoneNavigationProvider.cs" />

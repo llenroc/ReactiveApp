@@ -95,6 +95,9 @@
     <Compile Include="..\ReactiveApp.Xaml.Win8\Services\GestureService.cs">
       <Link>Services\GestureService.cs</Link>
     </Compile>
+    <Compile Include="..\ReactiveApp.Xaml.Win8\Services\WinRTMainThreadDispatcher.cs">
+      <Link>Services\WinRTMainThreadDispatcher.cs</Link>
+    </Compile>
     <Compile Include="..\ReactiveApp.Xaml.WP8\Adapters\IArgumentsProvider.cs">
       <Link>Adapters\IArgumentsProvider.cs</Link>
     </Compile>
@@ -126,6 +129,18 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\..\packages\Newtonsoft.Json.6.0.1\lib\portable-net45+wp80+win8\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="ReactiveUI">
+      <HintPath>..\..\packages\reactiveui-core.5.99.5-beta\lib\Portable-Net45+WinRT45+WP8\ReactiveUI.dll</HintPath>
+    </Reference>
+    <Reference Include="ReactiveUI.Blend">
+      <HintPath>..\..\packages\reactiveui-platforms.5.99.5-beta\lib\WP8\ReactiveUI.Blend.dll</HintPath>
+    </Reference>
+    <Reference Include="ReactiveUI.Xaml">
+      <HintPath>..\..\packages\reactiveui-platforms.5.99.5-beta\lib\WP8\ReactiveUI.Xaml.dll</HintPath>
+    </Reference>
     <Reference Include="Splat">
       <HintPath>..\..\packages\Splat.1.2.1\lib\wp8\Splat.dll</HintPath>
     </Reference>
@@ -140,6 +155,9 @@
     </Reference>
     <Reference Include="System.Reactive.PlatformServices">
       <HintPath>..\..\packages\Rx-PlatformServices.2.2.3\lib\windowsphone8\System.Reactive.PlatformServices.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reactive.Windows.Threading">
+      <HintPath>..\..\packages\Rx-XAML.2.2.2\lib\windowsphone8\System.Reactive.Windows.Threading.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

@@ -106,6 +106,7 @@
     <Compile Include="Services\GestureService.cs" />
     <Compile Include="Services\OrientationManager.cs" />
     <Compile Include="Services\SuspensionService.cs" />
+    <Compile Include="Services\WinRTMainThreadDispatcher.cs" />
     <Compile Include="WinRTBootstrapper.cs" />
   </ItemGroup>
   <ItemGroup>
