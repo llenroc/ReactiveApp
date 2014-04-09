@@ -83,11 +83,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="..\ReactiveApp.Xaml.Win8\Extensions\ISuspensionServiceExtensions.cs">
-      <Link>Extensions\ISuspensionServiceExtensions.cs</Link>
-    </Compile>
-    <Compile Include="..\ReactiveApp.Xaml.Win8\Extensions\ReactiveApplicationExtensions.cs">
-      <Link>Extensions\ReactiveApplicationExtensions.cs</Link>
+    <Compile Include="..\ReactiveApp.Xaml.Win8\Extensions\IExceptionHandlerExtensions.cs">
+      <Link>Extensions\IExceptionHandlerExtensions.cs</Link>
     </Compile>
     <Compile Include="..\ReactiveApp.Xaml.Win8\Platform\CurrentPlatformProvider.cs">
       <Link>Platform\CurrentPlatformProvider.cs</Link>
@@ -95,17 +92,23 @@
     <Compile Include="..\ReactiveApp.Xaml.Win8\Platform\XamlViewEvents.cs">
       <Link>Platform\XamlViewEvents.cs</Link>
     </Compile>
-    <Compile Include="..\ReactiveApp.Xaml.Win8\ReactiveApplication.cs">
-      <Link>ReactiveApplication.cs</Link>
-    </Compile>
     <Compile Include="..\ReactiveApp.Xaml.Win8\Services\GestureService.cs">
       <Link>Services\GestureService.cs</Link>
     </Compile>
-    <Compile Include="..\ReactiveApp.Xaml.Win8\Services\IOrientationManager.cs">
-      <Link>Services\IOrientationManager.cs</Link>
+    <Compile Include="..\ReactiveApp.Xaml.WP8\Adapters\IArgumentsProvider.cs">
+      <Link>Adapters\IArgumentsProvider.cs</Link>
     </Compile>
-    <Compile Include="..\ReactiveApp.Xaml.WP8\Services\DisplayOrientations.cs">
-      <Link>Services\DisplayOrientations.cs</Link>
+    <Compile Include="..\ReactiveApp.Xaml.WP8\Adapters\INavigationProvider.cs">
+      <Link>Adapters\INavigationProvider.cs</Link>
+    </Compile>
+    <Compile Include="..\ReactiveApp.Xaml.WP8\Adapters\IPhoneNavigationProvider.cs">
+      <Link>Adapters\IPhoneNavigationProvider.cs</Link>
+    </Compile>
+    <Compile Include="..\ReactiveApp.Xaml.WP8\PhoneBootstrapper.cs">
+      <Link>PhoneBootstrapper.cs</Link>
+    </Compile>
+    <Compile Include="..\ReactiveApp.Xaml.WP8\Services\IPhoneOrientationManager.cs">
+      <Link>Services\IPhoneOrientationManager.cs</Link>
     </Compile>
     <Compile Include="..\ReactiveApp.Xaml.WP8\Services\OrientationManager.cs">
       <Link>Services\OrientationManager.cs</Link>
