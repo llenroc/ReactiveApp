@@ -148,3 +148,6 @@ $RECYCLE.BIN/
 .DS_Store
 
 app/
+
+# Roslyn
+*.sln.ide/
