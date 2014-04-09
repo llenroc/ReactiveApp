@@ -57,5 +57,10 @@ namespace ReactiveApp.Xaml
             var suspensionService = CreateSuspensionService();
             Locator.CurrentMutable.RegisterConstant<ISuspensionService>(suspensionService);
         }
+
+        protected override IMainThreadDispatcher CreateMainThreadDispatcher()
+        {
+            return new WinRTMainThreadDispatcher();
+        }
     }
 }

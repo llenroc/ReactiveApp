@@ -59,5 +59,10 @@ namespace ReactiveApp.Android
             var suspensionService = CreateSuspensionService();
             Locator.CurrentMutable.RegisterConstant<ISuspensionService>(suspensionService);
         }
+
+        protected override IMainThreadDispatcher CreateMainThreadDispatcher()
+        {
+            return new AndroidMainThreadDispatcher();
+        }
     }
 }

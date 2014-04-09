@@ -76,5 +76,10 @@ namespace ReactiveApp.Xaml
             var orientationManager = CreateOrientationManager();
             Locator.CurrentMutable.RegisterConstant<IOrientationManager>(orientationManager);
         }
+
+        protected override IMainThreadDispatcher CreateMainThreadDispatcher()
+        {
+            return new PhoneMainThreadDispatcher();
+        }
     }
 }

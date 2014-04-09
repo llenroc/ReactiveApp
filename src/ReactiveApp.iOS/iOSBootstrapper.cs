@@ -3,22 +3,24 @@ using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Text;
-using ReactiveApp.Android.Services;
 using ReactiveApp.App;
 using ReactiveApp.Exceptions;
+using ReactiveApp.iOS.Services;
 using ReactiveApp.Services;
 using ReactiveUI;
 using Splat;
 
-namespace ReactiveApp.Android
+namespace ReactiveApp.iOS
 {
     public abstract class iOSBootstrapper : ReactiveBootstrapper
     {
-        private readonly Application application;
+        private readonly ReactiveApplicationDelegate application;
 
-        protected iOSBootstrapper(AppDelegate application)
+        protected iOSBootstrapper(ReactiveApplicationDelegate application)
         {
             Contract.Requires<ArgumentNullException>(application != null, "application");
+
+            this.application = application;
         }
 
         public override void Run()
@@ -52,6 +54,11 @@ namespace ReactiveApp.Android
         {
             var suspensionService = CreateSuspensionService();
             Locator.CurrentMutable.RegisterConstant<ISuspensionService>(suspensionService);
+        }
+
+        protected override IMainThreadDispatcher CreateMainThreadDispatcher()
+        {
+            return new iOSMainThreadDispatcher();
         }
     }
 }
