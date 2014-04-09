@@ -17,7 +17,7 @@ namespace ReactiveApp.Android
 {
     public static class IExceptionHandlerExtensions
     {
-        public static void SetupErrorHandling(this IExceptionHandler This, Application app)
+        public static IDisposable SetupErrorHandling(this IExceptionHandler This, Application app)
         {
             Contract.Requires<ArgumentNullException>(app != null, "app");
 
@@ -31,7 +31,7 @@ namespace ReactiveApp.Android
                 .Do(ue => ue.EventArgs.SetObserved())
                 .Select(ue => ue.EventArgs.Exception);
 
-            unhandled.Merge(unobserved).Subscribe(This.HandleException);
+            return unhandled.Merge(unobserved).Subscribe(This.HandleException);
         }
     }
 }

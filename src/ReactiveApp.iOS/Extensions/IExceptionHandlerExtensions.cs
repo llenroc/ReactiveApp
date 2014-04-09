@@ -13,7 +13,7 @@ namespace ReactiveApp.iOS
 {
     public static class IExceptionHandlerExtensions
     {
-        public static void SetupErrorHandling(this IExceptionHandler This)
+        public static IDisposable SetupErrorHandling(this IExceptionHandler This)
         {
             var unhandled = Observable.FromEventPattern<UnhandledExceptionEventHandler, UnhandledExceptionEventArgs>(x => AppDomain.CurrentDomain.UnhandledException += x, x => AppDomain.CurrentDomain.UnhandledException -= x)
                     .Select(ue => ue.EventArgs.ExceptionObject as Exception);
@@ -22,7 +22,7 @@ namespace ReactiveApp.iOS
                 .Do(ue => ue.EventArgs.SetObserved())
                 .Select(ue => ue.EventArgs.Exception);
 
-            unhandled.Merge(unobserved).Subscribe(This.HandleException);
+            return unhandled.Merge(unobserved).Subscribe(This.HandleException);
         }
     }
 }

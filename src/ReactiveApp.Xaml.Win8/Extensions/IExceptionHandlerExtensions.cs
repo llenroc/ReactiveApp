@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reactive.Disposables;
 using System.Reactive.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,7 +11,6 @@ using Splat;
 
 #if NETFX_CORE
 using Windows.UI.Xaml;
-using ReactiveApp.Services;
 #elif WINDOWS_PHONE
 using System.Windows;
 #endif
@@ -19,7 +19,7 @@ namespace ReactiveApp.Xaml
 {
     public static class ApplicationExtensions
     {
-        public static void SetupErrorHandling(this IExceptionHandler This, Application app = null)
+        public static IDisposable SetupErrorHandling(this IExceptionHandler This, Application app = null)
         {
             Application application = app ?? Application.Current;
 
@@ -39,7 +39,11 @@ namespace ReactiveApp.Xaml
                     .Do(ue => ue.EventArgs.SetObserved())
                     .Select(ue => ue.EventArgs.Exception);
 
-                unhandled.Merge(unobserved).Subscribe(This.HandleException);
+                return unhandled.Merge(unobserved).Subscribe(This.HandleException);
+            }
+            else
+            {
+                return Disposable.Empty;
             }
         }
     }
