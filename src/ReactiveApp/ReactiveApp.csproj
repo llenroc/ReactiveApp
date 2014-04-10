@@ -50,6 +50,7 @@
     <Compile Include="Services\INavigationSerializer.cs" />
     <Compile Include="Application\IReactiveApplication.cs" />
     <Compile Include="Services\IOrientationManager.cs" />
+    <Compile Include="Services\IViewDispatcher.cs" />
     <Compile Include="Services\IViewPresenter.cs" />
     <Compile Include="Settings\ReactiveAppSettings.cs" />
     <Compile Include="Settings\IReactiveAppSettings.cs" />
@@ -69,6 +70,7 @@
     <Compile Include="ViewModels\IViewAware.cs" />
     <Compile Include="ViewModels\ViewAttachedInfo.cs" />
     <Compile Include="ViewModels\ReactiveViewModel.cs" />
+    <Compile Include="ViewModels\ViewModelRequest.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="ReactiveUI">

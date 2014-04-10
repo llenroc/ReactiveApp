@@ -21,6 +21,8 @@ namespace ReactiveApp
 
         protected abstract IViewLocator CreateViewLocator();
 
+        protected abstract IViewDispatcher CreateViewDispatcher();
+
         protected abstract IViewPresenter CreateViewPresenter();
 
         public virtual void Run()
