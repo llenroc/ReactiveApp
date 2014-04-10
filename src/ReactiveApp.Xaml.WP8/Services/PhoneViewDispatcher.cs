@@ -27,12 +27,12 @@ namespace ReactiveApp.Xaml.Services
 
         public IObservable<Unit> CloseViewModel()
         {
-            return dispatcher.RunOnMainThread(() => viewPresenter.Close());
+            return dispatcher.RunOnMainThread<Unit>(() => viewPresenter.Close());
         }
 
         public IObservable<Unit> OpenViewModel(ReactiveViewModelRequest viewModel)
         {
-            return dispatcher.RunOnMainThread(() => viewPresenter.Open(viewModel));
+            return dispatcher.RunOnMainThread<Unit>(() => viewPresenter.Open(viewModel));
         }
     }
 }
