@@ -12,6 +12,6 @@ namespace ReactiveApp.Services
     {
         IObservable<Unit> OpenViewModel(ReactiveViewModelRequest viewModel);
 
-        IObservable<Unit> Close();
+        IObservable<Unit> CloseViewModel();
     }
 }

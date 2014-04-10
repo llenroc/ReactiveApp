@@ -95,9 +95,6 @@
     <Compile Include="..\ReactiveApp.Xaml.Win8\Services\GestureService.cs">
       <Link>Services\GestureService.cs</Link>
     </Compile>
-    <Compile Include="..\ReactiveApp.Xaml.Win8\Services\WinRTMainThreadDispatcher.cs">
-      <Link>Services\WinRTMainThreadDispatcher.cs</Link>
-    </Compile>
     <Compile Include="..\ReactiveApp.Xaml.WP8\Adapters\IArgumentsProvider.cs">
       <Link>Adapters\IArgumentsProvider.cs</Link>
     </Compile>
@@ -118,6 +115,9 @@
     </Compile>
     <Compile Include="..\ReactiveApp.Xaml.WP8\Services\PhoneMainThreadDispatcher.cs">
       <Link>Services\PhoneMainThreadDispatcher.cs</Link>
+    </Compile>
+    <Compile Include="..\ReactiveApp.Xaml.WP8\Services\PhoneViewDispatcher.cs">
+      <Link>Services\PhoneViewDispatcher.cs</Link>
     </Compile>
     <Compile Include="..\ReactiveApp.Xaml.WP8\Services\SuspensionService.cs">
       <Link>Services\SuspensionService.cs</Link>

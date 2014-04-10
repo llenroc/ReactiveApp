@@ -104,6 +104,7 @@
     <Compile Include="Services\OrientationManager.cs" />
     <Compile Include="Services\SuspensionService.cs" />
     <Compile Include="Services\PhoneMainThreadDispatcher.cs" />
+    <Compile Include="Services\PhoneViewDispatcher.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ReactiveApp\ReactiveApp.csproj">

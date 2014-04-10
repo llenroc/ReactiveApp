@@ -70,7 +70,7 @@
     <Compile Include="ViewModels\IViewAware.cs" />
     <Compile Include="ViewModels\ViewAttachedInfo.cs" />
     <Compile Include="ViewModels\ReactiveViewModel.cs" />
-    <Compile Include="ViewModels\ViewModelRequest.cs" />
+    <Compile Include="ViewModels\ReactiveViewModelRequest.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="ReactiveUI">

@@ -122,6 +122,9 @@
     <Compile Include="..\ReactiveApp.Xaml.Win8\Services\WinRTMainThreadDispatcher.cs">
       <Link>Services\WinRTMainThreadDispatcher.cs</Link>
     </Compile>
+    <Compile Include="..\ReactiveApp.Xaml.Win8\Services\WinRTViewDispatcher.cs">
+      <Link>Services\WinRTViewDispatcher.cs</Link>
+    </Compile>
     <Compile Include="..\ReactiveApp.Xaml.Win8\WinRTBootstrapper.cs">
       <Link>WinRTBootstrapper.cs</Link>
     </Compile>
