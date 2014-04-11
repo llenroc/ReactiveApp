@@ -16,7 +16,7 @@ using ReactiveApp.Services;
 
 namespace ReactiveApp.Android.Services
 {
-    public class SuspensionService : Java.Lang.Object, ISuspensionService, Application.IActivityLifecycleCallbacks
+    public class SuspensionService : Java.Lang.Object, ISuspensionService, IAndroidCurrentActivity, Application.IActivityLifecycleCallbacks
     {
         private Application application;
         private Activity currentActivity;
@@ -27,7 +27,9 @@ namespace ReactiveApp.Android.Services
         private readonly ISubject<string> isResuming = new Subject<string>();
         private readonly ISubject<IDisposable> shouldPersistState = new Subject<IDisposable>();
         private readonly ISubject<Unit> shouldInvalidateState = new Subject<Unit>();
-
+        
+        private readonly ISubject<Activity> currentActivitySubject;
+        
         /// <summary>
         /// Initializes a new instance of the <see cref="SuspensionService"/> class.
         /// Based on WinRTSuspensionHost in ReactiveUI.Mobile
@@ -46,6 +48,8 @@ namespace ReactiveApp.Android.Services
             this.shouldPersistState.Subscribe(_ => Log.Debug("Iens", "ShouldPersistState"));
             this.shouldInvalidateState = new Subject<Unit>();
             this.shouldInvalidateState.Subscribe(_ => Log.Debug("Iens", "ShouldInvalidateState"));
+            
+            this.currentActivitySubject = new Subject<Activity>();
 
             this.application.RegisterActivityLifecycleCallbacks(this);
         }
@@ -75,6 +79,11 @@ namespace ReactiveApp.Android.Services
             get { return this.shouldPersistState; }
         }
 
+        public IObservable<Activity> CurrentActivity
+        {
+            get { return this.currentActivitySubject.DistinctUntilChanged(); }
+        }
+
         public void OnActivityCreated(Activity activity, Bundle savedInstanceState)
         {
             Log.Debug("Iens", "Activity {0} created.", activity.GetHashCode());
@@ -83,6 +92,8 @@ namespace ReactiveApp.Android.Services
                 this.isLaunchingNew.OnNext(string.Empty);
             }
             currentActivity = activity;
+
+            this.currentActivitySubject.OnNext(activity);
         }
 
         public void OnActivityDestroyed(Activity activity)
@@ -99,6 +110,8 @@ namespace ReactiveApp.Android.Services
         public void OnActivityResumed(Activity activity)
         {
             Log.Debug("Iens", "Activity {0} resumed.", activity.GetHashCode());
+
+            this.currentActivitySubject.OnNext(activity);
         }
 
         public void OnActivitySaveInstanceState(Activity activity, Bundle outState)
@@ -114,6 +127,8 @@ namespace ReactiveApp.Android.Services
                 this.isResuming.OnNext(string.Empty);
             }
             currentActivity = activity;
+
+            this.currentActivitySubject.OnNext(activity);
         }
 
         public void OnActivityStopped(Activity activity)

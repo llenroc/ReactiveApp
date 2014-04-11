@@ -49,7 +49,7 @@ namespace ReactiveApp.Android
             base.InitializePlatformServices();
         }
 
-        protected virtual ISuspensionService CreateSuspensionService()
+        protected virtual SuspensionService CreateSuspensionService()
         {
             return new SuspensionService(application);
         }
@@ -57,12 +57,34 @@ namespace ReactiveApp.Android
         protected virtual void InitializeSuspensionService()
         {
             var suspensionService = CreateSuspensionService();
+            Locator.CurrentMutable.RegisterConstant<IAndroidCurrentActivity>(suspensionService);
             Locator.CurrentMutable.RegisterConstant<ISuspensionService>(suspensionService);
         }
 
         protected override IMainThreadDispatcher CreateMainThreadDispatcher()
         {
             return new AndroidMainThreadDispatcher();
+        }
+
+        protected override IViewDispatcher CreateViewDispatcher()
+        {
+            var dispatcher = Locator.Current.GetService<IMainThreadDispatcher>();
+            var viewPresenter = this.CreateViewPresenter();
+            return new AndroidViewDispatcher(dispatcher, viewPresenter);
+        }
+
+        protected virtual IViewPresenter CreateViewPresenter()
+        {
+            var currentActivity = Locator.Current.GetService<IAndroidCurrentActivity>();
+            var requestTranslator = this.CreateViewModelRequestTranslator();
+            return new AndroidViewPresenter(currentActivity, requestTranslator);
+        }
+
+        protected virtual IAndroidViewModelRequestTranslator CreateViewModelRequestTranslator()
+        {
+            var viewLocator = Locator.Current.GetService<ReactiveApp.Services.IViewLocator>();
+            var navigationSerializer = Locator.Current.GetService<INavigationSerializer>();
+            return new AndroidViewModelRequestTranslator(this.application, viewLocator, navigationSerializer);
         }
     }
 }

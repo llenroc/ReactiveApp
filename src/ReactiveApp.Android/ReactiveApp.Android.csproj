@@ -74,8 +74,12 @@
   <ItemGroup>
     <Compile Include="AndroidBootstrapper.cs" />
     <Compile Include="Extensions\IExceptionHandlerExtensions.cs" />
+    <Compile Include="Services\AndroidViewModelRequestTranslator.cs" />
+    <Compile Include="Services\IAndroidViewModelRequestTranslator.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\AndroidViewPresenter.cs" />
+    <Compile Include="Services\IAndroidCurrentActivity.cs" />
     <Compile Include="Services\IAndroidOrientationManager.cs" />
     <Compile Include="Services\AndroidMainThreadDispatcher.cs" />
     <Compile Include="Services\AndroidViewDispatcher.cs" />
