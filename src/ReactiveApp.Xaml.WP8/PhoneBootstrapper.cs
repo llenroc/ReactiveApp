@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using ReactiveApp.Exceptions;
 using ReactiveApp.Services;
@@ -17,15 +18,15 @@ namespace ReactiveApp.Xaml
     public abstract class PhoneBootstrapper : ReactiveBootstrapper
     {
         private readonly IArgumentsProvider arguments;
-        private readonly IPhoneNavigationProvider navigation;
+        private readonly PhoneApplicationFrame frame;
 
-        protected PhoneBootstrapper(IPhoneNavigationProvider navigation, IArgumentsProvider arguments)
+        protected PhoneBootstrapper(PhoneApplicationFrame frame, IArgumentsProvider arguments)
         {
-            Contract.Requires<ArgumentNullException>(navigation != null, "navigation");
+            Contract.Requires<ArgumentNullException>(frame != null, "frame");
             Contract.Requires<ArgumentNullException>(arguments != null, "arguments");
 
+            this.frame = frame;
             this.arguments = arguments;
-            this.navigation = navigation;
         }
 
         public override void Run()
@@ -67,7 +68,7 @@ namespace ReactiveApp.Xaml
         protected virtual IOrientationManager CreateOrientationManager()
         {
             var orientationManager = OrientationManager.Instance;
-            OrientationManager.InternalInstance.Initialize(this.navigation.Frame);
+            OrientationManager.InternalInstance.Initialize(this.frame);
             return orientationManager;
         }
 
@@ -80,6 +81,24 @@ namespace ReactiveApp.Xaml
         protected override IMainThreadDispatcher CreateMainThreadDispatcher()
         {
             return new PhoneMainThreadDispatcher();
+        }
+
+        protected override IViewDispatcher CreateViewDispatcher()
+        {
+            var dispatcher = Locator.Current.GetService<IMainThreadDispatcher>();
+            var viewPresenter = this.CreateViewPresenter(this.frame);
+            return new PhoneViewDispatcher(dispatcher, viewPresenter);
+        }
+
+        protected virtual IViewPresenter CreateViewPresenter(PhoneApplicationFrame frame)
+        {
+            var requestTranslator = this.CreateViewModelRequestTranslator();
+            return new PhoneViewPresenter(frame, requestTranslator);
+        }
+
+        protected virtual IPhoneViewModelRequestTranslator CreateViewModelRequestTranslator()
+        {
+            return new PhoneViewModelRequestTranslator();
         }
     }
 }

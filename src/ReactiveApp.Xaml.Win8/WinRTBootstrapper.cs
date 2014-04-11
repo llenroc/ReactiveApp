@@ -11,17 +11,21 @@ using ReactiveApp.Xaml.Services;
 using Splat;
 using Windows.ApplicationModel.Activation;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 
 namespace ReactiveApp.Xaml
 {
     public abstract class WinRTBootstrapper : ReactiveBootstrapper
     {
-        private ISubject<LaunchActivatedEventArgs> launched;
+        private readonly ISubject<LaunchActivatedEventArgs> launched;
+        private readonly Frame frame;
 
-        protected WinRTBootstrapper(ISubject<LaunchActivatedEventArgs> launched)
+        protected WinRTBootstrapper(Frame frame, ISubject<LaunchActivatedEventArgs> launched)
         {
+            Contract.Requires<ArgumentNullException>(frame != null, "frame");
             Contract.Requires<ArgumentNullException>(launched != null, "launched");
 
+            this.frame = frame;
             this.launched = launched;
         }
 
@@ -61,6 +65,19 @@ namespace ReactiveApp.Xaml
         protected override IMainThreadDispatcher CreateMainThreadDispatcher()
         {
             return new WinRTMainThreadDispatcher();
+        }
+
+        protected override IViewDispatcher CreateViewDispatcher()
+        {
+            var dispatcher = Locator.Current.GetService<IMainThreadDispatcher>();
+            var viewPresenter = this.CreateViewPresenter(this.frame);
+            return new WinRTViewDispatcher(dispatcher, viewPresenter);
+        }
+
+        protected virtual IViewPresenter CreateViewPresenter(Frame frame)
+        {
+            var viewLocator = Locator.Current.GetService<IViewLocator>();
+            return new WinRTViewPresenter(frame, viewLocator);
         }
     }
 }

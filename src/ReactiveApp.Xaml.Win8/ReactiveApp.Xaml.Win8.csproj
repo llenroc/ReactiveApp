@@ -108,6 +108,7 @@
     <Compile Include="Services\SuspensionService.cs" />
     <Compile Include="Services\WinRTMainThreadDispatcher.cs" />
     <Compile Include="Services\WinRTViewDispatcher.cs" />
+    <Compile Include="Services\WinRTViewPresenter.cs" />
     <Compile Include="WinRTBootstrapper.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -164,6 +165,7 @@
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '11.0' ">
     <VisualStudioVersion>11.0</VisualStudioVersion>
   </PropertyGroup>

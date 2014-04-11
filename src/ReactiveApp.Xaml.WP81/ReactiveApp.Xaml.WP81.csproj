@@ -98,17 +98,14 @@
     <Compile Include="..\ReactiveApp.Xaml.WP8\Adapters\IArgumentsProvider.cs">
       <Link>Adapters\IArgumentsProvider.cs</Link>
     </Compile>
-    <Compile Include="..\ReactiveApp.Xaml.WP8\Adapters\INavigationProvider.cs">
-      <Link>Adapters\INavigationProvider.cs</Link>
-    </Compile>
-    <Compile Include="..\ReactiveApp.Xaml.WP8\Adapters\IPhoneNavigationProvider.cs">
-      <Link>Adapters\IPhoneNavigationProvider.cs</Link>
-    </Compile>
     <Compile Include="..\ReactiveApp.Xaml.WP8\PhoneBootstrapper.cs">
       <Link>PhoneBootstrapper.cs</Link>
     </Compile>
     <Compile Include="..\ReactiveApp.Xaml.WP8\Services\IPhoneOrientationManager.cs">
       <Link>Services\IPhoneOrientationManager.cs</Link>
+    </Compile>
+    <Compile Include="..\ReactiveApp.Xaml.WP8\Services\IPhoneViewModelRequestTranslator.cs">
+      <Link>Services\IPhoneViewModelRequestTranslator.cs</Link>
     </Compile>
     <Compile Include="..\ReactiveApp.Xaml.WP8\Services\OrientationManager.cs">
       <Link>Services\OrientationManager.cs</Link>
@@ -118,6 +115,12 @@
     </Compile>
     <Compile Include="..\ReactiveApp.Xaml.WP8\Services\PhoneViewDispatcher.cs">
       <Link>Services\PhoneViewDispatcher.cs</Link>
+    </Compile>
+    <Compile Include="..\ReactiveApp.Xaml.WP8\Services\PhoneViewModelRequestTranslator.cs">
+      <Link>Services\PhoneViewModelRequestTranslator.cs</Link>
+    </Compile>
+    <Compile Include="..\ReactiveApp.Xaml.WP8\Services\PhoneViewPresenter.cs">
+      <Link>Services\PhoneViewPresenter.cs</Link>
     </Compile>
     <Compile Include="..\ReactiveApp.Xaml.WP8\Services\SuspensionService.cs">
       <Link>Services\SuspensionService.cs</Link>

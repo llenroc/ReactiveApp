@@ -19,11 +19,9 @@ namespace ReactiveApp
 
         protected abstract IMainThreadDispatcher CreateMainThreadDispatcher();
 
-        protected abstract IViewLocator CreateViewLocator();
+        protected abstract ReactiveApp.Services.IViewLocator CreateViewLocator();
 
         protected abstract IViewDispatcher CreateViewDispatcher();
-
-        protected abstract IViewPresenter CreateViewPresenter();
 
         public virtual void Run()
         {
@@ -39,12 +37,12 @@ namespace ReactiveApp
             this.InitializeSettings();
             this.Log().Info("Initializing MainThread Dispatcher");
             this.InitializeMainThreadDispatcher();
-            this.Log().Info("Initializing Application");
-            this.InitializeApplication();
             this.Log().Info("Initializing View Locator");
             this.InitializeViewLocator();
-            this.Log().Info("Initializing View Presenter");
-            this.InitializeViewPresenter();
+            this.Log().Info("Initializing View Dispatcher");
+            this.InitializeViewDispatcher();
+            this.Log().Info("Initializing Application");
+            this.InitializeApplication();
             this.Log().Info("AFter Bootstrapping");
             this.AfterBootstrapping();
         }
@@ -117,13 +115,13 @@ namespace ReactiveApp
         protected virtual void InitializeViewLocator()
         {
             var viewLocator = this.CreateViewLocator();
-            Locator.CurrentMutable.RegisterConstant<IViewLocator>(viewLocator);
+            Locator.CurrentMutable.RegisterConstant<ReactiveApp.Services.IViewLocator>(viewLocator);
         }
 
-        protected virtual void InitializeViewPresenter()
+        protected virtual void InitializeViewDispatcher()
         {
-            var viewPresenter = this.CreateViewPresenter();
-            Locator.CurrentMutable.RegisterConstant<IViewPresenter>(viewPresenter);
+            var viewDispatcher = this.CreateViewDispatcher();
+            Locator.CurrentMutable.RegisterConstant<IViewDispatcher>(viewDispatcher);
         }
 
         protected virtual INavigationSerializer CreateNavigationSerializer()

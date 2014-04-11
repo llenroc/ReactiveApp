@@ -125,6 +125,9 @@
     <Compile Include="..\ReactiveApp.Xaml.Win8\Services\WinRTViewDispatcher.cs">
       <Link>Services\WinRTViewDispatcher.cs</Link>
     </Compile>
+    <Compile Include="..\ReactiveApp.Xaml.Win8\Services\WinRTViewPresenter.cs">
+      <Link>Services\WinRTViewPresenter.cs</Link>
+    </Compile>
     <Compile Include="..\ReactiveApp.Xaml.Win8\WinRTBootstrapper.cs">
       <Link>WinRTBootstrapper.cs</Link>
     </Compile>
@@ -149,6 +152,9 @@
     </Reference>
     <Reference Include="ReactiveUI">
       <HintPath>..\..\packages\reactiveui-core.5.99.5-beta\lib\Portable-Net45+WinRT45+WP8\ReactiveUI.dll</HintPath>
+    </Reference>
+    <Reference Include="Splat">
+      <HintPath>..\..\packages\Splat.1.2.1\lib\Portable-Net45+WinRT45+WP8\Splat.dll</HintPath>
     </Reference>
     <Reference Include="System.Reactive.Core, Version=2.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>

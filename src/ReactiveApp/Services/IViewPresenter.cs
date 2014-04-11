@@ -5,13 +5,14 @@ using System.Reactive;
 using System.Text;
 using System.Threading.Tasks;
 using ReactiveApp.ViewModels;
+using Splat;
 
 namespace ReactiveApp.Services
 {
-    public interface IViewPresenter
+    public interface IViewPresenter : IEnableLogger
     {
-        IObservable<Unit> Open(ReactiveViewModelRequest viewModel);
+        IObservable<bool> Open(ReactiveViewModelRequest viewModel);
 
-        IObservable<Unit> Close();
+        IObservable<bool> Close(IReactiveViewModel viewModel);
     }
 }
