@@ -10,8 +10,8 @@ namespace ReactiveApp.Services
 {
     public interface IViewDispatcher
     {
-        IObservable<Unit> OpenViewModel(ReactiveViewModelRequest viewModel);
+        IObservable<bool> OpenViewModel(ReactiveViewModelRequest viewModel);
 
-        IObservable<Unit> CloseViewModel();
+        IObservable<bool> CloseViewModel(IReactiveViewModel viewModel);
     }
 }

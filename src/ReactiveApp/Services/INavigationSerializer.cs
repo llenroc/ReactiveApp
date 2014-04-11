@@ -8,5 +8,8 @@ namespace ReactiveApp.Services
 {
     public interface INavigationSerializer
     {
+        string SerializeObject(object objectToSerialise);
+
+        object DeserializeObject(Type type, string stringToSerialize);
     }
 }
