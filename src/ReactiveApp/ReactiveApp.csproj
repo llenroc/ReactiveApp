@@ -54,6 +54,7 @@
     <Compile Include="Services\IViewDispatcher.cs" />
     <Compile Include="Services\IViewLocator.cs" />
     <Compile Include="Services\IViewPresenter.cs" />
+    <Compile Include="Services\MainThreadDispatcher.cs" />
     <Compile Include="Settings\ReactiveAppSettings.cs" />
     <Compile Include="Settings\IReactiveAppSettings.cs" />
     <Compile Include="Platform\IPlatformProvider.cs" />

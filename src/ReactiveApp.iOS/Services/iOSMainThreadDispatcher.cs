@@ -12,33 +12,10 @@ using ReactiveUI;
 
 namespace ReactiveApp.iOS.Services
 {
-    public class iOSMainThreadDispatcher : IMainThreadDispatcher
+    public class iOSMainThreadDispatcher : MainThreadDispatcher
     {
-        private readonly IScheduler scheduler;
-
         public iOSMainThreadDispatcher()
-        {
-            this.scheduler = RxApp.MainThreadScheduler;
-        }
-
-        public IObservable<Unit> RunOnMainThread(Action action)
-        {
-            return Observable.Start(action, this.scheduler);
-        }
-
-        public IObservable<T> RunOnMainThread<T>(Func<T> func)
-        {
-            return Observable.Start(func, this.scheduler);
-        }
-
-        public IObservable<Unit> RunOnMainThread(Func<CancellationToken, Task> actionAsync)
-        {
-            return ObservableEx.StartAsync(actionAsync, this.scheduler);
-        }
-
-        public IObservable<T> RunOnMainThread<T>(Func<CancellationToken, Task<T>> funcAsync)
-        {
-            return ObservableEx.StartAsync(funcAsync, this.scheduler);
-        }
+            : base(RxApp.MainThreadScheduler)
+        { }
     }
 }

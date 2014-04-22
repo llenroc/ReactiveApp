@@ -12,33 +12,10 @@ using ReactiveUI;
 
 namespace ReactiveApp.Xaml.Services
 {
-    public class WinRTMainThreadDispatcher : IMainThreadDispatcher
+    public class WinRTMainThreadDispatcher : MainThreadDispatcher
     {
-        private readonly IScheduler scheduler;
-
         public WinRTMainThreadDispatcher()
-        {
-            this.scheduler = RxApp.MainThreadScheduler;
-        }
-
-        public IObservable<Unit> RunOnMainThread(Action action)
-        {
-            return Observable.Start(action, this.scheduler);
-        }
-
-        public IObservable<T> RunOnMainThread<T>(Func<T> func)
-        {
-            return Observable.Start(func, this.scheduler);
-        }
-
-        public IObservable<Unit> RunOnMainThread(Func<CancellationToken, Task> actionAsync)
-        {
-            return ObservableEx.StartAsync(actionAsync, this.scheduler);
-        }
-
-        public IObservable<T> RunOnMainThread<T>(Func<CancellationToken, Task<T>> funcAsync)
-        {
-            return ObservableEx.StartAsync(funcAsync, this.scheduler);
-        }
+            : base(RxApp.MainThreadScheduler)
+        { }
     }
 }
