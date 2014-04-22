@@ -35,9 +35,9 @@ namespace ReactiveApp.Android.Services
 
         public IObservable<bool> Open(ReactiveViewModelRequest viewModel)
         {
-            Intent intent = requestTranslator.GetIntentForViewModelRequest(viewModel);
+            Intent intent = this.requestTranslator.GetIntentForViewModelRequest(viewModel);
 
-            return currentActivity.CurrentActivity.FirstOrDefaultAsync().Select(act =>
+            return this.currentActivity.CurrentActivity.FirstOrDefaultAsync().Select(act =>
             {
                 act.StartActivity(intent);
                 return true;
@@ -46,7 +46,7 @@ namespace ReactiveApp.Android.Services
 
         public IObservable<bool> Close(IReactiveViewModel viewModel)
         {
-            return currentActivity.CurrentActivity.FirstOrDefaultAsync().Select(act =>
+            return this.currentActivity.CurrentActivity.FirstOrDefaultAsync().Select(act =>
             {
                 IViewFor currentView = act as IViewFor;
                 if (currentView == null)

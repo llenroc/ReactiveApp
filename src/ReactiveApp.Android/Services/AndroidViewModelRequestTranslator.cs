@@ -35,14 +35,14 @@ namespace ReactiveApp.Android.Services
 
         public Intent GetIntentForViewModelRequest(ReactiveViewModelRequest viewModelRequest)
         {
-            var viewType = viewLocator.GetViewTypeForViewModel(viewModelRequest.ViewModelType);
+            var viewType = this.viewLocator.GetViewTypeForViewModel(viewModelRequest.ViewModelType);
             if (viewType == null)
             {
                 throw new InvalidOperationException("No view type found for" + viewModelRequest.ViewModelType);
             }
 
             string requestString = this.navigationSerializer.SerializeObject(viewModelRequest);
-            Intent intent = new Intent(application.ApplicationContext, viewType);
+            Intent intent = new Intent(this.application.ApplicationContext, viewType);
             intent.PutExtra("request", requestString);
 
             return intent;

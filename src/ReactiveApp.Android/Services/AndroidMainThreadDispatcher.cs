@@ -19,7 +19,7 @@ namespace ReactiveApp.Android.Services
 
         public AndroidMainThreadDispatcher()
         {
-            scheduler = new SynchronizationContextScheduler(Application.SynchronizationContext);
+            this.scheduler = new SynchronizationContextScheduler(Application.SynchronizationContext);
         }
 
         public IObservable<Unit> RunOnMainThread(Action action)

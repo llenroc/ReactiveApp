@@ -49,7 +49,7 @@ namespace ReactiveApp.Android.Services
         {
             get
             {
-                IWindowManager window = application.GetSystemService(Context.WindowService).JavaCast<IWindowManager>();
+                IWindowManager window = this.application.GetSystemService(Context.WindowService).JavaCast<IWindowManager>();
                 SurfaceOrientation rotation = window.DefaultDisplay.Rotation;
                 DisplayMetrics dm = new DisplayMetrics();
                 window.DefaultDisplay.GetMetrics(dm);
@@ -125,9 +125,9 @@ namespace ReactiveApp.Android.Services
 
         private void ApplyRequestedOrientation()
         {
-            if (currentActivity != null)
+            if (this.currentActivity != null)
             {
-                currentActivity.RequestedOrientation = preferred.AsSupportedScreenOrientation();
+                this.currentActivity.RequestedOrientation = preferred.AsSupportedScreenOrientation();
             }
         }
 
@@ -186,7 +186,7 @@ namespace ReactiveApp.Android.Services
 
             public override void OnOrientationChanged(int orientation)
             {
-                manager.orientationChanged.OnNext(manager.Orientation);
+                this.manager.orientationChanged.OnNext(manager.Orientation);
             }
         }        
     }

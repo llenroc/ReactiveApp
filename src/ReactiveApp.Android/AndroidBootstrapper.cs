@@ -47,7 +47,7 @@ namespace ReactiveApp.Android
 
         protected override void InitializePlatformServices()
         {
-            InitializeSuspensionService();
+            this.InitializeSuspensionService();
             base.InitializePlatformServices();
         }
 
