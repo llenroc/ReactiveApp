@@ -20,6 +20,7 @@ namespace ReactiveApp.ViewModels
         private ISubject<object> viewLoaded;
         private ISubject<object> viewReady;
 
+
         /// <summary>
         /// Initializes a new instance of the <see cref="ReactiveViewModel"/> class.
         /// </summary>
