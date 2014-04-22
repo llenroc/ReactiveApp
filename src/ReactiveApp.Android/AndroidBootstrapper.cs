@@ -25,6 +25,8 @@ namespace ReactiveApp.Android
         protected AndroidBootstrapper(Application application)
         {
             Contract.Requires<ArgumentNullException>(application != null, "application");
+
+            this.application = application;
         }
 
         public override void Run()
