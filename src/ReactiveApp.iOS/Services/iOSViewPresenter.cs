@@ -76,9 +76,9 @@ namespace ReactiveApp.iOS.Services
                 view.RemoveFromSuperview();
             }
 
-            MasterNavigationController = CreateNavigationController(viewController);
+            this.MasterNavigationController = CreateNavigationController(viewController);
 
-            SetWindowRootViewController(MasterNavigationController);
+            this.SetWindowRootViewController(MasterNavigationController);
         }
 
         protected virtual UINavigationController CreateNavigationController(UIViewController viewController)
@@ -87,8 +87,8 @@ namespace ReactiveApp.iOS.Services
         }
         protected virtual void SetWindowRootViewController(UIViewController controller)
         {
-            window.AddSubview(controller.View);
-            window.RootViewController = controller;
+            this.window.AddSubview(controller.View);
+            this.window.RootViewController = controller;
         }
 
 

@@ -35,8 +35,8 @@ namespace ReactiveApp.Xaml.Services
 
             try
             {
-                Type viewType = viewLocator.GetViewTypeForViewModel(viewModelRequest.ViewModelType);
-                bool success = frame.Navigate(viewType, viewModelRequest);
+                Type viewType = this.viewLocator.GetViewTypeForViewModel(viewModelRequest.ViewModelType);
+                bool success = this.frame.Navigate(viewType, viewModelRequest);
                 return Observable.Return(success);
             }
             catch (Exception exception)
@@ -48,7 +48,7 @@ namespace ReactiveApp.Xaml.Services
 
         public virtual IObservable<bool> Close(IReactiveViewModel viewModel)
         {
-            IViewFor currentView = frame.Content as IViewFor;
+            IViewFor currentView = this.frame.Content as IViewFor;
             if (currentView == null)
             {
                 this.Log().Info("Frame has no page. Ignore close for viewmodel {0}.", viewModel);
@@ -69,7 +69,7 @@ namespace ReactiveApp.Xaml.Services
 
             this.Log().Info("Closing {0}", viewModel);
 
-            frame.GoBack();
+            this.frame.GoBack();
             return Observable.Return(true);
         }
     }

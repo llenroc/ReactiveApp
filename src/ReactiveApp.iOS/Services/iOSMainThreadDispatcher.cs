@@ -18,7 +18,7 @@ namespace ReactiveApp.iOS.Services
 
         public iOSMainThreadDispatcher()
         {
-            scheduler = RxApp.MainThreadScheduler;
+            this.scheduler = RxApp.MainThreadScheduler;
         }
 
         public IObservable<Unit> RunOnMainThread(Action action)

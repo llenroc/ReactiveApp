@@ -18,7 +18,7 @@ namespace ReactiveApp.Xaml.Services
 
         public WinRTMainThreadDispatcher()
         {
-            scheduler = RxApp.MainThreadScheduler;
+            this.scheduler = RxApp.MainThreadScheduler;
         }
 
         public IObservable<Unit> RunOnMainThread(Action action)

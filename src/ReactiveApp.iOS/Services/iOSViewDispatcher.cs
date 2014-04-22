@@ -27,12 +27,12 @@ namespace ReactiveApp.iOS.Services
 
         public IObservable<bool> CloseViewModel(IReactiveViewModel viewModel)
         {
-            return dispatcher.RunOnMainThread<bool>(() => viewPresenter.Close(viewModel));
+            return this.dispatcher.RunOnMainThread<bool>(() => viewPresenter.Close(viewModel));
         }
 
         public IObservable<bool> OpenViewModel(ReactiveViewModelRequest viewModel)
         {
-            return dispatcher.RunOnMainThread<bool>(() => viewPresenter.Open(viewModel));
+            return this.dispatcher.RunOnMainThread<bool>(() => viewPresenter.Open(viewModel));
         }
     }
 }

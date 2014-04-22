@@ -21,13 +21,13 @@ namespace ReactiveApp.iOS.Services
 
         public UIViewController GetViewControllerForViewModelRequest(ReactiveViewModelRequest viewModelRequest)
         {
-            var viewType = viewLocator.GetViewTypeForViewModel(viewModelRequest.ViewModelType);
+            var viewType = this.viewLocator.GetViewTypeForViewModel(viewModelRequest.ViewModelType);
             if (viewType == null)
             {
                 throw new Exception("View Type not found for " + viewModelRequest.ViewModelType);
             }
 
-            var view = CreateViewOfType(viewType, viewModelRequest);
+            var view = this.CreateViewOfType(viewType, viewModelRequest);
             return view;
         }
 
