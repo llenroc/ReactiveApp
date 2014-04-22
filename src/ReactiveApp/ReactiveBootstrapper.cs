@@ -25,25 +25,25 @@ namespace ReactiveApp
 
         public virtual void Run()
         {
+            this.Log().Info("Initializing Dependency Resolver.");
             this.InitializeDependencyResolver();
-            this.Log().Info("Dependency Resolver initialized.");
-            this.Log().Info("Before Bootstrapping");
+            this.Log().Info("Before Bootstrapping.");
             this.BeforeBootstrapping();
             this.Log().Info("Initializing Debug Services.");
             this.InitializeDebugServices();
             this.Log().Info("Initializing Platform Services.");
             this.InitializePlatformServices();
-            this.Log().Info("Initializing Settings");
+            this.Log().Info("Initializing Settings.");
             this.InitializeSettings();
-            this.Log().Info("Initializing MainThread Dispatcher");
+            this.Log().Info("Initializing MainThread Dispatcher.");
             this.InitializeMainThreadDispatcher();
-            this.Log().Info("Initializing View Locator");
+            this.Log().Info("Initializing View Locator.");
             this.InitializeViewLocator();
-            this.Log().Info("Initializing View Dispatcher");
+            this.Log().Info("Initializing View Dispatcher.");
             this.InitializeViewDispatcher();
-            this.Log().Info("Initializing Application");
+            this.Log().Info("Initializing Application.");
             this.InitializeApplication();
-            this.Log().Info("AFter Bootstrapping");
+            this.Log().Info("After Bootstrapping.");
             this.AfterBootstrapping();
         }
 
