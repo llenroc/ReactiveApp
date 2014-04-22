@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using ReactiveApp.Services;
 using ReactiveApp.ViewModels;
 
-namespace ReactiveApp.Xaml.Services
+namespace ReactiveApp.iOS.Services
 {
     public class iOSViewDispatcher : IViewDispatcher
     {

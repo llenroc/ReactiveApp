@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Text;
+using MonoTouch.UIKit;
 using ReactiveApp.App;
 using ReactiveApp.Exceptions;
 using ReactiveApp.iOS.Services;
@@ -15,12 +16,15 @@ namespace ReactiveApp.iOS
     public abstract class iOSBootstrapper : ReactiveBootstrapper
     {
         private readonly ReactiveApplicationDelegate application;
+        private readonly UIWindow window;
 
-        protected iOSBootstrapper(ReactiveApplicationDelegate application)
+        protected iOSBootstrapper(ReactiveApplicationDelegate application, UIWindow window)
         {
             Contract.Requires<ArgumentNullException>(application != null, "application");
+            Contract.Requires<ArgumentNullException>(window != null, "window");
 
             this.application = application;
+            this.window = window;
         }
 
         public override void Run()
@@ -60,5 +64,24 @@ namespace ReactiveApp.iOS
         {
             return new iOSMainThreadDispatcher();
         }
+        protected override IViewDispatcher CreateViewDispatcher()
+        {
+            var dispatcher = Locator.Current.GetService<IMainThreadDispatcher>();
+            var viewPresenter = this.CreateViewPresenter();
+            return new iOSViewDispatcher(dispatcher, viewPresenter);
+        }
+
+        protected virtual IViewPresenter CreateViewPresenter()
+        {
+            var requestTranslator = this.CreateViewModelRequestTranslator();
+            return new iOSViewPresenter(this.application, this.window, requestTranslator);
+        }
+
+        protected virtual IiOSViewModelRequestTranslator CreateViewModelRequestTranslator()
+        {
+            var viewLocator = Locator.Current.GetService<ReactiveApp.Services.IViewLocator>();
+            return new iOSViewModelRequestTranslator(viewLocator);
+        }
+
     }
 }
