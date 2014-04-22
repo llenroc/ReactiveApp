@@ -18,7 +18,7 @@ namespace ReactiveApp.iOS.Services
         private readonly ReactiveApplicationDelegate application;
         /// <summary>
         /// Initializes a new instance of the <see cref="SuspensionService"/> class.
-        /// Based on WinRTSuspensionHost in ReactiveUI.Mobile
+        /// Based on iOSSuspensionHost in ReactiveUI.Mobile
         /// </summary>
         public SuspensionService(ReactiveApplicationDelegate application)
         {
