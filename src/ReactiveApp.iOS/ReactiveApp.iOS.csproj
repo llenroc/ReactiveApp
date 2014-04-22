@@ -38,6 +38,9 @@
     <Compile Include="iOSBootstrapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReactiveApplicationDelegate.cs" />
+    <Compile Include="Services\IiOSViewModelRequestTranslator.cs" />
+    <Compile Include="Services\iOSViewModelRequestTranslator.cs" />
+    <Compile Include="Services\iOSViewPresenter.cs" />
     <Compile Include="Services\OrientationManager.cs" />
     <Compile Include="Services\SuspensionService.cs" />
     <Compile Include="Services\iOSMainThreadDispatcher.cs" />
