@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ReactiveApp.Xaml.Services
+namespace ReactiveApp.Services
 {   
     /// <summary>
     /// Describes the orientation of a rectangular monitor.

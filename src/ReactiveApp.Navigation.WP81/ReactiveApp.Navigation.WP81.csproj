@@ -184,6 +184,9 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="ReactiveUI">
+      <HintPath>..\..\packages\reactiveui-core.5.99.5-beta\lib\Portable-Net45+WinRT45+WP8\ReactiveUI.dll</HintPath>
+    </Reference>
     <Reference Include="Splat">
       <HintPath>..\..\packages\Splat.1.2.1\lib\wp8\Splat.dll</HintPath>
     </Reference>

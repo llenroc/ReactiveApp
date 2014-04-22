@@ -4,13 +4,13 @@ using System.Linq;
 using System.Reactive.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Windows.Graphics.Display;
+using ReactiveApp.Services;
 
 namespace ReactiveApp.Xaml.Services
 {
     public class OrientationManager : IOrientationManager
     {
-        private static DisplayInformation di;
+        private static Windows.Graphics.Display.DisplayInformation di;
 
         private static Lazy<OrientationManager> instance = new Lazy<OrientationManager>(() => new OrientationManager());
 
@@ -21,23 +21,23 @@ namespace ReactiveApp.Xaml.Services
 
         private OrientationManager()
         {
-            di = DisplayInformation.GetForCurrentView();
-            OrientationChanged = WindowsObservable.FromEventPattern<DisplayInformation, object>(h => di.OrientationChanged += h, h => di.OrientationChanged -= h)
-                .Select(_ => di.CurrentOrientation).Publish().RefCount();
+            di = Windows.Graphics.Display.DisplayInformation.GetForCurrentView();
+            OrientationChanged = WindowsObservable.FromEventPattern<Windows.Graphics.Display.DisplayInformation, object>(h => di.OrientationChanged += h, h => di.OrientationChanged -= h)
+                .Select(_ => (DisplayOrientations)di.CurrentOrientation).Publish().RefCount();
         }
 
         public DisplayOrientations Orientation
         {
             get
             {
-                return di.CurrentOrientation;
+                return (DisplayOrientations)di.CurrentOrientation;
             }
         }
 
         public DisplayOrientations PreferredOrientation
         {
-            get { return DisplayInformation.AutoRotationPreferences; }
-            set { DisplayInformation.AutoRotationPreferences = value; }
+            get { return (DisplayOrientations)Windows.Graphics.Display.DisplayInformation.AutoRotationPreferences; }
+            set { Windows.Graphics.Display.DisplayInformation.AutoRotationPreferences = (Windows.Graphics.Display.DisplayOrientations)value; }
         }
 
         public IObservable<DisplayOrientations> OrientationChanged { get; private set; }

@@ -8,7 +8,6 @@ using System.Reactive.Subjects;
 using System.Text;
 using System.Threading.Tasks;
 
-using ReactiveApp.Interfaces;
 using ReactiveApp.Services;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;

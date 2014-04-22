@@ -104,11 +104,8 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="..\ReactiveApp.Xaml.Win8\Extensions\ISuspensionServiceExtensions.cs">
-      <Link>Extensions\ISuspensionServiceExtensions.cs</Link>
-    </Compile>
-    <Compile Include="..\ReactiveApp.Xaml.Win8\Extensions\ReactiveApplicationExtensions.cs">
-      <Link>Extensions\ReactiveApplicationExtensions.cs</Link>
+    <Compile Include="..\ReactiveApp.Xaml.Win8\Extensions\IExceptionHandlerExtensions.cs">
+      <Link>Extensions\IExceptionHandlerExtensions.cs</Link>
     </Compile>
     <Compile Include="..\ReactiveApp.Xaml.Win8\Platform\CurrentPlatformProvider.cs">
       <Link>Platform\CurrentPlatformProvider.cs</Link>
@@ -116,17 +113,23 @@
     <Compile Include="..\ReactiveApp.Xaml.Win8\Platform\XamlViewEvents.cs">
       <Link>Platform\XamlViewEvents.cs</Link>
     </Compile>
-    <Compile Include="..\ReactiveApp.Xaml.Win8\ReactiveApplication.cs">
-      <Link>ReactiveApplication.cs</Link>
-    </Compile>
     <Compile Include="..\ReactiveApp.Xaml.Win8\Services\GestureService.cs">
       <Link>Services\GestureService.cs</Link>
     </Compile>
-    <Compile Include="..\ReactiveApp.Xaml.Win8\Services\IOrientationManager.cs">
-      <Link>Services\IOrientationManager.cs</Link>
-    </Compile>
     <Compile Include="..\ReactiveApp.Xaml.Win8\Services\SuspensionService.cs">
       <Link>Services\SuspensionService.cs</Link>
+    </Compile>
+    <Compile Include="..\ReactiveApp.Xaml.Win8\Services\WinRTMainThreadDispatcher.cs">
+      <Link>Services\WinRTMainThreadDispatcher.cs</Link>
+    </Compile>
+    <Compile Include="..\ReactiveApp.Xaml.Win8\Services\WinRTViewDispatcher.cs">
+      <Link>Services\WinRTViewDispatcher.cs</Link>
+    </Compile>
+    <Compile Include="..\ReactiveApp.Xaml.Win8\Services\WinRTViewPresenter.cs">
+      <Link>Services\WinRTViewPresenter.cs</Link>
+    </Compile>
+    <Compile Include="..\ReactiveApp.Xaml.Win8\WinRTBootstrapper.cs">
+      <Link>WinRTBootstrapper.cs</Link>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\OrientationManager.cs" />
@@ -147,13 +150,11 @@
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\..\packages\Newtonsoft.Json.6.0.1\lib\netcore45\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="ReactiveUI, Version=5.99.4.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\reactiveui-core.5.99.4-beta\lib\Portable-Net45+WinRT45+WP8\ReactiveUI.dll</HintPath>
+    <Reference Include="ReactiveUI">
+      <HintPath>..\..\packages\reactiveui-core.5.99.5-beta\lib\Portable-Net45+WinRT45+WP8\ReactiveUI.dll</HintPath>
     </Reference>
-    <Reference Include="ReactiveUI.Xaml, Version=5.99.4.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\reactiveui-platforms.5.99.4-beta\lib\WinRT451\ReactiveUI.Xaml.dll</HintPath>
+    <Reference Include="Splat">
+      <HintPath>..\..\packages\Splat.1.2.1\lib\Portable-Net45+WinRT45+WP8\Splat.dll</HintPath>
     </Reference>
     <Reference Include="System.Reactive.Core, Version=2.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
