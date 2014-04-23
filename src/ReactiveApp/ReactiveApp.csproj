@@ -69,14 +69,7 @@
     <Compile Include="ReactiveBootstrapper.cs" />
     <Compile Include="Services\ISuspensionService.cs" />
     <Compile Include="ViewModels\IDataContainer.cs" />
-    <Compile Include="ViewModels\ActivationInfo.cs" />
-    <Compile Include="ViewModels\DeactivationInfo.cs" />
-    <Compile Include="ViewModels\IActivate.cs" />
-    <Compile Include="ViewModels\IClose.cs" />
-    <Compile Include="ViewModels\IDeactivate.cs" />
     <Compile Include="ViewModels\IReactiveViewModel.cs" />
-    <Compile Include="ViewModels\IViewAware.cs" />
-    <Compile Include="ViewModels\ViewAttachedInfo.cs" />
     <Compile Include="ViewModels\ReactiveViewModel.cs" />
     <Compile Include="ViewModels\ReactiveViewModelRequest.cs" />
   </ItemGroup>
