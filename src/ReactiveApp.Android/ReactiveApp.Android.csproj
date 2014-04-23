@@ -85,6 +85,7 @@
     <Compile Include="Services\AndroidViewDispatcher.cs" />
     <Compile Include="Services\OrientationManager.cs" />
     <Compile Include="Services\SuspensionService.cs" />
+    <Compile Include="Views\AndroidReactiveView.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

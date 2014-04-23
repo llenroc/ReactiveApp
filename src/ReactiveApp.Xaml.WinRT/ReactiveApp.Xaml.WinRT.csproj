@@ -107,12 +107,6 @@
     <Compile Include="..\ReactiveApp.Xaml.Win8\Extensions\IExceptionHandlerExtensions.cs">
       <Link>Extensions\IExceptionHandlerExtensions.cs</Link>
     </Compile>
-    <Compile Include="..\ReactiveApp.Xaml.Win8\Platform\CurrentPlatformProvider.cs">
-      <Link>Platform\CurrentPlatformProvider.cs</Link>
-    </Compile>
-    <Compile Include="..\ReactiveApp.Xaml.Win8\Platform\XamlViewEvents.cs">
-      <Link>Platform\XamlViewEvents.cs</Link>
-    </Compile>
     <Compile Include="..\ReactiveApp.Xaml.Win8\Services\GestureService.cs">
       <Link>Services\GestureService.cs</Link>
     </Compile>
@@ -127,6 +121,9 @@
     </Compile>
     <Compile Include="..\ReactiveApp.Xaml.Win8\Services\WinRTViewPresenter.cs">
       <Link>Services\WinRTViewPresenter.cs</Link>
+    </Compile>
+    <Compile Include="..\ReactiveApp.Xaml.Win8\Views\WinRTReactiveView.cs">
+      <Link>Views\WinRTReactiveView.cs</Link>
     </Compile>
     <Compile Include="..\ReactiveApp.Xaml.Win8\WinRTBootstrapper.cs">
       <Link>WinRTBootstrapper.cs</Link>

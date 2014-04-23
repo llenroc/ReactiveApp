@@ -100,8 +100,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Extensions\IExceptionHandlerExtensions.cs" />
-    <Compile Include="Platform\CurrentPlatformProvider.cs" />
-    <Compile Include="Platform\XamlViewEvents.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\GestureService.cs" />
     <Compile Include="Services\OrientationManager.cs" />
@@ -109,6 +107,7 @@
     <Compile Include="Services\WinRTMainThreadDispatcher.cs" />
     <Compile Include="Services\WinRTViewDispatcher.cs" />
     <Compile Include="Services\WinRTViewPresenter.cs" />
+    <Compile Include="Views\WinRTReactiveView.cs" />
     <Compile Include="WinRTBootstrapper.cs" />
   </ItemGroup>
   <ItemGroup>
