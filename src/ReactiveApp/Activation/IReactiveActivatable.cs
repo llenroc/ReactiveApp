@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ReactiveApp.Activation;
+using ReactiveUI;
 
-namespace ReactiveApp.ViewModels
+namespace ReactiveApp.Activation
 {
-    public interface IReactiveViewModel : IReactiveActivatableViewModel
+    public interface IReactiveActivatable : IActivatable
     {
     }
 }

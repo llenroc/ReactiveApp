@@ -1,0 +1,47 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reactive.Disposables;
+using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
+using ReactiveApp.ViewModels;
+
+namespace ReactiveApp.Activation
+{
+    public class ReactiveViewModelActivator : IViewModelActivator
+    {
+        private readonly List<Func<IDataContainer, IDataContainer, IEnumerable<IDisposable>>> activationBlocks;
+        private IDisposable activationHandle = Disposable.Empty;
+        private int refCount = 0;
+
+        public ReactiveViewModelActivator()
+        {
+            this.activationBlocks = new List<Func<IDataContainer, IDataContainer, IEnumerable<IDisposable>>>();
+        }
+
+        public void AddActivationBlock(Func<IDataContainer, IDataContainer, IEnumerable<IDisposable>> block)
+        {
+            this.activationBlocks.Add(block);
+        }
+
+        public virtual IDisposable Activate(IDataContainer parameters, IDataContainer state)
+        {
+            if (Interlocked.Increment(ref this.refCount) == 1)
+            {
+                var disp = new CompositeDisposable(this.activationBlocks.SelectMany(x => x(parameters, state)));
+                Interlocked.Exchange(ref this.activationHandle, disp).Dispose();
+            }
+
+            return Disposable.Create(() => this.Deactivate(state));
+        }
+
+        public void Deactivate(IDataContainer state, bool ignoreRefCount = false)
+        {
+            if (Interlocked.Decrement(ref refCount) == 0 || ignoreRefCount)
+            {
+                Interlocked.Exchange(ref this.activationHandle, Disposable.Empty).Dispose();
+            }
+        }
+    }
+}

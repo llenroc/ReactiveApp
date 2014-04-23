@@ -34,15 +34,22 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Activation\IReactiveActivatableViewModel.cs" />
+    <Compile Include="Activation\IReactiveActivatable.cs" />
+    <Compile Include="Activation\IReactiveActivationForViewFetcher.cs" />
+    <Compile Include="Activation\IViewModelActivator.cs" />
+    <Compile Include="Activation\ReactiveViewModelActivator.cs" />
     <Compile Include="Application\IStartup.cs" />
     <Compile Include="Application\Startup.cs" />
     <Compile Include="Debugging\IObjectTracker.cs" />
     <Compile Include="Debugging\ObjectTracker.cs" />
     <Compile Include="Exceptions\DefaultExceptionHandler.cs" />
+    <Compile Include="Extensions\IReactiveActivatableExtensions.cs" />
     <Compile Include="Extensions\IConnectableObservableExtensions.cs" />
     <Compile Include="Exceptions\IExceptionHandler.cs" />
     <Compile Include="Extensions\IMainThreadDispatcherExtensions.cs" />
     <Compile Include="Extensions\IMutableDependencyResolverExtensions.cs" />
+    <Compile Include="Extensions\IReactiveActivatableViewModelExtensions.cs" />
     <Compile Include="Extensions\IReactiveApplicationExtensions.cs" />
     <Compile Include="Extensions\ISuspensionServiceExtensions.cs" />
     <Compile Include="ObservableEx.cs" />
@@ -57,13 +64,11 @@
     <Compile Include="Services\MainThreadDispatcher.cs" />
     <Compile Include="Settings\ReactiveAppSettings.cs" />
     <Compile Include="Settings\IReactiveAppSettings.cs" />
-    <Compile Include="Platform\IPlatformProvider.cs" />
-    <Compile Include="Platform\IViewEvents.cs" />
-    <Compile Include="Platform\PlatformProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Application\ReactiveApplication.cs" />
     <Compile Include="ReactiveBootstrapper.cs" />
     <Compile Include="Services\ISuspensionService.cs" />
+    <Compile Include="ViewModels\IDataContainer.cs" />
     <Compile Include="ViewModels\ActivationInfo.cs" />
     <Compile Include="ViewModels\DeactivationInfo.cs" />
     <Compile Include="ViewModels\IActivate.cs" />

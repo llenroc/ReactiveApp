@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ReactiveApp.Activation;
 
 namespace ReactiveApp.ViewModels
 {
-    public interface IReactiveViewModel : IReactiveActivatableViewModel
+    public interface IDataContainer
     {
+        IDictionary<string, string> Data { get; }
     }
 }
