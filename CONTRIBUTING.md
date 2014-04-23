@@ -1,8 +1,8 @@
 ## The short version
 
 1. Open `ReactiveApp.sln` in VS2013.
-1. Run tests, build ReactiveUI.sln in VS2013 on Win8.1 and make sure everything works.
-1. Make chnges and submit a PR.
+1. Run tests, build ReactiveApp.sln in VS2013 on Win8.1 and make sure everything works.
+1. Make changes and submit a PR.
 
 
 ## The longer version to contribute to ReactiveApp
