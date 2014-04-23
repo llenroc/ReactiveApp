@@ -6,18 +6,21 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using ReactiveApp.ViewModels;
+using ReactiveUI;
 
 namespace ReactiveApp.Activation
 {
     public class ReactiveViewModelActivator : IViewModelActivator
     {
         private readonly List<Func<IDataContainer, IDataContainer, IEnumerable<IDisposable>>> activationBlocks;
+        private readonly ISupportsActivation activation;
         private IDisposable activationHandle = Disposable.Empty;
         private int refCount = 0;
 
-        public ReactiveViewModelActivator()
+        public ReactiveViewModelActivator(ISupportsActivation activation)
         {
             this.activationBlocks = new List<Func<IDataContainer, IDataContainer, IEnumerable<IDisposable>>>();
+            this.activation = activation;
         }
 
         public void AddActivationBlock(Func<IDataContainer, IDataContainer, IEnumerable<IDisposable>> block)
@@ -29,7 +32,7 @@ namespace ReactiveApp.Activation
         {
             if (Interlocked.Increment(ref this.refCount) == 1)
             {
-                var disp = new CompositeDisposable(this.activationBlocks.SelectMany(x => x(parameters, state)));
+                var disp = new CompositeDisposable(this.activationBlocks.SelectMany(x => x(parameters, state)).Concat(new IDisposable[] { this.activation.Activator.Activate() }));
                 Interlocked.Exchange(ref this.activationHandle, disp).Dispose();
             }
 
