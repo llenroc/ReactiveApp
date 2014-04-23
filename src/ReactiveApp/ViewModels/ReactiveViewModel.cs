@@ -16,7 +16,5 @@ namespace ReactiveApp.ViewModels
         {
 
         }
-
-
     }
 }

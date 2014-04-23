@@ -8,8 +8,8 @@ namespace ReactiveApp.ViewModels
 {
     public class ReactiveViewModelRequest
     {
-        public ReactiveViewModelRequest(Type viewModelType, IDictionary<string, string> parameters,
-            IDictionary<string, string> viewModelState)
+        public ReactiveViewModelRequest(Type viewModelType, IDataContainer parameters,
+            IDataContainer viewModelState)
         {
             ViewModelType = viewModelType;
             Parameters = parameters;
@@ -17,13 +17,13 @@ namespace ReactiveApp.ViewModels
         }
 
         public Type ViewModelType { get; set; }
-        public IDictionary<string, string> Parameters { get; set; }
-        public IDictionary<string, string> ViewModelState { get; set; }
+        public IDataContainer Parameters { get; set; }
+        public IDataContainer ViewModelState { get; set; }
     }
 
     public class ReactiveViewModelRequest<TViewModel> : ReactiveViewModelRequest where TViewModel : IReactiveViewModel
     {
-        public ReactiveViewModelRequest(IDictionary<string, string> parameters, IDictionary<string, string> viewModelState)
+        public ReactiveViewModelRequest(IDataContainer parameters, IDataContainer viewModelState)
             : base(typeof(TViewModel), parameters, viewModelState)
         {
         }
