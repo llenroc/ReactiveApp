@@ -68,7 +68,7 @@ namespace ReactiveApp
                 // Deactivation
                 deactivation.Subscribe(_ =>
                 {
-                    viewDisposable.Dispose();
+                    viewDisposable.Disposable = Disposable.Empty;
                 }),
                 viewDisposable);
         }
@@ -94,7 +94,7 @@ namespace ReactiveApp
                 // Deactivation
                 deactivation.Subscribe(_ =>
                 {
-                    vmDisposable.Dispose();
+                    vmDisposable.Disposable = Disposable.Empty;
                 }),
                 vmDisposable);
         }
