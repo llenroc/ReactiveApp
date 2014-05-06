@@ -10,5 +10,7 @@ namespace ReactiveApp.Xaml.Services
     public interface IPhoneViewModelRequestTranslator
     {
         Uri GetUriForViewModelRequest(ReactiveViewModelRequest request);
+
+        ReactiveViewModelRequest GetViewModelRequestForUri(Uri requestUri);
     }
 }

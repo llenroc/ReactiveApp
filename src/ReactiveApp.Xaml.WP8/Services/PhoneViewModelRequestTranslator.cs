@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using ReactiveApp.Services;
@@ -32,7 +33,7 @@ namespace ReactiveApp.Xaml.Services
             }
 
             string requestString = this.navigationSerializer.SerializeObject(request);
-            string uriString = string.Format("/{0}?request={1}", this.GetUriPartForView(viewType), requestString);
+            string uriString = string.Format("/{0}?request={1}", this.GetUriPartForView(viewType), Uri.EscapeDataString(requestString));
             return new Uri(uriString, UriKind.Relative);
         }
 
@@ -42,6 +43,20 @@ namespace ReactiveApp.Xaml.Services
             var folderAndNamespace = segments.SkipWhile((segment) => segment != ViewsFolderName);
             var viewUriPart = string.Format("/{0}.xaml", string.Join("/", folderAndNamespace));
             return viewUriPart;
+        }
+
+        public ReactiveViewModelRequest GetViewModelRequestForUri(Uri requestUri)
+        {
+            var queryParams = requestUri.ParseQueryString();
+
+            string queryString = null;
+            if (!queryParams.TryGetValue("request", out queryString))
+            {
+                throw new ArgumentException("requestUri doe not contain a ReactiveViewModelRequest");
+            }
+
+            var text = Uri.UnescapeDataString(queryString);
+            return navigationSerializer.DeserializeObject<ReactiveViewModelRequest>(text);
         }
 
         protected virtual string ViewsFolderName
