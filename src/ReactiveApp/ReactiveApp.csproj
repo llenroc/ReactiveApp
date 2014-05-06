@@ -39,12 +39,14 @@
     <Compile Include="Activation\IReactiveActivatable.cs" />
     <Compile Include="Activation\IReactiveActivationForViewFetcher.cs" />
     <Compile Include="Activation\IViewModelActivator.cs" />
+    <Compile Include="Activation\ActivationViewFetcher.cs" />
     <Compile Include="Activation\ReactiveViewModelActivator.cs" />
     <Compile Include="Application\IStartup.cs" />
     <Compile Include="Application\Startup.cs" />
     <Compile Include="Debugging\IObjectTracker.cs" />
     <Compile Include="Debugging\ObjectTracker.cs" />
     <Compile Include="Exceptions\DefaultExceptionHandler.cs" />
+    <Compile Include="Extensions\INavigationSerializerExtensions.cs" />
     <Compile Include="Extensions\IReactiveActivatableExtensions.cs" />
     <Compile Include="Extensions\IConnectableObservableExtensions.cs" />
     <Compile Include="Exceptions\IExceptionHandler.cs" />
@@ -52,7 +54,10 @@
     <Compile Include="Extensions\IMutableDependencyResolverExtensions.cs" />
     <Compile Include="Extensions\IReactiveActivatableViewModelExtensions.cs" />
     <Compile Include="Extensions\IReactiveApplicationExtensions.cs" />
+    <Compile Include="Extensions\IReactiveViewExtensions.cs" />
     <Compile Include="Extensions\ISuspensionServiceExtensions.cs" />
+    <Compile Include="Extensions\IViewForExtensions.cs" />
+    <Compile Include="Extensions\UriExtensions.cs" />
     <Compile Include="ObservableEx.cs" />
     <Compile Include="Services\DisplayOrientations.cs" />
     <Compile Include="Services\IMainThreadDispatcher.cs" />
@@ -69,10 +74,12 @@
     <Compile Include="Application\ReactiveApplication.cs" />
     <Compile Include="ReactiveBootstrapper.cs" />
     <Compile Include="Services\ISuspensionService.cs" />
+    <Compile Include="ViewModels\DataContainer.cs" />
     <Compile Include="ViewModels\IDataContainer.cs" />
     <Compile Include="ViewModels\IReactiveViewModel.cs" />
     <Compile Include="ViewModels\ReactiveViewModel.cs" />
     <Compile Include="ViewModels\ReactiveViewModelRequest.cs" />
+    <Compile Include="Views\IReactiveView.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="ReactiveUI">

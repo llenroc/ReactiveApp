@@ -90,6 +90,7 @@
       <Link>Services\GestureService.cs</Link>
     </Compile>
     <Compile Include="Adapters\IArgumentsProvider.cs" />
+    <Compile Include="Extensions\IReactiveViewExtensions.cs" />
     <Compile Include="PhoneBootstrapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\IPhoneOrientationManager.cs" />
