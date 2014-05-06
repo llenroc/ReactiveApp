@@ -9,16 +9,16 @@ namespace ReactiveApp.ViewModels
     public class ReactiveViewModelRequest
     {
         public ReactiveViewModelRequest(Type viewModelType, IDataContainer parameters,
-            IDataContainer viewModelState)
+            IDataContainer presentationInfo)
         {
             ViewModelType = viewModelType;
             Parameters = parameters;
-            ViewModelState = viewModelState;
+            PresentationInfo = presentationInfo;
         }
 
         public Type ViewModelType { get; set; }
         public IDataContainer Parameters { get; set; }
-        public IDataContainer ViewModelState { get; set; }
+        public IDataContainer PresentationInfo { get; set; }
     }
 
     public class ReactiveViewModelRequest<TViewModel> : ReactiveViewModelRequest where TViewModel : IReactiveViewModel
