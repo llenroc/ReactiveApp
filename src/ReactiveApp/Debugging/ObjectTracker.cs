@@ -12,13 +12,28 @@ namespace ReactiveApp.Debugging
     /// </summary>
     public class ObjectTracker : IObjectTracker
     {
-        private static readonly object monitor = new object();
-        private static readonly List<WeakReference> objects = new List<WeakReference>();
-        private static bool? shouldTrack;
+        private readonly object monitor = new object();
+        private readonly List<WeakReference> objects = new List<WeakReference>();
+        private bool? shouldTrack;
+
+        private static Lazy<IObjectTracker> instance = new Lazy<IObjectTracker>(() => new ObjectTracker());
+        public static IObjectTracker Instance
+        {
+            get { return instance.Value; }
+        }
+
+        /// <summary>
+        /// Prevents a default instance of the <see cref="ObjectTracker"/> class from being created.
+        /// </summary>
+        private ObjectTracker()
+        {
+        }
+
+        public bool ForceTrack { get; set; }
         
         public void TrackObject(object objectToTrack)
         {
-            if (ShouldTrack())
+            if (ShouldTrack() || ForceTrack)
             {
                 lock (monitor)
                 {
