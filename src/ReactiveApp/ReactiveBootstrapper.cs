@@ -63,7 +63,7 @@ namespace ReactiveApp
 
         protected virtual IObjectTracker CreateObjectTracker()
         {
-            return new ObjectTracker();
+            return ObjectTracker.Instance;
         }
 
         protected virtual void InitializeObjectTracker()
@@ -122,19 +122,7 @@ namespace ReactiveApp
         {
             var viewDispatcher = this.CreateViewDispatcher();
             Locator.CurrentMutable.RegisterConstant<IViewDispatcher>(viewDispatcher);
-        }
-
-        protected virtual INavigationSerializer CreateNavigationSerializer()
-        {
-            //TODO: default implementation
-            return null;
-        }
-
-        protected virtual void InitializeNavigationSerializer()
-        {
-            var serializer = CreateNavigationSerializer();
-            Locator.CurrentMutable.RegisterConstant<INavigationSerializer>(serializer);
-        }
+        }        
 
         protected virtual IDependencyResolver CreateDependencyResolver()
         {
