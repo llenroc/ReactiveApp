@@ -11,19 +11,16 @@ namespace ReactiveApp
 {
     public static class IReactiveActivatableViewModelExtensions
     {
-        public static void WhenActivatedWithState(this IReactiveActivatableViewModel This, Func<IDataContainer, IDataContainer, IEnumerable<IDisposable>> activationBlock, Action<IDataContainer> deactivationBlock)
+        public static void WhenActivatedWithState(this IReactiveActivatableViewModel This, Func<IDataContainer, IDataContainer, IEnumerable<IDisposable>> activationBlock)
         {
-            This.ReactiveActivator.AddActivationBlock((param, state) => 
-                new IDisposable[] { Disposable.Create(() => deactivationBlock(state)) }
-                .Concat(activationBlock(param, state)));
+            This.ReactiveActivator.AddActivationBlock((param, state) => activationBlock(param, state));
         }
 
-        public static void WhenActivatedWithState(this IReactiveActivatableViewModel This, Action<IDataContainer, IDataContainer, Action<IDisposable>> activationBlock, Action<IDataContainer> deactivationBlock)
+        public static void WhenActivatedWithState(this IReactiveActivatableViewModel This, Action<IDataContainer, IDataContainer, Action<IDisposable>> activationBlock)
         {
             This.ReactiveActivator.AddActivationBlock((param, state) =>
             {
                 var ret = new List<IDisposable>();
-                ret.Add(Disposable.Create(() => deactivationBlock(state)));
                 activationBlock(param, state, ret.Add);
                 return ret;
             });

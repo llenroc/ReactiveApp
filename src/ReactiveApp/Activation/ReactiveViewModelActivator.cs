@@ -36,10 +36,10 @@ namespace ReactiveApp.Activation
                 Interlocked.Exchange(ref this.activationHandle, disp).Dispose();
             }
 
-            return Disposable.Create(() => this.Deactivate(state));
+            return Disposable.Create(() => this.Deactivate());
         }
 
-        public void Deactivate(IDataContainer state, bool ignoreRefCount = false)
+        public void Deactivate(bool ignoreRefCount = false)
         {
             if (Interlocked.Decrement(ref refCount) == 0 || ignoreRefCount)
             {

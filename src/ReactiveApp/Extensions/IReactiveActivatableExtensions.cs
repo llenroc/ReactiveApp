@@ -15,7 +15,7 @@ namespace ReactiveApp
 {
     public static class IReactiveActivatableExtensions
     {
-        public static IDisposable WhenActivatedWithState(this IReactiveActivatable This, Func<IDataContainer, IEnumerable<IDisposable>> activationBlock, Action deactivationBlock)
+        public static IDisposable WhenActivatedWithState(this IReactiveActivatable This, Func<IDataContainer, IDataContainer, IEnumerable<IDisposable>> activationBlock)
         {
             var activationFetcher = activationFetcherCache.Get(This.GetType());
             if (activationFetcher == null)
@@ -33,21 +33,21 @@ namespace ReactiveApp
                 vmDisposable = handleViewModelActivation(iViewFor, activationEvents.Item1, activationEvents.Item2);
             }
 
-            var viewDisposable = handleViewActivation(activationBlock, deactivationBlock, activationEvents.Item1, activationEvents.Item2);
+            var viewDisposable = handleViewActivation(activationBlock, activationEvents.Item1, activationEvents.Item2);
             return new CompositeDisposable(vmDisposable, viewDisposable);
         }
 
-        public static IDisposable WhenActivatedWithState(this IReactiveActivatable This, Action<IDataContainer, Action<IDisposable>> activationBlock, Action deactivationBlock)
+        public static IDisposable WhenActivatedWithState(this IReactiveActivatable This, Action<IDataContainer, IDataContainer, Action<IDisposable>> activationBlock)
         {
-            return This.WhenActivatedWithState(dc =>
+            return This.WhenActivatedWithState((param, state) =>
             {
                 var ret = new List<IDisposable>();
-                activationBlock(dc, ret.Add);
+                activationBlock(param, state, ret.Add);
                 return ret;
-            }, deactivationBlock);
+            });
         }
 
-        static IDisposable handleViewActivation(Func<IDataContainer, IEnumerable<IDisposable>> activationBlock, Action deactivationBlock, IObservable<Tuple<IDataContainer, IDataContainer>> activation, IObservable<IDataContainer> deactivation)
+        static IDisposable handleViewActivation(Func<IDataContainer, IDataContainer, IEnumerable<IDisposable>> activationBlock, IObservable<Tuple<IDataContainer, IDataContainer>> activation, IObservable<Unit> deactivation)
         {
             var viewDisposable = new SerialDisposable();
 
@@ -58,12 +58,7 @@ namespace ReactiveApp
                     // NB: We need to make sure to respect ordering so that the cleanup
                     // happens before we invoke block again
                     viewDisposable.Disposable = Disposable.Empty;
-                    IDisposable disp = new CompositeDisposable(activationBlock(tuple.Item1));
-                    viewDisposable.Disposable = Disposable.Create(() =>
-                    {
-                        deactivationBlock();
-                        disp.Dispose();
-                    });
+                    viewDisposable.Disposable = new CompositeDisposable(activationBlock(tuple.Item1, tuple.Item2));
                 }),
                 // Deactivation
                 deactivation.Subscribe(_ =>
@@ -73,7 +68,7 @@ namespace ReactiveApp
                 viewDisposable);
         }
 
-        static IDisposable handleViewModelActivation(IViewFor view, IObservable<Tuple<IDataContainer, IDataContainer>> activation, IObservable<IDataContainer> deactivation)
+        static IDisposable handleViewModelActivation(IViewFor view, IObservable<Tuple<IDataContainer, IDataContainer>> activation, IObservable<Unit> deactivation)
         {
             var vmDisposable = new SerialDisposable();
 

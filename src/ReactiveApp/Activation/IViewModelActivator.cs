@@ -10,6 +10,6 @@ namespace ReactiveApp.Activation
 
         IDisposable Activate(IDataContainer parameters, IDataContainer state);
 
-        void Deactivate(IDataContainer state, bool ignoreRefCount = false);
+        void Deactivate(bool ignoreRefCount = false);
     }
 }

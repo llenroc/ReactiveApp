@@ -9,8 +9,8 @@ using ReactiveUI;
 
 namespace ReactiveApp.Activation
 {
-    interface IReactiveActivationForViewFetcher : IActivationForViewFetcher
+    public interface IReactiveActivationForViewFetcher : IActivationForViewFetcher
     {
-        Tuple<IObservable<Tuple<IDataContainer, IDataContainer>>, IObservable<IDataContainer>> GetActivationForView(IReactiveActivatable view);
+        Tuple<IObservable<Tuple<IDataContainer, IDataContainer>>, IObservable<Unit>> GetActivationForView(IReactiveActivatable view);
     }
 }
