@@ -45,6 +45,7 @@
     <Compile Include="Services\SuspensionService.cs" />
     <Compile Include="Services\iOSMainThreadDispatcher.cs" />
     <Compile Include="Services\iOSViewDispatcher.cs" />
+    <Compile Include="Views\IiOSReactiveView.cs" />
     <Compile Include="Views\iOSReactiveView.cs" />
   </ItemGroup>
   <ItemGroup>

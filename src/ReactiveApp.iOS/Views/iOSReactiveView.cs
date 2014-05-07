@@ -5,17 +5,20 @@ using System.Reactive;
 using System.Reactive.Subjects;
 using System.Text;
 using System.Threading.Tasks;
+using MonoTouch.Foundation;
 using MonoTouch.UIKit;
 using ReactiveApp.Activation;
 using ReactiveApp.ViewModels;
+using ReactiveApp.Views;
 using ReactiveUI;
 
 namespace ReactiveApp.iOS.Views
 {
-    public class iOSReactiveView : UIViewController, IViewFor, IReactiveActivatable, IActivation
+    public class iOSReactiveView : UIViewController, IReactiveView
     {
         private ISubject<Tuple<IDataContainer, IDataContainer>> activated;
         private ISubject<Unit> deactivated;
+        protected IDataContainer stateContainer;
 
         public iOSReactiveView()
         {
@@ -28,6 +31,8 @@ namespace ReactiveApp.iOS.Views
             get;
             set;
         }
+
+        public ReactiveViewModelRequest Request { get; set; }
 
         public IObservable<Tuple<IDataContainer, IDataContainer>> Activated
         {
@@ -42,11 +47,17 @@ namespace ReactiveApp.iOS.Views
         public override void ViewDidAppear(bool animated)
         {
             base.ViewDidAppear(animated);
+
+            this.ViewCreated(this.Request);
+
+            this.activated.OnNext(Tuple.Create(this.Request.Parameters, this.stateContainer));
         }
 
         public override void ViewDidDisappear(bool animated)
         {
             base.ViewDidDisappear(animated);
+
+            this.deactivated.OnNext(Unit.Default);
         }
     }
 }

@@ -5,6 +5,7 @@ using System.Text;
 
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
+using ReactiveApp.iOS.Views;
 using ReactiveApp.Services;
 using ReactiveApp.ViewModels;
 
@@ -19,7 +20,7 @@ namespace ReactiveApp.iOS.Services
             this.viewLocator = viewLocator;
         }
 
-        public UIViewController GetViewControllerForViewModelRequest(ReactiveViewModelRequest viewModelRequest)
+        public IiOSReactiveView GetViewControllerForViewModelRequest(ReactiveViewModelRequest viewModelRequest)
         {
             var viewType = this.viewLocator.GetViewTypeForViewModel(viewModelRequest.ViewModelType);
             if (viewType == null)
@@ -27,13 +28,14 @@ namespace ReactiveApp.iOS.Services
                 throw new Exception("View Type not found for " + viewModelRequest.ViewModelType);
             }
 
-            var view = this.CreateViewOfType(viewType, viewModelRequest);
+            var view = this.CreateViewOfType(viewType);
+            view.Request = viewModelRequest;
             return view;
         }
 
-        protected virtual UIViewController CreateViewOfType(Type viewType, ReactiveViewModelRequest viewModelRequest)
+        protected virtual IiOSReactiveView CreateViewOfType(Type viewType)
         {
-            var view = Activator.CreateInstance(viewType) as UIViewController;
+            var view = Activator.CreateInstance(viewType) as IiOSReactiveView;
             if (view == null)
             {
                 throw new Exception("View not loaded for " + viewType);
