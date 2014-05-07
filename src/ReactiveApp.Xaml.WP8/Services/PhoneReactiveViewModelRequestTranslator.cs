@@ -9,16 +9,16 @@ using ReactiveApp.ViewModels;
 
 namespace ReactiveApp.Xaml.Services
 {
-    public class PhoneViewModelRequestTranslator : IPhoneViewModelRequestTranslator
+    public class PhoneReactiveViewModelRequestTranslator : IPhoneReactiveViewModelRequestTranslator
     {
         private readonly IViewLocator viewLocator;
         private readonly INavigationSerializer navigationSerializer;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="PhoneViewModelRequestTranslator"/> class.
+        /// Initializes a new instance of the <see cref="PhoneReactiveViewModelRequestTranslator"/> class.
         /// </summary>
         /// <param name="viewLocator">The view locator.</param>
-        public PhoneViewModelRequestTranslator(IViewLocator viewLocator, INavigationSerializer navigationSerializer)
+        public PhoneReactiveViewModelRequestTranslator(IViewLocator viewLocator, INavigationSerializer navigationSerializer)
         {
             this.viewLocator = viewLocator;
             this.navigationSerializer = navigationSerializer;

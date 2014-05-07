@@ -16,14 +16,14 @@ namespace ReactiveApp.Xaml.Services
     public class PhoneViewPresenter : IViewPresenter
     {
         private readonly PhoneApplicationFrame frame;
-        private readonly IPhoneViewModelRequestTranslator requestTranslator;
+        private readonly IPhoneReactiveViewModelRequestTranslator requestTranslator;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PhoneViewPresenter"/> class.
         /// </summary>
         /// <param name="frame">The frame.</param>
         /// <param name="requestTranslator">The request translator.</param>
-        public PhoneViewPresenter(PhoneApplicationFrame frame, IPhoneViewModelRequestTranslator requestTranslator)
+        public PhoneViewPresenter(PhoneApplicationFrame frame, IPhoneReactiveViewModelRequestTranslator requestTranslator)
         {
             this.frame = frame;
             this.requestTranslator = requestTranslator;

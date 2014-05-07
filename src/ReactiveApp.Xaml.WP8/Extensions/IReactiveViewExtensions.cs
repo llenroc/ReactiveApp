@@ -15,7 +15,7 @@ namespace ReactiveApp.Xaml
         public static ReactiveViewModelRequest ViewCreated(this IReactiveView This, Uri viewModelRequestUri)
         {
             // on Windows Phone Silveright we need to parse the Uri into a ReactiveViewModelRequest
-            var translatorService = Locator.Current.GetService<IPhoneViewModelRequestTranslator>();
+            var translatorService = Locator.Current.GetService<IPhoneReactiveViewModelRequestTranslator>();
             var viewModelRequest = translatorService.GetViewModelRequestForUri(viewModelRequestUri);
 
             This.ViewCreated(viewModelRequest);

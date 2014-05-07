@@ -94,9 +94,9 @@
     <Compile Include="PhoneBootstrapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\IPhoneOrientationManager.cs" />
-    <Compile Include="Services\IPhoneViewModelRequestTranslator.cs" />
+    <Compile Include="Services\IPhoneReactiveViewModelRequestTranslator.cs" />
     <Compile Include="Services\OrientationManager.cs" />
-    <Compile Include="Services\PhoneViewModelRequestTranslator.cs" />
+    <Compile Include="Services\PhoneReactiveViewModelRequestTranslator.cs" />
     <Compile Include="Services\PhoneViewPresenter.cs" />
     <Compile Include="Services\SuspensionService.cs" />
     <Compile Include="Services\PhoneMainThreadDispatcher.cs" />

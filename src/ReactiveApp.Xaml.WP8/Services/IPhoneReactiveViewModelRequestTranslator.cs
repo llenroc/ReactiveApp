@@ -7,7 +7,7 @@ using ReactiveApp.ViewModels;
 
 namespace ReactiveApp.Xaml.Services
 {
-    public interface IPhoneViewModelRequestTranslator
+    public interface IPhoneReactiveViewModelRequestTranslator
     {
         Uri GetUriForViewModelRequest(ReactiveViewModelRequest request);
 
