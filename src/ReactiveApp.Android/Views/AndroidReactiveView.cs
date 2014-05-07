@@ -18,7 +18,7 @@ namespace ReactiveApp.Android.Views
     {
         private ISubject<Tuple<IDataContainer, IDataContainer>> activated;
         private ISubject<Unit> deactivated;
-        private IDataContainer stateContainer;
+        protected IDataContainer stateContainer;
         private ReactiveViewModelRequest viewModelRequest;
 
         public AndroidReactiveView()

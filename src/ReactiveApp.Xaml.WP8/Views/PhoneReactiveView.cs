@@ -19,7 +19,7 @@ namespace ReactiveApp.Xaml.Views
     {
         private ISubject<Tuple<IDataContainer, IDataContainer>> activated;
         private ISubject<Unit> deactivated;
-        private IDataContainer stateContainer;
+        protected IDataContainer stateContainer;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PhoneReactiveView"/> class.
