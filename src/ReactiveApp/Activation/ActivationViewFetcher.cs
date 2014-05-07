@@ -13,6 +13,12 @@ namespace ReactiveApp.Activation
 {
     public class ActivationViewFetcher : IReactiveActivationForViewFetcher
     {
+        /// <summary>
+        /// The affinity for types implementing IActivation to be chosen for activation.
+        /// The value for IActivationViewFetcher is 10 so we need to make sure this class has higher affinity.
+        /// </summary>
+        private const int Affinity = 20;
+
         public Tuple<IObservable<Unit>, IObservable<Unit>> GetActivationForView(IActivatable view)
         {
             var ca = view as IActivation;
@@ -28,7 +34,7 @@ namespace ReactiveApp.Activation
         public int GetAffinityForView(Type view)
         {
             return (typeof(IActivation).GetTypeInfo().IsAssignableFrom(view.GetTypeInfo())) ?
-                20 : 0;
+                Affinity : 0;
         }
     }
 }
