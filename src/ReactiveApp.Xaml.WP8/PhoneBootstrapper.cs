@@ -51,6 +51,7 @@ namespace ReactiveApp.Xaml
 
             InitializeSuspensionService();
             InitializeOrientationManager();
+            InitializeNavigationSerializer();
         }
 
         protected virtual ISuspensionService CreateSuspensionService()
@@ -78,6 +79,18 @@ namespace ReactiveApp.Xaml
             Locator.CurrentMutable.RegisterConstant<IOrientationManager>(orientationManager);
         }
 
+        protected virtual INavigationSerializer CreateNavigationSerializer()
+        {
+            //TODO: default implementation
+            return null;
+        }
+
+        protected virtual void InitializeNavigationSerializer()
+        {
+            var serializer = CreateNavigationSerializer();
+            Locator.CurrentMutable.RegisterConstant<INavigationSerializer>(serializer);
+        }
+
         protected override IMainThreadDispatcher CreateMainThreadDispatcher()
         {
             return new PhoneMainThreadDispatcher();
@@ -96,9 +109,11 @@ namespace ReactiveApp.Xaml
             return new PhoneViewPresenter(frame, requestTranslator);
         }
 
-        protected virtual IPhoneViewModelRequestTranslator CreateViewModelRequestTranslator()
+        protected virtual IPhoneReactiveViewModelRequestTranslator CreateViewModelRequestTranslator()
         {
-            return new PhoneViewModelRequestTranslator();
+            var viewLocator = Locator.Current.GetService<IViewLocator>();
+            var navigationSerializer = Locator.Current.GetService<INavigationSerializer>();
+            return new PhoneReactiveViewModelRequestTranslator(viewLocator, navigationSerializer);
         }
     }
 }

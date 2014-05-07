@@ -86,26 +86,22 @@
     <Compile Include="..\ReactiveApp.Xaml.Win8\Extensions\IExceptionHandlerExtensions.cs">
       <Link>Extensions\IExceptionHandlerExtensions.cs</Link>
     </Compile>
-    <Compile Include="..\ReactiveApp.Xaml.Win8\Platform\CurrentPlatformProvider.cs">
-      <Link>Platform\CurrentPlatformProvider.cs</Link>
-    </Compile>
-    <Compile Include="..\ReactiveApp.Xaml.Win8\Platform\XamlViewEvents.cs">
-      <Link>Platform\XamlViewEvents.cs</Link>
-    </Compile>
     <Compile Include="..\ReactiveApp.Xaml.Win8\Services\GestureService.cs">
       <Link>Services\GestureService.cs</Link>
     </Compile>
     <Compile Include="Adapters\IArgumentsProvider.cs" />
+    <Compile Include="Extensions\IReactiveViewExtensions.cs" />
     <Compile Include="PhoneBootstrapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\IPhoneOrientationManager.cs" />
-    <Compile Include="Services\IPhoneViewModelRequestTranslator.cs" />
+    <Compile Include="Services\IPhoneReactiveViewModelRequestTranslator.cs" />
     <Compile Include="Services\OrientationManager.cs" />
-    <Compile Include="Services\PhoneViewModelRequestTranslator.cs" />
+    <Compile Include="Services\PhoneReactiveViewModelRequestTranslator.cs" />
     <Compile Include="Services\PhoneViewPresenter.cs" />
     <Compile Include="Services\SuspensionService.cs" />
     <Compile Include="Services\PhoneMainThreadDispatcher.cs" />
     <Compile Include="Services\PhoneViewDispatcher.cs" />
+    <Compile Include="Views\PhoneReactiveView.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ReactiveApp\ReactiveApp.csproj">

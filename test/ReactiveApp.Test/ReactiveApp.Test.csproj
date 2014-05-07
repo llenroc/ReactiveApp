@@ -39,6 +39,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\Rx-Testing.2.2.2\lib\net45\Microsoft.Reactive.Testing.dll</HintPath>
     </Reference>
+    <Reference Include="Moq">
+      <HintPath>..\..\packages\Moq.4.2.1402.2112\lib\net40\Moq.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\Newtonsoft.Json.6.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -98,8 +101,12 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="Platform\TestPlatformProvider.cs" />
-    <Compile Include="Platform\TestViewEvents.cs" />
+    <Compile Include="Activation\ActivatingViewTests.cs" />
+    <Compile Include="Activation\ActivatingViewModelTests.cs" />
+    <Compile Include="Debugging\ObjectTrackerTest.cs" />
+    <Compile Include="Mocks\ActivatingView.cs" />
+    <Compile Include="Mocks\ActivatingViewModel.cs" />
+    <Compile Include="Mocks\DerivedActivatingViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\ViewModelTest.cs" />
   </ItemGroup>
@@ -112,6 +119,7 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

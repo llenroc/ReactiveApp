@@ -8,6 +8,8 @@ namespace ReactiveApp.Debugging
 {
     public interface IObjectTracker
     {
+        bool ForceTrack { get; set; }
+
         void TrackObject(object objectToTrack);
 
         IEnumerable<object> GetLiveTrackedObjects();

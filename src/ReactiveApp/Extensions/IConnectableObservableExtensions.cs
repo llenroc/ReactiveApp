@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ReactiveApp
 {
-    internal static class IConnectableObservableExtensions
+    public static class IConnectableObservableExtensions
     {
         public static IObservable<T> PermaRef<T>(this IConnectableObservable<T> This)
         {

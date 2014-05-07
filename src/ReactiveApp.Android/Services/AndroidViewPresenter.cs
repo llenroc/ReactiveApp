@@ -20,14 +20,14 @@ namespace ReactiveApp.Android.Services
     public class AndroidViewPresenter : IViewPresenter
     {
         private readonly IAndroidCurrentActivity currentActivity;
-        private readonly IAndroidViewModelRequestTranslator requestTranslator;
+        private readonly IAndroidReactiveViewModelRequestTranslator requestTranslator;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AndroidViewPresenter"/> class.
         /// </summary>
         /// <param name="currentActivity">The current activity.</param>
         /// <param name="requestTranslator">The request translator.</param>
-        public AndroidViewPresenter(IAndroidCurrentActivity currentActivity, IAndroidViewModelRequestTranslator requestTranslator)
+        public AndroidViewPresenter(IAndroidCurrentActivity currentActivity, IAndroidReactiveViewModelRequestTranslator requestTranslator)
         {
             this.currentActivity = currentActivity;
             this.requestTranslator = requestTranslator;
