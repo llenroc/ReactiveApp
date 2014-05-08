@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using ReactiveUI;
 using Splat;
 
 namespace ReactiveApp
@@ -35,6 +36,16 @@ namespace ReactiveApp
         public static void Register<TType>(this IMutableDependencyResolver This, Func<IDependencyResolver, TType> valueFactory, string contract = null)
         {
             This.Register(() => valueFactory(This), typeof(TType), contract);
+        }
+
+        public static void RegisterView<TViewModel, TView>(this IMutableDependencyResolver This, string contract = null) where TViewModel : class
+        {
+            This.Register(() => typeof(TView), typeof(IViewFor<TViewModel>), contract);
+        }
+
+        public static void RegisterView(this IMutableDependencyResolver This, Type viewModelType, Type viewType, string contract = null)
+        {
+            This.Register(() => viewType, typeof(IViewFor<>).MakeGenericType(viewModelType), contract);
         }
     }
 }
