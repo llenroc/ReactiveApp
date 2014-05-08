@@ -13,7 +13,7 @@ using Android.Widget;
 namespace WPNL.UI.Android
 {
     [Application]
-    public class WPNLApp : Application
+    public class App : Application
     {
         private Bootstrapper bootstrapper;
         public override void OnCreate()
