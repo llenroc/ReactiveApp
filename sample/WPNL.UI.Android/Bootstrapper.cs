@@ -9,9 +9,13 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
+using ReactiveApp;
 using ReactiveApp.Android;
 using ReactiveApp.App;
+using Splat;
 using WPNL.Core;
+using WPNL.Core.ViewModels;
+using WPNL.UI.Android.Views;
 
 namespace WPNL.UI.Android
 {
@@ -30,6 +34,13 @@ namespace WPNL.UI.Android
         protected override IReactiveApplication CreateApplication()
         {
             return new App();
+        }
+
+        protected override void AfterBootstrapping()
+        {
+            base.AfterBootstrapping();
+
+            Locator.CurrentMutable.RegisterView<MainView, MainViewModel>();
         }
     }
 }
