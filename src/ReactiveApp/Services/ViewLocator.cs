@@ -13,12 +13,10 @@ namespace ReactiveApp.Services
     {
         public virtual Type GetViewTypeForViewModelType(Type viewModel, string contract = null)
         {
-            // Given IFooBarViewModel (whose name we derive from T), we'll look 
+            // Given a type FooBarViewModel, we'll look 
             // for a few things:
-            // * IFooBarView that implements IViewFor
-            // * IViewFor<IFooBarViewModel>
-            // * IViewFor<FooBarViewModel> (the original behavior in RxUI 3.1)
-
+            // * contract to use via ViewContractAttribute
+            // * IViewFor<FooBarViewModel>
             contract = contract ?? viewModel.GetTypeInfo().GetCustomAttributes<ViewContractAttribute>(true).Select(attr => attr.Contract).FirstOrDefault();
 
             Type viewType = typeof(IViewFor<>);
