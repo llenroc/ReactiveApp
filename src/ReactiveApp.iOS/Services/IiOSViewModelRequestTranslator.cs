@@ -5,12 +5,13 @@ using System.Text;
 
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
+using ReactiveApp.iOS.Views;
 using ReactiveApp.ViewModels;
 
 namespace ReactiveApp.iOS.Services
 {
     public interface IiOSViewModelRequestTranslator
     {
-        UIViewController GetViewControllerForViewModelRequest(ReactiveViewModelRequest viewModelRequest);
+        IiOSReactiveView GetViewControllerForViewModelRequest(ReactiveViewModelRequest viewModelRequest);
     }
 }
