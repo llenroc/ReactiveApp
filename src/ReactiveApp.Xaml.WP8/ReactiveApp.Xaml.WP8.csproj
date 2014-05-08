@@ -90,6 +90,7 @@
       <Link>Services\GestureService.cs</Link>
     </Compile>
     <Compile Include="Adapters\IArgumentsProvider.cs" />
+    <Compile Include="Adapters\PhoneApplicationFrameArgumentsProvider.cs" />
     <Compile Include="Extensions\IReactiveViewExtensions.cs" />
     <Compile Include="PhoneBootstrapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -152,7 +153,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
