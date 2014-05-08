@@ -9,7 +9,7 @@ using WPNL.Core.ViewModels;
 
 namespace WPNL.Core
 {
-    public class App : ReactiveApplication
+    public class WPNLApp : ReactiveApplication
     {
         public override void Initialize()
         {
