@@ -104,6 +104,7 @@
     <Compile Include="Activation\ActivatingViewTests.cs" />
     <Compile Include="Activation\ActivatingViewModelTests.cs" />
     <Compile Include="Debugging\ObjectTrackerTest.cs" />
+    <Compile Include="Extensions\IMutableDependencyResolverExtensionsTests.cs" />
     <Compile Include="Mocks\ActivatingView.cs" />
     <Compile Include="Mocks\ActivatingViewModel.cs" />
     <Compile Include="Mocks\DerivedActivatingViewModel.cs" />
