@@ -19,8 +19,6 @@ namespace ReactiveApp
 
         protected abstract IMainThreadDispatcher CreateMainThreadDispatcher();
 
-        protected abstract ReactiveApp.Services.IViewLocator CreateViewLocator();
-
         protected abstract IViewDispatcher CreateViewDispatcher();
 
         public virtual void Run()
@@ -98,6 +96,17 @@ namespace ReactiveApp
             var exceptionHandler = this.CreateExceptionHandler();
             Locator.CurrentMutable.RegisterConstant<IExceptionHandler>(exceptionHandler);
         }
+        
+        protected virtual ReactiveApp.Services.IViewLocator CreateViewLocator()
+        {
+            return new ReactiveApp.Services.ViewLocator();
+        }
+
+        protected virtual void InitializeViewLocator()
+        {
+            var viewLocator = this.CreateViewLocator();
+            Locator.CurrentMutable.RegisterConstant<ReactiveApp.Services.IViewLocator>(viewLocator);
+        }
 
         protected virtual void InitializeApplication()
         {
@@ -110,12 +119,6 @@ namespace ReactiveApp
         {
             var dispatcher = this.CreateMainThreadDispatcher();
             Locator.CurrentMutable.RegisterConstant<IMainThreadDispatcher>(dispatcher);
-        }
-
-        protected virtual void InitializeViewLocator()
-        {
-            var viewLocator = this.CreateViewLocator();
-            Locator.CurrentMutable.RegisterConstant<ReactiveApp.Services.IViewLocator>(viewLocator);
         }
 
         protected virtual void InitializeViewDispatcher()
