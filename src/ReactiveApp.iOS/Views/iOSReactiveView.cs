@@ -26,7 +26,7 @@ namespace ReactiveApp.iOS.Views
             this.deactivated = new Subject<Unit>();
         }
 
-        public object ViewModel
+        object IViewFor.ViewModel
         {
             get;
             set;
