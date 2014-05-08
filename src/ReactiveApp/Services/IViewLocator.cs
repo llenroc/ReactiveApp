@@ -8,6 +8,6 @@ namespace ReactiveApp.Services
 {
     public interface IViewLocator
     {
-        Type GetViewTypeForViewModel(Type viewModel = null);
+        Type GetViewTypeForViewModelType(Type viewModel, string contract = null);
     }
 }

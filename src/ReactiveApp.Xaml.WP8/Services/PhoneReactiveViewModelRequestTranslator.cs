@@ -26,7 +26,7 @@ namespace ReactiveApp.Xaml.Services
 
         public virtual Uri GetUriForViewModelRequest(ReactiveViewModelRequest request)
         {
-            var viewType = viewLocator.GetViewTypeForViewModel(request.ViewModelType);
+            var viewType = viewLocator.GetViewTypeForViewModelType(request.ViewModelType);
             if(viewType == null)
             {
                 throw new InvalidOperationException("No view type found for" + request.ViewModelType);

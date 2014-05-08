@@ -35,7 +35,7 @@ namespace ReactiveApp.Xaml.Services
 
             try
             {
-                Type viewType = this.viewLocator.GetViewTypeForViewModel(viewModelRequest.ViewModelType);
+                Type viewType = this.viewLocator.GetViewTypeForViewModelType(viewModelRequest.ViewModelType);
                 bool success = this.frame.Navigate(viewType, viewModelRequest);
                 return Observable.Return(success);
             }
