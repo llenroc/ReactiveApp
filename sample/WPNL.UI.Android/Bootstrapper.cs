@@ -33,7 +33,7 @@ namespace WPNL.UI.Android
         /// <returns></returns>
         protected override IReactiveApplication CreateApplication()
         {
-            return new App();
+            return new Core.WPNLApp();
         }
 
         protected override void AfterBootstrapping()
