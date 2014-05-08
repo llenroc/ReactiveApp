@@ -30,6 +30,12 @@ namespace ReactiveApp.Xaml.Adapters
         /// IsNavigationInitiator:       false
         /// NavigationMode:              Reset
         /// Uri:                         <current visible PhoneApplicationPage>
+        /// Depending on new Uri, we have two options
+        /// 2:
+        /// IsCancelable:                true
+        /// IsNavigationInitiator:       true
+        /// NavigationMode:              Refresh
+        /// Uri:                         <current visible PhoneApplicationPage>
         /// 2:
         /// IsCancelable:                true
         /// IsNavigationInitiator:       true
@@ -80,7 +86,8 @@ namespace ReactiveApp.Xaml.Adapters
                 .Scan<NavigatingCancelEventArgs, NavigatingCancelEventArgs>(null, (prevNav, curNav) =>
                 {
                     //cancel if this is the initial navigation or if the previous navigation was reset
-                    if ((prevNav != null && prevNav.NavigationMode == NavigationMode.Reset) || (!curNav.IsNavigationInitiator && curNav.IsCancelable))
+                    if ((prevNav != null && prevNav.NavigationMode == NavigationMode.Reset && curNav.NavigationMode != NavigationMode.Refresh) 
+                    || (!curNav.IsNavigationInitiator && curNav.IsCancelable))
                     {
                         curNav.Cancel = true;
                     }
