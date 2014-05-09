@@ -12,14 +12,13 @@ namespace ReactiveApp.App
     public class Startup<TViewModel> : ReactiveViewModel, IStartup
         where TViewModel : IReactiveViewModel
     {
-        public IObservable<Unit> Start(object hint = null)
+        public IObservable<bool> Start(object hint = null)
         {
             if (hint != null)
             {
                 this.Log().Info("Hint ignored in default Startup: {0}", hint.ToString());
             }
-            //TODO
-            return null;
+            return this.OpenViewModel<TViewModel>();
         }
     }
 }
