@@ -11,9 +11,10 @@ namespace ReactiveApp.ViewModels
         /// <summary>
         /// Initializes a new instance of the <see cref="DataContainer"/> class.
         /// </summary>
-        public DataContainer()
+        /// <param name="data">The data.</param>
+        public DataContainer(IDictionary<string, string> data = null)
         {
-            this.Data = new Dictionary<string, string>();
+            this.Data = data ?? new Dictionary<string, string>();
         }
 
         public IDictionary<string, string> Data { get; private set; }
