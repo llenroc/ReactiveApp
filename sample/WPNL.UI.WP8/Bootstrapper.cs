@@ -4,11 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Phone.Controls;
+using ReactiveApp;
 using ReactiveApp.App;
 using ReactiveApp.Services;
 using ReactiveApp.Xaml;
 using ReactiveApp.Xaml.Adapters;
+using Splat;
 using WPNL.Core;
+using WPNL.Core.ViewModels;
+using WPNL.UI.WP8.Views;
 
 namespace WPNL.UI.WP8
 {
@@ -28,6 +32,13 @@ namespace WPNL.UI.WP8
         protected override INavigationSerializer CreateNavigationSerializer()
         {
             return base.CreateNavigationSerializer();
+        }
+
+        protected override void AfterBootstrapping()
+        {
+            base.AfterBootstrapping();
+
+            Locator.CurrentMutable.RegisterView<MainView, MainViewModel>();
         }
     }
 }
