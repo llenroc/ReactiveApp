@@ -20,9 +20,7 @@ namespace WPNL.UI.WP8
     {
         public Bootstrapper(PhoneApplicationFrame frame, IArgumentsProvider arguments)
             :base(frame, arguments)
-        {
-
-        }
+        { }
 
         protected override IReactiveApplication CreateApplication()
         {
