@@ -101,6 +101,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>AppResources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Views\MainView.xaml.cs">
+      <DependentUpon>MainView.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -172,6 +175,9 @@
     <Reference Include="System.Reactive.Windows.Threading">
       <HintPath>..\..\packages\Rx-XAML.2.2.4\lib\windowsphone8\System.Reactive.Windows.Threading.dll</HintPath>
     </Reference>
+    <Reference Include="System.Reactive.WindowsRuntime">
+      <HintPath>..\..\packages\Rx-WinRT.2.2.4\lib\windowsphone8\System.Reactive.WindowsRuntime.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\src\ReactiveApp.Xaml.WP8\ReactiveApp.Xaml.WP8.csproj">
@@ -186,6 +192,12 @@
       <Project>{9d7c9b7f-ae0a-4af2-81ed-791db01fb249}</Project>
       <Name>WPNL.Core</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Views\MainView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkVersion)\Microsoft.$(TargetFrameworkIdentifier).$(TargetFrameworkVersion).Overrides.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkVersion)\Microsoft.$(TargetFrameworkIdentifier).CSharp.targets" />
