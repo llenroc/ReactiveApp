@@ -6,6 +6,7 @@ using System.Text;
 
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
+using ReactiveApp.iOS.Views;
 using ReactiveApp.Services;
 using ReactiveApp.ViewModels;
 using ReactiveUI;
@@ -28,15 +29,21 @@ namespace ReactiveApp.iOS.Services
 
         public IObservable<bool> Open(ReactiveViewModelRequest viewModel)
         {
-            UIViewController controller = this.translator.GetViewControllerForViewModelRequest(viewModel);
+            IiOSReactiveView view = this.translator.GetViewControllerForViewModelRequest(viewModel);
+
+            var viewController = view as UIViewController;
+            if (viewController == null)
+            {
+                throw new InvalidOperationException("Passed in IiOSReactiveView is not a UIViewController");
+            }
 
             if (this.MasterNavigationController == null)
             {
-                this.CreateMasterNavigationController(controller);
+                this.CreateMasterNavigationController(viewController);
             }
             else
             {
-                this.MasterNavigationController.PushViewController(controller, true);
+                this.MasterNavigationController.PushViewController(viewController, true);
             }
 
             return Observable.Return(true);
@@ -90,8 +97,7 @@ namespace ReactiveApp.iOS.Services
             this.window.AddSubview(controller.View);
             this.window.RootViewController = controller;
         }
-
-
+        
         public UINavigationController MasterNavigationController { get; private set; }
     }
 }
