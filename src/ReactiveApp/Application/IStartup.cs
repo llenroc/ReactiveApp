@@ -9,6 +9,6 @@ namespace ReactiveApp.App
 {
     public interface IStartup
     {
-        IObservable<Unit> Start(object hint = null);
+        IObservable<bool> Start(object hint = null);
     }
 }

@@ -81,15 +81,16 @@
     <Compile Include="Debugging\IObjectTracker.cs" />
     <Compile Include="Debugging\ObjectTracker.cs" />
     <Compile Include="Exceptions\DefaultExceptionHandler.cs" />
+    <Compile Include="Extensions\IMainThreadDispatcherExtensions.cs" />
     <Compile Include="Extensions\INavigationSerializerExtensions.cs" />
     <Compile Include="Extensions\IReactiveActivatableExtensions.cs" />
     <Compile Include="Extensions\IConnectableObservableExtensions.cs" />
     <Compile Include="Exceptions\IExceptionHandler.cs" />
-    <Compile Include="Extensions\IMainThreadDispatcherExtensions.cs" />
     <Compile Include="Extensions\IMutableDependencyResolverExtensions.cs" />
     <Compile Include="Extensions\IReactiveActivatableViewModelExtensions.cs" />
     <Compile Include="Extensions\IReactiveApplicationExtensions.cs" />
     <Compile Include="Extensions\IReactiveViewExtensions.cs" />
+    <Compile Include="Extensions\IReactiveViewModelExtensions.cs" />
     <Compile Include="Extensions\ISuspensionServiceExtensions.cs" />
     <Compile Include="Extensions\IViewForExtensions.cs" />
     <Compile Include="Extensions\UriExtensions.cs" />
