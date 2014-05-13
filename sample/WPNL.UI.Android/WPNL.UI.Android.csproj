@@ -95,6 +95,10 @@
       <Project>{699A1964-2F72-41CD-B007-1A681EC60A5A}</Project>
       <Name>ReactiveApp.Android</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\src\ReactiveApp.Munq\ReactiveApp.Munq.csproj">
+      <Project>{d479f55d-0af3-437a-84af-4b638917c14e}</Project>
+      <Name>ReactiveApp.Munq</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\src\ReactiveApp\ReactiveApp.csproj">
       <Project>{5022E311-8709-4FAC-8114-AD2955EC198D}</Project>
       <Name>ReactiveApp</Name>

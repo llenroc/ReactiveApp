@@ -10,11 +10,9 @@ using ReactiveApp.Services;
 using ReactiveApp.Xaml;
 using ReactiveApp.Xaml.Adapters;
 using Splat;
-using WPNL.Core;
-using WPNL.Core.ViewModels;
-using WPNL.UI.WP8.Views;
+using TestApp.ViewModels;
 
-namespace WPNL.UI.WP8
+namespace TestApp
 {
     public class Bootstrapper : PhoneBootstrapper
     {
@@ -28,7 +26,7 @@ namespace WPNL.UI.WP8
 
         protected override IReactiveApplication CreateApplication()
         {
-            return new WPNLApp();
+            return new TestApp();
         }
 
         protected override INavigationSerializer CreateNavigationSerializer()

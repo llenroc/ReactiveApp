@@ -180,6 +180,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\src\ReactiveApp.Munq\ReactiveApp.Munq.csproj">
+      <Project>{d479f55d-0af3-437a-84af-4b638917c14e}</Project>
+      <Name>ReactiveApp.Munq</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\src\ReactiveApp.Xaml.WP8\ReactiveApp.Xaml.WP8.csproj">
       <Project>{738d45f2-91e6-43cc-90d3-5f0877b5f6ca}</Project>
       <Name>ReactiveApp.Xaml.WP8</Name>

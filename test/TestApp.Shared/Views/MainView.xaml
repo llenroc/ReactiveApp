@@ -9,7 +9,7 @@
     xmlns:views="using:ReactiveApp.Xaml.Views"
     mc:Ignorable="d">
     
-    <Grid>
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <TextBlock Text="MainView" Foreground="White" FontSize="36" HorizontalAlignment="Center" VerticalAlignment="Center" />
     </Grid>
     

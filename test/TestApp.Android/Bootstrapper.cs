@@ -1,39 +1,40 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Phone.Controls;
-using ReactiveApp;
-using ReactiveApp.App;
-using ReactiveApp.Services;
-using ReactiveApp.Xaml;
-using ReactiveApp.Xaml.Adapters;
-using Splat;
-using WPNL.Core;
-using WPNL.Core.ViewModels;
-using WPNL.UI.WP8.Views;
 
-namespace WPNL.UI.WP8
+using Android.App;
+using Android.Content;
+using Android.OS;
+using Android.Runtime;
+using Android.Views;
+using Android.Widget;
+using ReactiveApp;
+using ReactiveApp.Android;
+using ReactiveApp.App;
+using Splat;
+using TestApp.ViewModels;
+using TestApp.Views;
+
+namespace TestApp
 {
-    public class Bootstrapper : PhoneBootstrapper
+    public class Bootstrapper : AndroidBootstrapper
     {
         private Munq.IocContainer ioc;
 
-        public Bootstrapper(PhoneApplicationFrame frame, IArgumentsProvider arguments)
-            :base(frame, arguments)
+        public Bootstrapper(Application application)
+            : base(application)
         {
             this.ioc = new Munq.IocContainer();
         }
 
+        /// <summary>
+        /// Creates the application.
+        /// </summary>
+        /// <returns></returns>
         protected override IReactiveApplication CreateApplication()
         {
-            return new WPNLApp();
-        }
-
-        protected override INavigationSerializer CreateNavigationSerializer()
-        {
-            return base.CreateNavigationSerializer();
+            return new TestApp();
         }
 
         protected override void AfterBootstrapping()
