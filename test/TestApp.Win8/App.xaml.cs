@@ -26,9 +26,6 @@ namespace TestApp
     /// </summary>
     public sealed partial class App : Application
     {
-#if WINDOWS_PHONE_APP
-        private TransitionCollection transitions;
-#endif
         private readonly ISubject<LaunchActivatedEventArgs> launched;
         private Bootstrapper bootstrapper;
 
@@ -77,23 +74,6 @@ namespace TestApp
                 Window.Current.Content = rootFrame;
             }
 
-            if (rootFrame.Content == null)
-            {
-#if WINDOWS_PHONE_APP
-                // Removes the turnstile navigation for startup.
-                if (rootFrame.ContentTransitions != null)
-                {
-                    this.transitions = new TransitionCollection();
-                    foreach (var c in rootFrame.ContentTransitions)
-                    {
-                        this.transitions.Add(c);
-                    }
-                }
-
-                rootFrame.ContentTransitions = null;
-#endif
-            }
-
             this.launched.OnNext(e);
         }
 
@@ -105,9 +85,6 @@ namespace TestApp
         private void RootFrame_FirstNavigated(object sender, NavigationEventArgs e)
         {
             var rootFrame = sender as Frame;
-#if WINDOWS_PHONE_APP
-            rootFrame.ContentTransitions = this.transitions ?? new TransitionCollection() { new NavigationThemeTransition() };
-#endif
             rootFrame.Navigated -= this.RootFrame_FirstNavigated;
             Window.Current.Activate();
         }
