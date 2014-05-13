@@ -20,12 +20,12 @@ namespace TestApp
 {
     public class Bootstrapper : AndroidBootstrapper
     {
-        private Munq.IocContainer IoC;
+        private Munq.IocContainer ioc;
 
         public Bootstrapper(Application application)
             : base(application)
         {
-            this.IoC = new Munq.IocContainer();
+            this.ioc = new Munq.IocContainer();
         }
 
         /// <summary>
@@ -46,7 +46,7 @@ namespace TestApp
 
         protected override IDependencyResolver CreateDependencyResolver()
         {
-            return new MunqDependencyResolver(IoC);
+            return new MunqDependencyResolver(ioc);
         }
     }
 }

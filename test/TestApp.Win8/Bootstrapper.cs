@@ -15,12 +15,12 @@ namespace TestApp
 {
     public class Bootstrapper : WinRTBootstrapper
     {
-        private Munq.IocContainer IoC;
+        private Munq.IocContainer ioc;
 
         public Bootstrapper(Frame frame, ISubject<LaunchActivatedEventArgs> launched)
             : base(frame, launched)
         {
-            IoC = new Munq.IocContainer();
+            ioc = new Munq.IocContainer();
         }
 
         protected override IReactiveApplication CreateApplication()
@@ -37,7 +37,7 @@ namespace TestApp
 
         protected override IDependencyResolver CreateDependencyResolver()
         {
-            return new MunqDependencyResolver(IoC);
+            return new MunqDependencyResolver(ioc);
         }
     }
 }

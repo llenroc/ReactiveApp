@@ -18,12 +18,12 @@ namespace WPNL.UI.WP8
 {
     public class Bootstrapper : PhoneBootstrapper
     {
-        private Munq.IocContainer IoC;
+        private Munq.IocContainer ioc;
 
         public Bootstrapper(PhoneApplicationFrame frame, IArgumentsProvider arguments)
             :base(frame, arguments)
         {
-            this.IoC = new Munq.IocContainer();
+            this.ioc = new Munq.IocContainer();
         }
 
         protected override IReactiveApplication CreateApplication()
@@ -45,7 +45,7 @@ namespace WPNL.UI.WP8
 
         protected override IDependencyResolver CreateDependencyResolver()
         {
-            return new MunqDependencyResolver(IoC);
+            return new MunqDependencyResolver(ioc);
         }
     }
 }

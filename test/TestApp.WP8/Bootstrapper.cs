@@ -16,12 +16,12 @@ namespace TestApp
 {
     public class Bootstrapper : PhoneBootstrapper
     {
-        private Munq.IocContainer IoC;
+        private Munq.IocContainer ioc;
 
         public Bootstrapper(PhoneApplicationFrame frame, IArgumentsProvider arguments)
             :base(frame, arguments)
         {
-            this.IoC = new Munq.IocContainer();
+            this.ioc = new Munq.IocContainer();
         }
 
         protected override IReactiveApplication CreateApplication()
@@ -43,7 +43,7 @@ namespace TestApp
 
         protected override IDependencyResolver CreateDependencyResolver()
         {
-            return new MunqDependencyResolver(IoC);
+            return new MunqDependencyResolver(ioc);
         }
     }
 }
