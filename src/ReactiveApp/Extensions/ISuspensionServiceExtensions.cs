@@ -18,7 +18,7 @@ namespace ReactiveApp
             IStartup start = startup ?? Locator.Current.GetService<IStartup>();
             if (start != null)
             {
-                Observable.Merge(This.IsLaunchingNew, This.IsResuming, This.IsUnpausing).SelectMany(args => startup.Start(args).FirstOrDefaultAsync()).Subscribe(b =>
+                Observable.Merge(This.IsLaunchingNew, This.IsResuming, This.IsUnpausing).SelectMany(args => start.Start(args).FirstOrDefaultAsync()).Subscribe(b =>
                 {
                     if(!b)
                     {
