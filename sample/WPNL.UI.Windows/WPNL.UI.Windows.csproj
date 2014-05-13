@@ -104,6 +104,10 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
+    <ProjectReference Include="..\..\src\ReactiveApp.Munq\ReactiveApp.Munq.csproj">
+      <Project>{d479f55d-0af3-437a-84af-4b638917c14e}</Project>
+      <Name>ReactiveApp.Munq</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\src\ReactiveApp.Xaml.WinRT\ReactiveApp.Xaml.WinRT.csproj">
       <Project>{896c4b33-1725-4ed0-af57-798a955d36a9}</Project>
       <Name>ReactiveApp.Xaml.WinRT</Name>

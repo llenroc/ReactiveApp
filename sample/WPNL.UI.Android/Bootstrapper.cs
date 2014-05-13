@@ -21,10 +21,12 @@ namespace WPNL.UI.Android
 {
     public class Bootstrapper : AndroidBootstrapper
     {
+        private Munq.IocContainer IoC;
+
         public Bootstrapper(Application application)
             : base(application)
         {
-
+            this.IoC = new Munq.IocContainer();
         }
 
         /// <summary>
@@ -41,6 +43,11 @@ namespace WPNL.UI.Android
             base.AfterBootstrapping();
 
             Locator.CurrentMutable.RegisterView<MainView, MainViewModel>();
+        }
+
+        protected override IDependencyResolver CreateDependencyResolver()
+        {
+            return new MunqDependencyResolver(IoC);
         }
     }
 }
