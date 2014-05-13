@@ -9,7 +9,7 @@
     <ProjectTypeGuids>{EFBA0AD7-5A72-4C68-AF49-83D382785DCF};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TestApp.Android</RootNamespace>
+    <RootNamespace>TestApp</RootNamespace>
     <AssemblyName>TestApp.Android</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <AndroidApplication>true</AndroidApplication>
@@ -17,6 +17,11 @@
     <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
     <TargetFrameworkVersion>v4.0.3</TargetFrameworkVersion>
     <AndroidManifest>Properties\AndroidManifest.xml</AndroidManifest>
+    <AndroidSupportedAbis>armeabi,armeabi-v7a,x86</AndroidSupportedAbis>
+    <AndroidStoreUncompressedFileExtensions />
+    <MandroidI18n />
+    <JavaMaximumHeapSize />
+    <JavaOptions />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -45,6 +50,12 @@
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\..\packages\Newtonsoft.Json.6.0.3\lib\portable-net40+sl4+wp7+win8\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="ReactiveUI">
+      <HintPath>..\..\packages\reactiveui-core.5.99.5-beta\lib\Portable-Net45+WinRT45+WP8\ReactiveUI.dll</HintPath>
+    </Reference>
+    <Reference Include="ReactiveUI.Android">
+      <HintPath>..\..\packages\reactiveui-platforms.5.99.5-beta\lib\Monoandroid\ReactiveUI.Android.dll</HintPath>
+    </Reference>
     <Reference Include="Splat, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\Splat.1.3.1\lib\monoandroid\Splat.dll</HintPath>
@@ -63,6 +74,7 @@
     <Reference Include="System.Reactive.PlatformServices">
       <HintPath>..\..\packages\Rx-PlatformServices.2.2.4\lib\portable-windows8+net45+wp8\System.Reactive.PlatformServices.dll</HintPath>
     </Reference>
+    <Reference Include="System.Runtime" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Xml" />
   </ItemGroup>
@@ -70,16 +82,18 @@
     <Compile Include="App.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TestBootstrapper.cs" />
+    <Compile Include="Bootstrapper.cs" />
+    <Compile Include="Views\MainView.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
     <None Include="packages.config" />
     <None Include="Resources\AboutResources.txt" />
     <None Include="Assets\AboutAssets.txt" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\Layout\Main.axml" />
+    <AndroidResource Include="Resources\Layout\MainView.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\Values\Strings.xml" />
@@ -95,11 +109,20 @@
       <Project>{699a1964-2f72-41cd-b007-1a681ec60a5a}</Project>
       <Name>ReactiveApp.Android</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\src\ReactiveApp.Munq\ReactiveApp.Munq.csproj">
+      <Project>{d479f55d-0af3-437a-84af-4b638917c14e}</Project>
+      <Name>ReactiveApp.Munq</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\src\ReactiveApp\ReactiveApp.csproj">
       <Project>{5022e311-8709-4fac-8114-ad2955ec198d}</Project>
       <Name>ReactiveApp</Name>
     </ProjectReference>
+    <ProjectReference Include="..\TestApp.PCL\TestApp.PCL.csproj">
+      <Project>{99d60bb3-7a06-46a4-9878-380243e20cac}</Project>
+      <Name>TestApp.PCL</Name>
+    </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
      Other similar extension points exist, see Microsoft.Common.targets.

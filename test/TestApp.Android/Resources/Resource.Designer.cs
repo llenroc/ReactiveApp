@@ -9,9 +9,9 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: global::Android.Runtime.ResourceDesignerAttribute("TestApp.Android.Resource", IsApplication=true)]
+[assembly: global::Android.Runtime.ResourceDesignerAttribute("TestApp.Resource", IsApplication=true)]
 
-namespace TestApp.Android
+namespace TestApp
 {
 	
 	
@@ -26,10 +26,10 @@ namespace TestApp.Android
 		
 		public static void UpdateIdValues()
 		{
-			global::Splat.Resource.String.library_name = global::TestApp.Android.Resource.String.library_name;
-			global::ReactiveApp.Android.Resource.String.ApplicationName = global::TestApp.Android.Resource.String.ApplicationName;
-			global::ReactiveApp.Android.Resource.String.Hello = global::TestApp.Android.Resource.String.Hello;
-			global::ReactiveApp.Android.Resource.String.library_name = global::TestApp.Android.Resource.String.library_name;
+			global::Splat.Resource.String.library_name = global::TestApp.Resource.String.library_name;
+			global::ReactiveApp.Android.Resource.String.ApplicationName = global::TestApp.Resource.String.ApplicationName;
+			global::ReactiveApp.Android.Resource.String.Hello = global::TestApp.Resource.String.Hello;
+			global::ReactiveApp.Android.Resource.String.library_name = global::TestApp.Resource.String.library_name;
 		}
 		
 		public partial class Attribute
@@ -81,7 +81,7 @@ namespace TestApp.Android
 		{
 			
 			// aapt resource value: 0x7f030000
-			public const int Main = 2130903040;
+			public const int MainView = 2130903040;
 			
 			static Layout()
 			{

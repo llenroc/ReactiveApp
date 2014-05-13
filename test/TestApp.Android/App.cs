@@ -19,7 +19,7 @@ namespace TestApp.Android
         {
             base.OnCreate();
 
-            var bootstrapper = new TestBootstrapper(this);
+            var bootstrapper = new Bootstrapper(this);
             bootstrapper.Run();
         }
     }

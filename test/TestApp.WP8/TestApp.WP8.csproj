@@ -9,7 +9,7 @@
     <ProjectTypeGuids>{C089C8C0-30E0-4E22-80C0-CE093F111A43};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TestApp.WP8</RootNamespace>
+    <RootNamespace>TestApp</RootNamespace>
     <AssemblyName>TestApp.WP8</AssemblyName>
     <TargetFrameworkIdentifier>WindowsPhone</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v8.0</TargetFrameworkVersion>
@@ -93,9 +93,8 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Bootstrapper.cs" />
     <Compile Include="LocalizedStrings.cs" />
-    <Compile Include="ViewModel\ItemViewModel.cs" />
-    <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="Views\MainView.xaml.cs">
       <DependentUpon>MainView.xaml</DependentUpon>
     </Compile>
@@ -108,8 +107,8 @@
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Page Include="Views\MainView.xaml">
       <SubType>Designer</SubType>
@@ -117,7 +116,6 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
     <None Include="packages.config" />
     <None Include="Properties\AppManifest.xml" />
     <None Include="Properties\WMAppManifest.xml">
@@ -164,6 +162,10 @@
     <ProjectReference Include="..\..\src\ReactiveApp\ReactiveApp.csproj">
       <Project>{5022E311-8709-4FAC-8114-AD2955EC198D}</Project>
       <Name>ReactiveApp</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TestApp.PCL\TestApp.PCL.csproj">
+      <Project>{99d60bb3-7a06-46a4-9878-380243e20cac}</Project>
+      <Name>TestApp.PCL</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

@@ -1,6 +1,6 @@
-﻿using TestApp.WP8.Resources;
+﻿using TestApp.Resources;
 
-namespace TestApp.WP8
+namespace TestApp
 {
     /// <summary>
     /// Provides access to string resources.
