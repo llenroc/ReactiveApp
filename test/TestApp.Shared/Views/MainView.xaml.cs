@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using ReactiveApp;
 using ReactiveApp.Xaml.Views;
 using ReactiveUI;
 using TestApp.ViewModels;
@@ -28,6 +29,15 @@ namespace TestApp.Views
         public MainView()
         {
             this.InitializeComponent();
+
+            this.WhenActivatedWithState((param, state, d) =>
+            {
+                d(this.OneWayBind(this.ViewModel, x => x, x => x.HubSection1.DataContext));
+                d(this.OneWayBind(this.ViewModel, x => x.FirstGroup, x => x.HubSection2.DataContext));
+                d(this.OneWayBind(this.ViewModel, x => x.SecondGroup, x => x.HubSection3.DataContext));
+                d(this.OneWayBind(this.ViewModel, x => x.ThirdGroup, x => x.HubSection4.DataContext));
+                d(this.OneWayBind(this.ViewModel, x => x.FourthGroup, x => x.HubSection5.DataContext));
+            });
         }
 
         public MainViewModel ViewModel
