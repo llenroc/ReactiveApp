@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ReactiveApp.Activation;
 using ReactiveApp.App;
 using ReactiveApp.Debugging;
 using ReactiveApp.Exceptions;
@@ -52,7 +53,9 @@ namespace ReactiveApp
         { }
 
         protected virtual void AfterBootstrapping()
-        { }
+        {
+            Locator.CurrentMutable.Register<IReactiveActivationForViewFetcher>(c => new ActivationViewFetcher());
+        }
 
         protected virtual void InitializeDebugServices()
         {
