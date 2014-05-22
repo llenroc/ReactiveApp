@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Reactive.Subjects;
 using System.Runtime.InteropServices.WindowsRuntime;
+using ReactiveUI;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.Foundation;
@@ -72,6 +73,7 @@ namespace TestApp
                 rootFrame.CacheSize = 1;
 
                 this.bootstrapper = new Bootstrapper(rootFrame, this.launched);
+                this.bootstrapper.Run();
 
                 // Place the frame in the current Window
                 Window.Current.Content = rootFrame;
