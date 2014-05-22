@@ -157,6 +157,9 @@
     <Compile Include="..\ReactiveApp.Xaml.WP8\Services\SuspensionService.cs">
       <Link>Services\SuspensionService.cs</Link>
     </Compile>
+    <Compile Include="..\ReactiveApp.Xaml.WP8\Views\PhoneReactiveUserControl.cs">
+      <Link>Views\PhoneReactiveUserControl.cs</Link>
+    </Compile>
     <Compile Include="..\ReactiveApp.Xaml.WP8\Views\PhoneReactiveView.cs">
       <Link>Views\PhoneReactiveView.cs</Link>
     </Compile>
@@ -183,9 +186,9 @@
     <Reference Include="ReactiveUI.Xaml">
       <HintPath>..\..\packages\reactiveui-platforms.5.99.5-beta\lib\WP8\ReactiveUI.Xaml.dll</HintPath>
     </Reference>
-    <Reference Include="Splat, Version=1.3.1.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Splat, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Splat.1.3.1\lib\wp8\Splat.dll</HintPath>
+      <HintPath>..\..\packages\Splat.1.2.0\lib\wp8\Splat.dll</HintPath>
     </Reference>
     <Reference Include="System.Reactive.Core, Version=2.2.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
