@@ -12,7 +12,35 @@
     <Compile Include="$(MSBuildThisFileDirectory)App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)BindingTypeConverters\ImageSourceBindingConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Bootstrapper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UserControls\Section1.xaml.cs">
+      <DependentUpon>Section1.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)UserControls\Section2.xaml.cs">
+      <DependentUpon>Section2.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)UserControls\Section3.xaml.cs">
+      <DependentUpon>Section3.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)UserControls\Section4.xaml.cs">
+      <DependentUpon>Section4.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)UserControls\Section5.xaml.cs">
+      <DependentUpon>Section5.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)UserControls\Standard200x180TileTemplate.xaml.cs">
+      <DependentUpon>Standard200x180TileTemplate.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)UserControls\StandardDoubleLineItemTemplate.xaml.cs">
+      <DependentUpon>StandardDoubleLineItemTemplate.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)UserControls\StandardTripleLineItemTemplate.xaml.cs">
+      <DependentUpon>StandardTripleLineItemTemplate.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)UserControls\TitleItemTemplate.xaml.cs">
+      <DependentUpon>TitleItemTemplate.xaml</DependentUpon>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Views\MainView.xaml.cs">
       <DependentUpon>MainView.xaml</DependentUpon>
     </Compile>
@@ -22,9 +50,55 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </ApplicationDefinition>
+    <Page Include="$(MSBuildThisFileDirectory)Themes\styles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)UserControls\Section1.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)UserControls\Section2.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)UserControls\Section3.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)UserControls\Section4.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)UserControls\Section5.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)UserControls\Standard200x180TileTemplate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)UserControls\StandardDoubleLineItemTemplate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)UserControls\StandardTripleLineItemTemplate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)UserControls\TitleItemTemplate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="$(MSBuildThisFileDirectory)Views\MainView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="$(MSBuildThisFileDirectory)Images\DarkGray.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Images\HubBackground.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Images\LightGray.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Images\MediumGray.png" />
   </ItemGroup>
 </Project>
