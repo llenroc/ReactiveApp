@@ -11,4 +11,8 @@ namespace ReactiveApp.Views
     public interface IReactiveView : IViewFor, IReactiveActivatable, IActivation
     {
     }
+
+    public interface IReactiveView<T> : IReactiveView, IViewFor<T> where T : class
+    {
+    }
 }

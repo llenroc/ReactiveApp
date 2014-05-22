@@ -157,6 +157,9 @@
     <Compile Include="..\ReactiveApp.Xaml.Win8\Services\WinRTViewPresenter.cs">
       <Link>Services\WinRTViewPresenter.cs</Link>
     </Compile>
+    <Compile Include="..\ReactiveApp.Xaml.Win8\Views\WinRTReactiveUserControl.cs">
+      <Link>Views\WinRTReactiveUserControl.cs</Link>
+    </Compile>
     <Compile Include="..\ReactiveApp.Xaml.Win8\Views\WinRTReactiveView.cs">
       <Link>Views\WinRTReactiveView.cs</Link>
     </Compile>

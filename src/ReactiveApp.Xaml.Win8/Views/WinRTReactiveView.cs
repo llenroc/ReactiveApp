@@ -32,7 +32,7 @@ namespace ReactiveApp.Xaml.Views
 
         public static readonly DependencyProperty ViewModelProperty =
             DependencyProperty.Register("ViewModel", typeof(object), typeof(WinRTReactiveView), new PropertyMetadata(null));
-
+        
         object IViewFor.ViewModel
         {
             get { return this.GetValue(ViewModelProperty); }
@@ -77,6 +77,15 @@ namespace ReactiveApp.Xaml.Views
         protected virtual void SaveStateContainer(NavigationEventArgs e, IDataContainer state)
         {
 
+        }
+    }
+
+    public class WinRTReactiveView<T> : WinRTReactiveView, IReactiveView<T> where T :class
+    {        
+        public T ViewModel
+        {
+            get { return (T)this.GetValue(ViewModelProperty); }
+            set { this.SetValue(ViewModelProperty, value); }
         }
     }
 }
