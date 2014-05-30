@@ -13,6 +13,7 @@ using ReactiveUI;
 using Splat;
 using TestApp.BindingTypeConverters;
 using TestApp.ViewModels;
+using TestApp.Views;
 
 namespace TestApp
 {
@@ -33,7 +34,7 @@ namespace TestApp
 
         protected override INavigationSerializer CreateNavigationSerializer()
         {
-            return base.CreateNavigationSerializer();
+            return new JsonNavigationSerializer();
         }
 
         protected override void AfterBootstrapping()

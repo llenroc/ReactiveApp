@@ -33,7 +33,7 @@ namespace ReactiveApp.Xaml.Services
             }
 
             string requestString = this.navigationSerializer.SerializeObject(request);
-            string uriString = string.Format("/{0}?request={1}", this.GetUriPartForView(viewType), Uri.EscapeDataString(requestString));
+            string uriString = string.Format("{0}?request={1}", this.GetUriPartForView(viewType), Uri.EscapeDataString(requestString));
             return new Uri(uriString, UriKind.Relative);
         }
 

@@ -1,5 +1,5 @@
 ﻿<views:PhoneReactiveView
-    x:Class="TestApp.MainView"
+    x:Class="TestApp.Views.MainView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
@@ -55,7 +55,7 @@
             <!--Panorama item two-->
             <phone:PanoramaItem Header="second item">
                 <!--Double line list with image placeholder and text wrapping using a floating header that scrolls with the content-->
-                <phone:LongListSelector Margin="0,-38,-22,2" x:Name="PanoramaItem2" LayoutMode="Grid">                    
+                <phone:LongListSelector Margin="0,-38,-22,2" x:Name="PanoramaItem2" LayoutMode="Grid" GridCellSize="200, 180">                    
                     <phone:LongListSelector.ItemTemplate>
                         <DataTemplate>
                             <controls:Standard200x180TileTemplate ViewModel="{Binding}" />

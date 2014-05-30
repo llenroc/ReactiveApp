@@ -15,7 +15,7 @@ using TestApp.ViewModels;
 using TestApp.Resources;
 using ReactiveApp;
 
-namespace TestApp
+namespace TestApp.Views
 {
     public partial class MainView : PhoneReactiveView, IViewFor<MainViewModel>
     {
@@ -26,11 +26,11 @@ namespace TestApp
 
             this.WhenActivatedWithState((param, state, d) =>
             {
-                d(this.OneWayBind(this.ViewModel, x => x, x => x.PanoramaItem1.ItemsSource));
-                d(this.OneWayBind(this.ViewModel, x => x.FirstGroup, x => x.PanoramaItem2.ItemsSource));
-                d(this.OneWayBind(this.ViewModel, x => x.SecondGroup, x => x.PanoramaItem3.ItemsSource));
-                d(this.OneWayBind(this.ViewModel, x => x.ThirdGroup, x => x.PanoramaItem4.ItemsSource));
-                d(this.OneWayBind(this.ViewModel, x => x.FourthGroup, x => x.PanoramaItem5.ItemsSource));
+                d(this.OneWayBind(this.ViewModel, x => x.Groups, x => x.PanoramaItem1.ItemsSource));
+                d(this.OneWayBind(this.ViewModel, x => x.FirstGroup.Items, x => x.PanoramaItem2.ItemsSource));
+                d(this.OneWayBind(this.ViewModel, x => x.SecondGroup.Items, x => x.PanoramaItem3.ItemsSource));
+                d(this.OneWayBind(this.ViewModel, x => x.ThirdGroup.Items, x => x.PanoramaItem4.ItemsSource));
+                d(this.OneWayBind(this.ViewModel, x => x.FourthGroup.Items, x => x.PanoramaItem5.ItemsSource));
             });
         }
 

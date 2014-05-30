@@ -91,29 +91,36 @@ namespace ReactiveApp.Xaml
             Locator.CurrentMutable.RegisterConstant<INavigationSerializer>(serializer);
         }
 
+        protected virtual IPhoneReactiveViewModelRequestTranslator CreateViewModelRequestTranslator()
+        {
+            var viewLocator = Locator.Current.GetService<IViewLocator>();
+            var navigationSerializer = Locator.Current.GetService<INavigationSerializer>();
+            return new PhoneReactiveViewModelRequestTranslator(viewLocator, navigationSerializer);
+        }
+
+        protected virtual void InitializeViewModelRequestTranslator()
+        {
+            var requestTranslator = this.CreateViewModelRequestTranslator();
+            Locator.CurrentMutable.RegisterConstant<IPhoneReactiveViewModelRequestTranslator>(requestTranslator);
+        }
+
         protected override IMainThreadDispatcher CreateMainThreadDispatcher()
         {
             return new PhoneMainThreadDispatcher();
+        }
+        
+        protected override IViewPresenter CreateViewPresenter()
+        {
+            this.InitializeViewModelRequestTranslator();
+            var requestTranslator = Locator.Current.GetService<IPhoneReactiveViewModelRequestTranslator>();
+            return new PhoneViewPresenter(this.frame, requestTranslator);
         }
 
         protected override IViewDispatcher CreateViewDispatcher()
         {
             var dispatcher = Locator.Current.GetService<IMainThreadDispatcher>();
-            var viewPresenter = this.CreateViewPresenter(this.frame);
+            var viewPresenter = Locator.Current.GetService<IViewPresenter>();
             return new PhoneViewDispatcher(dispatcher, viewPresenter);
-        }
-
-        protected virtual IViewPresenter CreateViewPresenter(PhoneApplicationFrame frame)
-        {
-            var requestTranslator = this.CreateViewModelRequestTranslator();
-            return new PhoneViewPresenter(frame, requestTranslator);
-        }
-
-        protected virtual IPhoneReactiveViewModelRequestTranslator CreateViewModelRequestTranslator()
-        {
-            var viewLocator = Locator.Current.GetService<ReactiveApp.Services.IViewLocator>();
-            var navigationSerializer = Locator.Current.GetService<INavigationSerializer>();
-            return new PhoneReactiveViewModelRequestTranslator(viewLocator, navigationSerializer);
-        }
+        }        
     }
 }

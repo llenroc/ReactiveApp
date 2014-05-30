@@ -98,6 +98,7 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Bootstrapper.cs" />
+    <Compile Include="JsonNavigationSerializer.cs" />
     <Compile Include="LocalizedStrings.cs" />
     <Compile Include="UserControls\Standard200x180TileTemplate.xaml.cs">
       <DependentUpon>Standard200x180TileTemplate.xaml</DependentUpon>

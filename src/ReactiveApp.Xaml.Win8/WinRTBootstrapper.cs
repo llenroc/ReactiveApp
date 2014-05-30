@@ -85,14 +85,14 @@ namespace ReactiveApp.Xaml
         protected override IViewDispatcher CreateViewDispatcher()
         {
             var dispatcher = Locator.Current.GetService<IMainThreadDispatcher>();
-            var viewPresenter = this.CreateViewPresenter(this.frame);
+            var viewPresenter = Locator.Current.GetService<IViewPresenter>();
             return new WinRTViewDispatcher(dispatcher, viewPresenter);
         }
 
-        protected virtual IViewPresenter CreateViewPresenter(Frame frame)
+        protected override IViewPresenter CreateViewPresenter()
         {
             var viewLocator = Locator.Current.GetService<ReactiveApp.Services.IViewLocator>();
-            return new WinRTViewPresenter(frame, viewLocator);
+            return new WinRTViewPresenter(this.frame, viewLocator);
         }
     }
 }

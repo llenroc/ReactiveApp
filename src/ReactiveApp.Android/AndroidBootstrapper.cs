@@ -75,11 +75,18 @@ namespace ReactiveApp.Android
             return new AndroidViewDispatcher(dispatcher, viewPresenter);
         }
 
-        protected virtual IViewPresenter CreateViewPresenter()
+        protected override IViewPresenter CreateViewPresenter()
         {
+            this.InitializeViewModelRequestTranslator();
             var currentActivity = Locator.Current.GetService<IAndroidCurrentActivity>();
-            var requestTranslator = this.CreateViewModelRequestTranslator();
+            var requestTranslator = Locator.Current.GetService<IAndroidReactiveViewModelRequestTranslator>();
             return new AndroidViewPresenter(currentActivity, requestTranslator);
+        }
+
+        protected virtual void InitializeViewModelRequestTranslator()
+        {
+            var requestTranslator = this.CreateViewModelRequestTranslator();
+            Locator.CurrentMutable.RegisterConstant<IAndroidReactiveViewModelRequestTranslator>(requestTranslator);
         }
 
         protected virtual IAndroidReactiveViewModelRequestTranslator CreateViewModelRequestTranslator()
