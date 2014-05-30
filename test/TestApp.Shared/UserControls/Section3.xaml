@@ -12,7 +12,8 @@
     mc:Ignorable="d wp81 win81"
     mc:ProcessContent="wp81:* win81:*"
     d:DesignHeight="300"
-    d:DesignWidth="400">
+    d:DesignWidth="400"
+    MaxWidth="400">
 
     <ListView 
         x:Name="ListView"

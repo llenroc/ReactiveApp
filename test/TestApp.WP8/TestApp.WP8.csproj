@@ -21,7 +21,7 @@
     <GenerateSilverlightManifest>true</GenerateSilverlightManifest>
     <XapFilename>TestApp.WP8_$(Configuration)_$(Platform).xap</XapFilename>
     <SilverlightManifestTemplate>Properties\AppManifest.xml</SilverlightManifestTemplate>
-    <SilverlightAppEntry>TestApp.WP8.App</SilverlightAppEntry>
+    <SilverlightAppEntry>TestApp.App</SilverlightAppEntry>
     <ValidateXaml>true</ValidateXaml>
     <MinimumVisualStudioVersion>11.0</MinimumVisualStudioVersion>
     <ThrowErrorsInValidation>true</ThrowErrorsInValidation>
@@ -91,11 +91,26 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="..\TestApp.Shared\BindingTypeConverters\ImageSourceBindingConverter.cs">
+      <Link>BindingTypeConverters\ImageSourceBindingConverter.cs</Link>
+    </Compile>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Bootstrapper.cs" />
     <Compile Include="LocalizedStrings.cs" />
+    <Compile Include="UserControls\Standard200x180TileTemplate.xaml.cs">
+      <DependentUpon>Standard200x180TileTemplate.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\StandardDoubleLineItemTemplate.xaml.cs">
+      <DependentUpon>StandardDoubleLineItemTemplate.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\StandardTripleLineItemTemplate.xaml.cs">
+      <DependentUpon>StandardTripleLineItemTemplate.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\TitleItemTemplate.xaml.cs">
+      <DependentUpon>TitleItemTemplate.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\MainView.xaml.cs">
       <DependentUpon>MainView.xaml</DependentUpon>
     </Compile>
@@ -111,6 +126,26 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Themes\styles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\Standard200x180TileTemplate.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\StandardDoubleLineItemTemplate.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\StandardTripleLineItemTemplate.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\TitleItemTemplate.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\MainView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -172,10 +207,16 @@
   <ItemGroup>
     <Reference Include="ReactiveUI">
       <HintPath>..\..\packages\reactiveui-core.5.99.6-beta\lib\WP8\ReactiveUI.dll</HintPath>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\..\packages\Newtonsoft.Json.6.0.3\lib\portable-net45+wp80+win8+wpa81\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="Splat, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="ReactiveUI, Version=5.99.5.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Splat.1.2.0\lib\wp8\Splat.dll</HintPath>
+      <HintPath>..\..\packages\reactiveui-core.5.99.5-beta\lib\WP8\ReactiveUI.dll</HintPath>
+    </Reference>
+    <Reference Include="Splat, Version=1.3.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Splat.1.3.1\lib\wp8\Splat.dll</HintPath>
     </Reference>
     <Reference Include="System.Reactive.Core">
       <HintPath>..\..\packages\Rx-Core.2.2.4\lib\windowsphone8\System.Reactive.Core.dll</HintPath>

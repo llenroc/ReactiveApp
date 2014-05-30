@@ -13,6 +13,7 @@ using ReactiveApp.Xaml.Views;
 using ReactiveUI;
 using TestApp.ViewModels;
 using TestApp.Resources;
+using ReactiveApp;
 
 namespace TestApp
 {
@@ -22,6 +23,15 @@ namespace TestApp
         public MainView()
         {
             InitializeComponent();
+
+            this.WhenActivatedWithState((param, state, d) =>
+            {
+                d(this.OneWayBind(this.ViewModel, x => x, x => x.PanoramaItem1.ItemsSource));
+                d(this.OneWayBind(this.ViewModel, x => x.FirstGroup, x => x.PanoramaItem2.ItemsSource));
+                d(this.OneWayBind(this.ViewModel, x => x.SecondGroup, x => x.PanoramaItem3.ItemsSource));
+                d(this.OneWayBind(this.ViewModel, x => x.ThirdGroup, x => x.PanoramaItem4.ItemsSource));
+                d(this.OneWayBind(this.ViewModel, x => x.FourthGroup, x => x.PanoramaItem5.ItemsSource));
+            });
         }
 
         public MainViewModel ViewModel
@@ -29,21 +39,5 @@ namespace TestApp
             get { return (MainViewModel)this.GetValue(ViewModelProperty); }
             set { this.SetValue(ViewModelProperty, value); }
         }
-
-        // Sample code for building a localized ApplicationBar
-        //private void BuildLocalizedApplicationBar()
-        //{
-        //    // Set the page's ApplicationBar to a new instance of ApplicationBar.
-        //    ApplicationBar = new ApplicationBar();
-
-        //    // Create a new button and set the text value to the localized string from AppResources.
-        //    ApplicationBarIconButton appBarButton = new ApplicationBarIconButton(new Uri("/Assets/AppBar/appbar.add.rest.png", UriKind.Relative));
-        //    appBarButton.Text = AppResources.AppBarButtonText;
-        //    ApplicationBar.Buttons.Add(appBarButton);
-
-        //    // Create a new menu item with the localized string from AppResources.
-        //    ApplicationBarMenuItem appBarMenuItem = new ApplicationBarMenuItem(AppResources.AppBarMenuItemText);
-        //    ApplicationBar.MenuItems.Add(appBarMenuItem);
-        //}
     }
 }

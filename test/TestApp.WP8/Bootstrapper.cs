@@ -9,7 +9,9 @@ using ReactiveApp.App;
 using ReactiveApp.Services;
 using ReactiveApp.Xaml;
 using ReactiveApp.Xaml.Adapters;
+using ReactiveUI;
 using Splat;
+using TestApp.BindingTypeConverters;
 using TestApp.ViewModels;
 
 namespace TestApp
@@ -37,6 +39,8 @@ namespace TestApp
         protected override void AfterBootstrapping()
         {
             base.AfterBootstrapping();
+
+            Locator.CurrentMutable.Register<IBindingTypeConverter>(() => new ImageSourceBindingConverter());
 
             Locator.CurrentMutable.RegisterView<MainView, MainViewModel>();
         }
