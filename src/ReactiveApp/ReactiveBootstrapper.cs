@@ -54,7 +54,6 @@ namespace ReactiveApp
 
         protected virtual void AfterBootstrapping()
         {
-            Locator.CurrentMutable.Register<IReactiveActivationForViewFetcher>(c => new ActivationViewFetcher());
         }
 
         protected virtual void InitializeDebugServices()
