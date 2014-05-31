@@ -8,7 +8,6 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
-using ReactiveApp.Activation;
 using ReactiveApp.ViewModels;
 using ReactiveApp.Views;
 using ReactiveUI;

@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ReactiveApp.Activation;
 using ReactiveApp.Services;
+using ReactiveUI;
 
 namespace ReactiveApp.ViewModels
 {
-    public interface IReactiveViewModel : IReactiveActivatableViewModel
+    public interface IReactiveViewModel : ISupportsActivation
     {
         IMainThreadDispatcher MainThread { get; }
 

@@ -5,7 +5,6 @@ using System.Reactive;
 using System.Reactive.Subjects;
 using System.Text;
 using System.Threading.Tasks;
-using ReactiveApp.Activation;
 using ReactiveApp.ViewModels;
 using ReactiveApp.Views;
 using ReactiveUI;
