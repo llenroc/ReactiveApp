@@ -78,10 +78,6 @@ namespace Munq
                     Register(name, type, (c) => c.Resolve(name, instance.GetType()));
                     return instance;
                 }
-                else
-                {
-                    throw new KeyNotFoundException(ResolveFailureMessage(type), knfe);
-                }
             }
             throw new KeyNotFoundException(ResolveFailureMessage(type), knfe);
         }
