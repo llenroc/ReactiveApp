@@ -16,17 +16,11 @@ namespace ReactiveApp.Xaml.Views
 {
     public abstract class PhoneReactiveView : PhoneApplicationPage, IReactiveView
     {
-        private ISubject<Tuple<IDataContainer, IDataContainer>> activated;
-        private ISubject<Unit> deactivated;
-        protected IDataContainer stateContainer;
-
         /// <summary>
         /// Initializes a new instance of the <see cref="PhoneReactiveView"/> class.
         /// </summary>
         public PhoneReactiveView()
         {
-            this.Activated = this.activated = new Subject<Tuple<IDataContainer, IDataContainer>>();
-            this.Deactivated = this.deactivated = new Subject<Unit>();
         }
 
         public static readonly DependencyProperty ViewModelProperty =
@@ -38,38 +32,28 @@ namespace ReactiveApp.Xaml.Views
             set { this.SetValue(ViewModelProperty, value); }
         }
 
-        public IObservable<Tuple<IDataContainer, IDataContainer>> Activated { get; private set; }
-
-        public IObservable<Unit> Deactivated { get; private set; }
-
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
 
             ReactiveViewModelRequest req = this.ViewCreated(e.Uri);
 
-            //load and activate
-            this.stateContainer = this.LoadStateContainer(e);
-            this.activated.OnNext(Tuple.Create(req.Parameters, this.stateContainer));
+            this.LoadState(e);
         }
 
         protected override void OnNavigatedFrom(NavigationEventArgs e)
         {
             base.OnNavigatedFrom(e);
 
-            // deactivate and save
-            this.deactivated.OnNext(Unit.Default);
-            this.SaveStateContainer(e, this.stateContainer);
+            this.SaveState(e);
         }
 
-        protected virtual IDataContainer LoadStateContainer(NavigationEventArgs e)
+        protected virtual void LoadState(NavigationEventArgs e)
         {
-            return new DataContainer();
         }
 
-        protected virtual void SaveStateContainer(NavigationEventArgs e, IDataContainer state)
+        protected virtual void SaveState(NavigationEventArgs e)
         {
-
         }
     }
 }
