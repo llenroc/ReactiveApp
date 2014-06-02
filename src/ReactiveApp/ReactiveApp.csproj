@@ -103,7 +103,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Application\ReactiveApplication.cs" />
     <Compile Include="ReactiveBootstrapper.cs" />
-    <Compile Include="Services\ISuspensionService.cs" />
     <Compile Include="ViewModels\DataContainer.cs" />
     <Compile Include="ViewModels\IDataContainer.cs" />
     <Compile Include="ViewModels\IReactiveViewModel.cs" />

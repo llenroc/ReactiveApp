@@ -9,6 +9,7 @@ using ReactiveApp.Exceptions;
 using ReactiveApp.iOS.Services;
 using ReactiveApp.Services;
 using ReactiveUI;
+using ReactiveUI.Mobile;
 using Splat;
 
 namespace ReactiveApp.iOS
@@ -17,14 +18,17 @@ namespace ReactiveApp.iOS
     {
         private readonly ReactiveApplicationDelegate application;
         private readonly UIWindow window;
+        private readonly AutoSuspendHelper suspendHelper;
 
-        protected iOSBootstrapper(ReactiveApplicationDelegate application, UIWindow window)
+        protected iOSBootstrapper(ReactiveApplicationDelegate application, UIWindow window, AutoSuspendHelper suspendHelper)
         {
             Contract.Requires<ArgumentNullException>(application != null, "application");
             Contract.Requires<ArgumentNullException>(window != null, "window");
+            Contract.Requires<ArgumentNullException>(suspendHelper != null, "suspendHelper");
 
             this.application = application;
             this.window = window;
+            this.suspendHelper = suspendHelper;
         }
 
         public override void Run()
@@ -36,28 +40,28 @@ namespace ReactiveApp.iOS
             {
                 handler.SetupErrorHandling();
             }
-            ISuspensionService suspension = Locator.Current.GetService<ISuspensionService>();
+            ISuspensionHost suspension = Locator.Current.GetService<ISuspensionHost>();
             if (suspension != null)
             {
-                suspension.SetupStartup();
+                suspension.SetupDefaultSuspendResume();
             }
         }
 
         protected override void InitializePlatformServices()
         {
-            InitializeSuspensionService();
+            InitializeSuspensionHost();
             base.InitializePlatformServices();
         }
 
-        protected virtual ISuspensionService CreateSuspensionService()
+        protected virtual ISuspensionHost CreateSuspensionHost()
         {
-            return new SuspensionService(application);
+            return RxApp.SuspensionHost;
         }
 
-        protected virtual void InitializeSuspensionService()
+        protected virtual void InitializeSuspensionHost()
         {
-            var suspensionService = CreateSuspensionService();
-            Locator.CurrentMutable.RegisterConstant<ISuspensionService>(suspensionService);
+            var suspensionHost = CreateSuspensionHost();
+            Locator.CurrentMutable.RegisterConstant<ISuspensionHost>(suspensionHost);
         }
 
         protected override IMainThreadDispatcher CreateMainThreadDispatcher()
