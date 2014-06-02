@@ -6,13 +6,12 @@ using System.Reactive.Disposables;
 using System.Reactive.Subjects;
 using System.Text;
 using System.Threading.Tasks;
-using ReactiveApp.Activation;
 using ReactiveApp.ViewModels;
 using ReactiveUI;
 
 namespace ReactiveApp.Test
 {
-    public class ActivatingView : ReactiveObject, IViewFor<ActivatingViewModel>, IReactiveActivatable, IActivation
+    public class ActivatingView : ReactiveObject, IViewFor<ActivatingViewModel>
     {
         ActivatingViewModel viewModel;
         public ActivatingViewModel ViewModel
@@ -29,7 +28,7 @@ namespace ReactiveApp.Test
 
         public ActivatingView()
         {
-            this.WhenActivatedWithState((param, state, d) =>
+            this.WhenActivated(d =>
             {
                 IsActiveCount++;
                 d(Disposable.Create(() => IsActiveCount--));

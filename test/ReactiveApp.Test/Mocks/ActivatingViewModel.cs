@@ -5,6 +5,7 @@ using System.Reactive.Disposables;
 using System.Text;
 using System.Threading.Tasks;
 using ReactiveApp.ViewModels;
+using ReactiveUI;
 
 namespace ReactiveApp.Test
 {
@@ -14,7 +15,7 @@ namespace ReactiveApp.Test
 
         public ActivatingViewModel()
         {
-            this.WhenActivatedWithState((param, state, d) =>
+            this.WhenActivated(d =>
             {
                 IsActiveCount++;
                 d(Disposable.Create(() => IsActiveCount--));

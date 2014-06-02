@@ -88,8 +88,6 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="Activation\ActivatingViewTests.cs" />
-    <Compile Include="Activation\ActivatingViewModelTests.cs" />
     <Compile Include="Debugging\ObjectTrackerTest.cs" />
     <Compile Include="Extensions\IMutableDependencyResolverExtensionsTests.cs" />
     <Compile Include="Mocks\ActivatingView.cs" />
