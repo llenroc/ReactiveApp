@@ -163,6 +163,8 @@ namespace ReactiveApp
             {
                 Locator.Current = resolver;
             }
+            Locator.CurrentMutable.InitializeSplat();
+            Locator.CurrentMutable.InitializeReactiveUI();
             Locator.CurrentMutable.RegisterConstant<IDependencyResolver>(Locator.Current);
         }
     }

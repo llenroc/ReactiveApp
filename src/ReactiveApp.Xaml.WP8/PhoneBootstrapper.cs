@@ -44,6 +44,7 @@ namespace ReactiveApp.Xaml
             if (suspension != null)
             {
                 suspension.SetupDefaultSuspendResume();
+                suspension.CreateNewAppState = () => new object();
             }
         }
 
@@ -56,8 +57,14 @@ namespace ReactiveApp.Xaml
             InitializeNavigationSerializer();
         }
 
+        protected virtual Func<object> CreateNewAppStateFunction()
+        {
+            return () => new object();
+        }
+
         protected virtual ISuspensionHost CreateSuspensionHost()
         {
+            RxApp.SuspensionHost.CreateNewAppState = CreateNewAppStateFunction();
             return RxApp.SuspensionHost;
         }
 

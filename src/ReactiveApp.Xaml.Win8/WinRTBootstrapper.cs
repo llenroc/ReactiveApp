@@ -54,8 +54,14 @@ namespace ReactiveApp.Xaml
             base.InitializePlatformServices();
         }
 
+        protected virtual Func<object> CreateNewAppStateFunction()
+        {
+            return () => new object();
+        }
+
         protected virtual ISuspensionHost CreateSuspensionHost()
         {
+            RxApp.SuspensionHost.CreateNewAppState = CreateNewAppStateFunction();
             return RxApp.SuspensionHost;
         }
 

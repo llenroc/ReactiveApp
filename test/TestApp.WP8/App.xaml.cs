@@ -1,13 +1,17 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Reactive.Linq;
 using System.Resources;
 using System.Windows;
 using System.Windows.Markup;
 using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
+using ReactiveApp.App;
 using ReactiveApp.Xaml.Adapters;
+using ReactiveUI;
 using ReactiveUI.Mobile;
+using Splat;
 using TestApp.Resources;
 
 namespace TestApp
@@ -60,7 +64,7 @@ namespace TestApp
                 PhoneApplicationService.Current.UserIdleDetectionMode = IdleDetectionMode.Disabled;
             }
 
-            this.suspendHelper = new AutoSuspendHelper(this);
+            this.suspendHelper = new AutoSuspendHelper(this);            
             this.bootstrapper = new Bootstrapper(RootFrame, this.suspendHelper);
             this.bootstrapper.Run();
         }
@@ -69,6 +73,15 @@ namespace TestApp
         // This code will not execute when the application is reactivated
         private void Application_Launching(object sender, LaunchingEventArgs e)
         {
+            Observable.FromEventPattern<NavigatingCancelEventHandler, NavigatingCancelEventArgs>(h => RootFrame.Navigating += h, h => RootFrame.Navigating -= h)
+                .FirstOrDefaultAsync()
+                .Subscribe(ep =>
+            {
+                ep.EventArgs.Cancel = true;
+
+                var startup = Locator.Current.GetService<IStartup>();
+                startup.Start();
+            });
         }
 
         // Code to execute when the application is activated (brought to foreground)
