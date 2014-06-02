@@ -9,6 +9,7 @@ using ReactiveApp.App;
 using ReactiveApp.Services;
 using ReactiveApp.Xaml;
 using ReactiveApp.Xaml.Adapters;
+using ReactiveUI.Mobile;
 using Splat;
 using WPNL.Core;
 using WPNL.Core.ViewModels;
@@ -20,8 +21,8 @@ namespace WPNL.UI.WP8
     {
         private Munq.IocContainer ioc;
 
-        public Bootstrapper(PhoneApplicationFrame frame, IArgumentsProvider arguments)
-            :base(frame, arguments)
+        public Bootstrapper(PhoneApplicationFrame frame, AutoSuspendHelper suspendHelper)
+            :base(frame, suspendHelper)
         {
             this.ioc = new Munq.IocContainer();
         }

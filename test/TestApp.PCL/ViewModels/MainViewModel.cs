@@ -20,7 +20,7 @@ namespace TestApp.ViewModels
         {
             this.sampleDataService = sampleDataService;
 
-            this.WhenActivatedWithState((param, state, d) =>
+            this.WhenActivated(d =>
             {
                 d(sampleDataService.GetSampleDataAsync()
                     .ToObservable()

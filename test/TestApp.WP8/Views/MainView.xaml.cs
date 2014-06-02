@@ -24,7 +24,7 @@ namespace TestApp.Views
         {
             InitializeComponent();
 
-            this.WhenActivatedWithState((param, state, d) =>
+            this.WhenActivated(d =>
             {
                 d(this.OneWayBind(this.ViewModel, x => x.Groups, x => x.PanoramaItem1.ItemsSource));
                 d(this.OneWayBind(this.ViewModel, x => x.FirstGroup.Items, x => x.PanoramaItem2.ItemsSource));

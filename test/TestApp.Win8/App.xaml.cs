@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Reactive.Subjects;
 using System.Runtime.InteropServices.WindowsRuntime;
+using ReactiveUI.Mobile;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.Foundation;
@@ -26,8 +27,8 @@ namespace TestApp
     /// </summary>
     public sealed partial class App : Application
     {
-        private readonly ISubject<LaunchActivatedEventArgs> launched;
         private Bootstrapper bootstrapper;
+        private AutoSuspendHelper suspendHelper;
 
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
@@ -37,7 +38,7 @@ namespace TestApp
         {
             this.InitializeComponent();
 
-            this.launched = new Subject<LaunchActivatedEventArgs>();
+            this.suspendHelper = new AutoSuspendHelper(this);
         }
 
         /// <summary>
@@ -54,6 +55,7 @@ namespace TestApp
                 this.DebugSettings.EnableFrameRateCounter = true;
             }
 #endif
+            this.suspendHelper.OnLaunched(e);
 
             Frame rootFrame = Window.Current.Content as Frame;
 
@@ -68,13 +70,11 @@ namespace TestApp
                 // TODO: change this value to a cache size that is appropriate for your application
                 rootFrame.CacheSize = 1;
 
-                this.bootstrapper = new Bootstrapper(rootFrame, this.launched);
+                this.bootstrapper = new Bootstrapper(rootFrame, this.suspendHelper);
 
                 // Place the frame in the current Window
                 Window.Current.Content = rootFrame;
             }
-
-            this.launched.OnNext(e);
         }
 
         /// <summary>

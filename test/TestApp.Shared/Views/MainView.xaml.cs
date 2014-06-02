@@ -30,7 +30,7 @@ namespace TestApp.Views
         {
             this.InitializeComponent();
 
-            this.WhenActivatedWithState((param, state, d) =>
+            this.WhenActivated(d =>
             {
                 d(this.OneWayBind(this.ViewModel, x => x, x => x.HubSection1.DataContext));
                 d(this.OneWayBind(this.ViewModel, x => x.FirstGroup, x => x.HubSection2.DataContext));

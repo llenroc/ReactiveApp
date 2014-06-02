@@ -10,6 +10,7 @@ using ReactiveApp.Services;
 using ReactiveApp.Xaml;
 using ReactiveApp.Xaml.Adapters;
 using ReactiveUI;
+using ReactiveUI.Mobile;
 using Splat;
 using TestApp.BindingTypeConverters;
 using TestApp.ViewModels;
@@ -21,8 +22,8 @@ namespace TestApp
     {
         private Munq.IocContainer ioc;
 
-        public Bootstrapper(PhoneApplicationFrame frame, IArgumentsProvider arguments)
-            :base(frame, arguments)
+        public Bootstrapper(PhoneApplicationFrame frame, AutoSuspendHelper suspendHelper)
+            :base(frame, suspendHelper)
         {
             this.ioc = new Munq.IocContainer();
         }

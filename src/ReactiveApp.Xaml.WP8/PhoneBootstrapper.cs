@@ -93,7 +93,7 @@ namespace ReactiveApp.Xaml
 
         protected virtual IPhoneReactiveViewModelRequestTranslator CreateViewModelRequestTranslator()
         {
-            var viewLocator = Locator.Current.GetService<IViewLocator>();
+            var viewLocator = Locator.Current.GetService<ReactiveApp.Services.IViewLocator>();
             var navigationSerializer = Locator.Current.GetService<INavigationSerializer>();
             return new PhoneReactiveViewModelRequestTranslator(viewLocator, navigationSerializer);
         }

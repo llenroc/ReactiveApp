@@ -5,6 +5,7 @@ using System.Text;
 using ReactiveApp;
 using ReactiveApp.App;
 using ReactiveApp.Xaml;
+using ReactiveUI.Mobile;
 using Splat;
 using Windows.ApplicationModel.Activation;
 using Windows.UI.Xaml.Controls;
@@ -16,8 +17,8 @@ namespace WPNL.UI
 {
     public class Bootstrapper : WinRTBootstrapper
     {
-        public Bootstrapper(Frame frame, ISubject<LaunchActivatedEventArgs> launched)
-            : base(frame, launched)
+        public Bootstrapper(Frame frame, AutoSuspendHelper suspendHelper)
+            : base(frame, suspendHelper)
         { }
 
         protected override IReactiveApplication CreateApplication()

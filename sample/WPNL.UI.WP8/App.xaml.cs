@@ -7,6 +7,7 @@ using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using ReactiveApp.Xaml.Adapters;
+using ReactiveUI.Mobile;
 using WPNL.UI.WP8.Resources;
 
 namespace WPNL.UI.WP8
@@ -20,6 +21,7 @@ namespace WPNL.UI.WP8
         public static PhoneApplicationFrame RootFrame { get; private set; }
 
         private readonly Bootstrapper bootstrapper;
+        private readonly AutoSuspendHelper suspendHelper;
 
         /// <summary>
         /// Constructor for the Application object.
@@ -58,7 +60,8 @@ namespace WPNL.UI.WP8
                 PhoneApplicationService.Current.UserIdleDetectionMode = IdleDetectionMode.Disabled;
             }
 
-            this.bootstrapper = new Bootstrapper(RootFrame, new PhoneApplicationFrameArgumentsProvider(RootFrame));
+            this.suspendHelper = new AutoSuspendHelper(this);
+            this.bootstrapper = new Bootstrapper(RootFrame, this.suspendHelper);
             this.bootstrapper.Run();
         }
 
