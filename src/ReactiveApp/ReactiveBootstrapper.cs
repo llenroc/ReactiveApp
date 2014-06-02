@@ -35,6 +35,8 @@ namespace ReactiveApp
             this.InitializeSettings();
             this.Log().Info("Initializing MainThread Dispatcher.");
             this.InitializeMainThreadDispatcher();
+            this.Log().Info("Initializing ViewModel Locator.");
+            this.InitializeViewModelLocator();
             this.Log().Info("Initializing View Locator.");
             this.InitializeViewLocator();
             this.Log().Info("Initializing View Dispatcher.");
@@ -97,7 +99,18 @@ namespace ReactiveApp
             var exceptionHandler = this.CreateExceptionHandler();
             Locator.CurrentMutable.RegisterConstant<IExceptionHandler>(exceptionHandler);
         }
-        
+
+        protected virtual IViewModelLocator CreateViewModelLocator()
+        {
+            return new ViewModelLocator();
+        }
+
+        protected virtual void InitializeViewModelLocator()
+        {
+            var viewModelLocator = this.CreateViewModelLocator();
+            Locator.CurrentMutable.RegisterConstant<IViewModelLocator>(viewModelLocator);
+        }
+
         protected virtual ReactiveApp.Services.IViewLocator CreateViewLocator()
         {
             return new ReactiveApp.Services.ViewLocator();

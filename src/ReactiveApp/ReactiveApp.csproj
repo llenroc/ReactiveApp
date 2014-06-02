@@ -93,9 +93,11 @@
     <Compile Include="Services\IOrientationManager.cs" />
     <Compile Include="Services\IViewDispatcher.cs" />
     <Compile Include="Services\IViewLocator.cs" />
+    <Compile Include="Services\IViewModelLocator.cs" />
     <Compile Include="Services\IViewPresenter.cs" />
     <Compile Include="Services\MainThreadDispatcher.cs" />
     <Compile Include="Services\ViewLocator.cs" />
+    <Compile Include="Services\ViewModelLocator.cs" />
     <Compile Include="Settings\ReactiveAppSettings.cs" />
     <Compile Include="Settings\IReactiveAppSettings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
