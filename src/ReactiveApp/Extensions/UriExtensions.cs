@@ -13,7 +13,7 @@ namespace ReactiveApp
         {
             var toReturn = new Dictionary<string, string>();
 
-            foreach (var vp in (uri.Query ?? string.Empty).Split('&'))
+            foreach (var vp in (uri.OriginalString.Substring(uri.OriginalString.IndexOf('?') + 1) ?? string.Empty).Split('&'))
             {
                 AddPairFrom(toReturn, vp);
             }

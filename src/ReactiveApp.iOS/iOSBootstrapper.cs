@@ -53,8 +53,14 @@ namespace ReactiveApp.iOS
             base.InitializePlatformServices();
         }
 
+        protected virtual Func<object> CreateNewAppStateFunction()
+        {
+            return () => new object();
+        }
+
         protected virtual ISuspensionHost CreateSuspensionHost()
         {
+            RxApp.SuspensionHost.CreateNewAppState = CreateNewAppStateFunction();
             return RxApp.SuspensionHost;
         }
 
@@ -75,10 +81,17 @@ namespace ReactiveApp.iOS
             return new iOSViewDispatcher(dispatcher, viewPresenter);
         }
 
-        protected virtual IViewPresenter CreateViewPresenter()
+        protected override IViewPresenter CreateViewPresenter()
+        {
+            this.InitializeViewModelRequestTranslator();
+            var requestTranslator = Locator.Current.GetService<IiOSViewModelRequestTranslator>();
+            return new iOSViewPresenter(this.application, this.window, requestTranslator);
+        }
+
+        protected virtual void InitializeViewModelRequestTranslator()
         {
             var requestTranslator = this.CreateViewModelRequestTranslator();
-            return new iOSViewPresenter(this.application, this.window, requestTranslator);
+            Locator.CurrentMutable.RegisterConstant<IiOSViewModelRequestTranslator>(requestTranslator);
         }
 
         protected virtual IiOSViewModelRequestTranslator CreateViewModelRequestTranslator()

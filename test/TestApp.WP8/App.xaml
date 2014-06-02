@@ -8,7 +8,13 @@
 
     <!--Application Resources-->
     <Application.Resources>
-        <local:LocalizedStrings x:Key="LocalizedStrings"/>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Themes/styles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+            <local:LocalizedStrings x:Key="LocalizedStrings"/>
+        </ResourceDictionary>
     </Application.Resources>
 
     <Application.ApplicationLifetimeObjects>

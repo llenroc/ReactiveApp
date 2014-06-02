@@ -9,8 +9,12 @@ using ReactiveApp.App;
 using ReactiveApp.Services;
 using ReactiveApp.Xaml;
 using ReactiveApp.Xaml.Adapters;
+using ReactiveUI;
+using ReactiveUI.Mobile;
 using Splat;
+using TestApp.BindingTypeConverters;
 using TestApp.ViewModels;
+using TestApp.Views;
 
 namespace TestApp
 {
@@ -18,8 +22,8 @@ namespace TestApp
     {
         private Munq.IocContainer ioc;
 
-        public Bootstrapper(PhoneApplicationFrame frame, IArgumentsProvider arguments)
-            :base(frame, arguments)
+        public Bootstrapper(PhoneApplicationFrame frame, AutoSuspendHelper suspendHelper)
+            :base(frame, suspendHelper)
         {
             this.ioc = new Munq.IocContainer();
         }
@@ -31,12 +35,14 @@ namespace TestApp
 
         protected override INavigationSerializer CreateNavigationSerializer()
         {
-            return base.CreateNavigationSerializer();
+            return new JsonNavigationSerializer();
         }
 
         protected override void AfterBootstrapping()
         {
             base.AfterBootstrapping();
+
+            Locator.CurrentMutable.Register<IBindingTypeConverter>(() => new ImageSourceBindingConverter());
 
             Locator.CurrentMutable.RegisterView<MainView, MainViewModel>();
         }

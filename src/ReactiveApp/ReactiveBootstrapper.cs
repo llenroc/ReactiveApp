@@ -21,6 +21,8 @@ namespace ReactiveApp
 
         protected abstract IViewDispatcher CreateViewDispatcher();
 
+        protected abstract IViewPresenter CreateViewPresenter();
+
         public virtual void Run()
         {
             this.Log().Info("Initializing Dependency Resolver.");
@@ -39,6 +41,8 @@ namespace ReactiveApp
             this.InitializeViewModelLocator();
             this.Log().Info("Initializing View Locator.");
             this.InitializeViewLocator();
+            this.Log().Info("Initializing View Presenter.");
+            this.InitializeViewPresenter();
             this.Log().Info("Initializing View Dispatcher.");
             this.InitializeViewDispatcher();
             this.Log().Info("Initializing Application.");
@@ -135,6 +139,12 @@ namespace ReactiveApp
             Locator.CurrentMutable.RegisterConstant<IMainThreadDispatcher>(dispatcher);
         }
 
+        protected virtual void InitializeViewPresenter()
+        {
+            var viewPresenter = this.CreateViewPresenter();
+            Locator.CurrentMutable.RegisterConstant<IViewPresenter>(viewPresenter);
+        }
+
         protected virtual void InitializeViewDispatcher()
         {
             var viewDispatcher = this.CreateViewDispatcher();
@@ -153,6 +163,8 @@ namespace ReactiveApp
             {
                 Locator.Current = resolver;
             }
+            Locator.CurrentMutable.InitializeSplat();
+            Locator.CurrentMutable.InitializeReactiveUI();
             Locator.CurrentMutable.RegisterConstant<IDependencyResolver>(Locator.Current);
         }
     }

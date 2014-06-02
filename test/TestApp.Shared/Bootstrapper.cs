@@ -1,14 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Reactive.Subjects;
 using System.Text;
 using ReactiveApp;
 using ReactiveApp.App;
 using ReactiveApp.Xaml;
+using ReactiveUI;
+using ReactiveUI.Mobile;
 using Splat;
+using TestApp.BindingTypeConverters;
 using TestApp.ViewModels;
 using TestApp.Views;
 using Windows.ApplicationModel.Activation;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
 namespace TestApp
@@ -17,8 +22,8 @@ namespace TestApp
     {
         private Munq.IocContainer ioc;
 
-        public Bootstrapper(Frame frame, ISubject<LaunchActivatedEventArgs> launched)
-            : base(frame, launched)
+        public Bootstrapper(Frame frame, AutoSuspendHelper suspendHelper)
+            : base(frame, suspendHelper)
         {
             ioc = new Munq.IocContainer();
         }
@@ -31,6 +36,8 @@ namespace TestApp
         protected override void AfterBootstrapping()
         {
             base.AfterBootstrapping();
+
+            Locator.CurrentMutable.Register<IBindingTypeConverter>(() => new ImageSourceBindingConverter());
 
             Locator.CurrentMutable.RegisterView<MainView, MainViewModel>();
         }

@@ -4,6 +4,10 @@ using System.IO;
 using System.Linq;
 using System.Reactive.Subjects;
 using System.Runtime.InteropServices.WindowsRuntime;
+using ReactiveApp.App;
+using ReactiveUI;
+using ReactiveUI.Mobile;
+using Splat;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.Foundation;
@@ -29,8 +33,8 @@ namespace TestApp
 #if WINDOWS_PHONE_APP
         private TransitionCollection transitions;
 #endif
-        private readonly ISubject<LaunchActivatedEventArgs> launched;
         private Bootstrapper bootstrapper;
+        private AutoSuspendHelper suspendHelper;
 
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
@@ -40,7 +44,7 @@ namespace TestApp
         {
             this.InitializeComponent();
 
-            this.launched = new Subject<LaunchActivatedEventArgs>();
+            this.suspendHelper = new AutoSuspendHelper(this);
         }
 
         /// <summary>
@@ -71,7 +75,11 @@ namespace TestApp
                 // TODO: change this value to a cache size that is appropriate for your application
                 rootFrame.CacheSize = 1;
 
-                this.bootstrapper = new Bootstrapper(rootFrame, this.launched);
+                this.bootstrapper = new Bootstrapper(rootFrame, this.suspendHelper);
+                this.bootstrapper.Run();
+
+                var startup = Locator.Current.GetService<IStartup>();
+                startup.Start();
 
                 // Place the frame in the current Window
                 Window.Current.Content = rootFrame;
@@ -93,8 +101,6 @@ namespace TestApp
                 rootFrame.ContentTransitions = null;
 #endif
             }
-
-            this.launched.OnNext(e);
         }
 
         /// <summary>
