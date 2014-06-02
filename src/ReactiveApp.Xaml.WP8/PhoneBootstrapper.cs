@@ -11,22 +11,24 @@ using ReactiveApp.Exceptions;
 using ReactiveApp.Services;
 using ReactiveApp.Xaml.Adapters;
 using ReactiveApp.Xaml.Services;
+using ReactiveUI;
+using ReactiveUI.Mobile;
 using Splat;
 
 namespace ReactiveApp.Xaml
 {
     public abstract class PhoneBootstrapper : ReactiveBootstrapper
     {
-        private readonly IArgumentsProvider arguments;
         private readonly PhoneApplicationFrame frame;
+        private readonly AutoSuspendHelper suspendHelper;
 
-        protected PhoneBootstrapper(PhoneApplicationFrame frame, IArgumentsProvider arguments)
+        protected PhoneBootstrapper(PhoneApplicationFrame frame, AutoSuspendHelper suspendHelper)
         {
             Contract.Requires<ArgumentNullException>(frame != null, "frame");
-            Contract.Requires<ArgumentNullException>(arguments != null, "arguments");
+            Contract.Requires<ArgumentNullException>(suspendHelper != null, "suspendHelper");
 
             this.frame = frame;
-            this.arguments = arguments;
+            this.suspendHelper = suspendHelper;
         }
 
         public override void Run()
@@ -38,10 +40,10 @@ namespace ReactiveApp.Xaml
             {
                 handler.SetupErrorHandling();
             }
-            ISuspensionService suspension = Locator.Current.GetService<ISuspensionService>();
+            ISuspensionHost suspension = Locator.Current.GetService<ISuspensionHost>();
             if (suspension != null)
             {
-                suspension.SetupStartup();
+                suspension.SetupDefaultSuspendResume();
             }
         }
 
@@ -49,22 +51,20 @@ namespace ReactiveApp.Xaml
         {
             base.InitializePlatformServices();
 
-            InitializeSuspensionService();
+            InitializeSuspensionHost();
             InitializeOrientationManager();
             InitializeNavigationSerializer();
         }
 
-        protected virtual ISuspensionService CreateSuspensionService()
+        protected virtual ISuspensionHost CreateSuspensionHost()
         {
-            var phoneApplicationService = new PhoneApplicationService();
-            Application.Current.ApplicationLifetimeObjects.Add(phoneApplicationService);
-            return new SuspensionService(Application.Current, this.arguments);
+            return RxApp.SuspensionHost;
         }
 
-        protected virtual void InitializeSuspensionService()
+        protected virtual void InitializeSuspensionHost()
         {
-            var suspensionService = CreateSuspensionService();
-            Locator.CurrentMutable.RegisterConstant<ISuspensionService>(suspensionService);
+            var suspensionHost = CreateSuspensionHost();
+            Locator.CurrentMutable.RegisterConstant<ISuspensionHost>(suspensionHost);
         }
         protected virtual IOrientationManager CreateOrientationManager()
         {
@@ -111,7 +111,7 @@ namespace ReactiveApp.Xaml
 
         protected virtual IPhoneReactiveViewModelRequestTranslator CreateViewModelRequestTranslator()
         {
-            var viewLocator = Locator.Current.GetService<IViewLocator>();
+            var viewLocator = Locator.Current.GetService<ReactiveApp.Services.IViewLocator>();
             var navigationSerializer = Locator.Current.GetService<INavigationSerializer>();
             return new PhoneReactiveViewModelRequestTranslator(viewLocator, navigationSerializer);
         }

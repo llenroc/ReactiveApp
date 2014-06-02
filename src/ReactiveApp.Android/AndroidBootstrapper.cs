@@ -14,6 +14,7 @@ using ReactiveApp.App;
 using ReactiveApp.Exceptions;
 using ReactiveApp.Services;
 using ReactiveUI;
+using ReactiveUI.Mobile;
 using Splat;
 
 namespace ReactiveApp.Android
@@ -38,29 +39,28 @@ namespace ReactiveApp.Android
             {
                 handler.SetupErrorHandling(this.application);
             }
-            ISuspensionService suspension = Locator.Current.GetService<ISuspensionService>();
+            ISuspensionHost suspension = Locator.Current.GetService<ISuspensionHost>();
             if (suspension != null)
             {
-                suspension.SetupStartup();
+                suspension.SetupDefaultSuspendResume();
             }
         }
 
         protected override void InitializePlatformServices()
         {
-            this.InitializeSuspensionService();
+            this.InitializeSuspensionHost();
             base.InitializePlatformServices();
         }
 
-        protected virtual SuspensionService CreateSuspensionService()
+        protected virtual ISuspensionHost CreateSuspensionHost()
         {
-            return new SuspensionService(application);
+            return RxApp.SuspensionHost;
         }
 
-        protected virtual void InitializeSuspensionService()
+        protected virtual void InitializeSuspensionHost()
         {
-            var suspensionService = CreateSuspensionService();
-            Locator.CurrentMutable.RegisterConstant<IAndroidCurrentActivity>(suspensionService);
-            Locator.CurrentMutable.RegisterConstant<ISuspensionService>(suspensionService);
+            var suspensionHost = CreateSuspensionHost();
+            Locator.CurrentMutable.RegisterConstant<ISuspensionHost>(suspensionHost);
         }
 
         protected override IMainThreadDispatcher CreateMainThreadDispatcher()

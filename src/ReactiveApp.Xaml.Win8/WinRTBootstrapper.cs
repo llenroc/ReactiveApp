@@ -8,6 +8,8 @@ using System.Threading.Tasks;
 using ReactiveApp.Exceptions;
 using ReactiveApp.Services;
 using ReactiveApp.Xaml.Services;
+using ReactiveUI;
+using ReactiveUI.Mobile;
 using Splat;
 using Windows.ApplicationModel.Activation;
 using Windows.UI.Xaml;
@@ -17,16 +19,16 @@ namespace ReactiveApp.Xaml
 {
     public abstract class WinRTBootstrapper : ReactiveBootstrapper
     {
-        private readonly ISubject<LaunchActivatedEventArgs> launched;
         private readonly Frame frame;
+        private readonly AutoSuspendHelper suspendHelper;
 
-        protected WinRTBootstrapper(Frame frame, ISubject<LaunchActivatedEventArgs> launched)
+        protected WinRTBootstrapper(Frame frame, AutoSuspendHelper suspendHelper)
         {
             Contract.Requires<ArgumentNullException>(frame != null, "frame");
-            Contract.Requires<ArgumentNullException>(launched != null, "launched");
+            Contract.Requires<ArgumentNullException>(suspendHelper != null, "suspendHelper");
 
             this.frame = frame;
-            this.launched = launched;
+            this.suspendHelper = suspendHelper;
         }
 
         public override void Run()
@@ -38,28 +40,41 @@ namespace ReactiveApp.Xaml
             {
                 handler.SetupErrorHandling();
             }
-            ISuspensionService suspension = Locator.Current.GetService<ISuspensionService>();
+            ISuspensionHost suspension = Locator.Current.GetService<ISuspensionHost>();
             if (suspension != null)
             {
-                suspension.SetupStartup();
+                suspension.SetupDefaultSuspendResume();
             }
         } 
 
         protected override void InitializePlatformServices()
         {
-            InitializeSuspensionService();
+            InitializeSuspensionHost();
+            InitializeOrientationManager();
             base.InitializePlatformServices();
         }
 
-        protected virtual ISuspensionService CreateSuspensionService()
+        protected virtual ISuspensionHost CreateSuspensionHost()
         {
-            return new SuspensionService(Application.Current, this.launched);
+            return RxApp.SuspensionHost;
         }
 
-        protected virtual void InitializeSuspensionService()
+        protected virtual void InitializeSuspensionHost()
         {
-            var suspensionService = CreateSuspensionService();
-            Locator.CurrentMutable.RegisterConstant<ISuspensionService>(suspensionService);
+            var suspensionHost = CreateSuspensionHost();
+            Locator.CurrentMutable.RegisterConstant<ISuspensionHost>(suspensionHost);
+        }
+
+        protected virtual IOrientationManager CreateOrientationManager()
+        {
+            var orientationManager = OrientationManager.Instance;
+            return orientationManager;
+        }
+
+        protected virtual void InitializeOrientationManager()
+        {
+            var orientationManager = CreateOrientationManager();
+            Locator.CurrentMutable.RegisterConstant<IOrientationManager>(orientationManager);
         }
 
         protected override IMainThreadDispatcher CreateMainThreadDispatcher()
@@ -76,7 +91,7 @@ namespace ReactiveApp.Xaml
 
         protected virtual IViewPresenter CreateViewPresenter(Frame frame)
         {
-            var viewLocator = Locator.Current.GetService<IViewLocator>();
+            var viewLocator = Locator.Current.GetService<ReactiveApp.Services.IViewLocator>();
             return new WinRTViewPresenter(frame, viewLocator);
         }
     }

@@ -42,7 +42,6 @@
     <Compile Include="Services\iOSViewModelRequestTranslator.cs" />
     <Compile Include="Services\iOSViewPresenter.cs" />
     <Compile Include="Services\OrientationManager.cs" />
-    <Compile Include="Services\SuspensionService.cs" />
     <Compile Include="Services\iOSMainThreadDispatcher.cs" />
     <Compile Include="Services\iOSViewDispatcher.cs" />
     <Compile Include="Views\IiOSReactiveView.cs" />
