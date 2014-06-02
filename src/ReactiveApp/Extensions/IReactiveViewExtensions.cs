@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ReactiveApp.Services;
 using ReactiveApp.ViewModels;
 using ReactiveApp.Views;
 using Splat;
@@ -15,7 +16,8 @@ namespace ReactiveApp
         {
             This.ViewCreated(() =>
             {
-                var viewModel = Locator.Current.GetService(viewModelRequest.ViewModelType);
+                var viewModelLocator = Locator.Current.GetService<IViewModelLocator>();
+                var viewModel = viewModelLocator.GetViewModelForViewModelType(viewModelRequest.ViewModelType, viewModelRequest.Parameters);
 
                 return viewModel;
             });
