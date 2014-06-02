@@ -134,7 +134,6 @@
     <Compile Include="Services\OrientationManager.cs" />
     <Compile Include="Services\PhoneReactiveViewModelRequestTranslator.cs" />
     <Compile Include="Services\PhoneViewPresenter.cs" />
-    <Compile Include="Services\SuspensionService.cs" />
     <Compile Include="Services\PhoneMainThreadDispatcher.cs" />
     <Compile Include="Services\PhoneViewDispatcher.cs" />
     <Compile Include="Views\PhoneReactiveView.cs" />
