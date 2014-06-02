@@ -82,7 +82,6 @@
     <Compile Include="Extensions\IReactiveApplicationExtensions.cs" />
     <Compile Include="Extensions\IReactiveViewExtensions.cs" />
     <Compile Include="Extensions\IReactiveViewModelExtensions.cs" />
-    <Compile Include="Extensions\ISuspensionServiceExtensions.cs" />
     <Compile Include="Extensions\IViewForExtensions.cs" />
     <Compile Include="Extensions\UriExtensions.cs" />
     <Compile Include="ObservableEx.cs" />
