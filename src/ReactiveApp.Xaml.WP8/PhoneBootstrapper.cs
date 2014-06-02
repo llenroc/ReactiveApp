@@ -44,7 +44,6 @@ namespace ReactiveApp.Xaml
             if (suspension != null)
             {
                 suspension.SetupDefaultSuspendResume();
-                suspension.CreateNewAppState = () => new object();
             }
         }
 
