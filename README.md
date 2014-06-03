@@ -13,4 +13,4 @@ ReactiveApp is not the same as ReactiveUI or a replacement. ReactiveApp is built
 
 ##How do I use it
 
-At this moment ReactiveApp is still in development.
+At this moment ReactiveApp is still in development, so things might be broken. NuGet packages are available from https://www.nuget.org/packages/reactiveapp/.
