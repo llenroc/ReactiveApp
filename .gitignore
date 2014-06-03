@@ -220,5 +220,7 @@ FakesAssemblies/
 
 old/
 NuGet/
+NuGet-Release/
+PushRelease.ps1
 *.userprefs
 
