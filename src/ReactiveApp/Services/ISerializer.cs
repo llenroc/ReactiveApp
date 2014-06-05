@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ReactiveApp.Services
 {
-    public interface INavigationSerializer
+    public interface ISerializer
     {
         /// <summary>
         /// Deserializes the string into an object of the specified type.
