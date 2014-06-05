@@ -12,7 +12,7 @@ namespace ReactiveApp.App
     public class Startup<TViewModel> : ReactiveViewModel, IStartup
         where TViewModel : IReactiveViewModel
     {
-        public IObservable<bool> Start(object hint = null)
+        public virtual IObservable<bool> Start(object hint = null)
         {
             if (hint != null)
             {
