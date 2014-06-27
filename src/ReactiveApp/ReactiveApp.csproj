@@ -123,6 +123,7 @@
     <Compile Include="Extensions\IViewForExtensions.cs" />
     <Compile Include="Extensions\UriExtensions.cs" />
     <Compile Include="ObservableEx.cs" />
+    <Compile Include="ReactiveCommandEx.cs" />
     <Compile Include="Services\DisplayOrientations.cs" />
     <Compile Include="Services\IMainThreadDispatcher.cs" />
     <Compile Include="Services\INavigationSerializer.cs" />

@@ -10,6 +10,7 @@ using Microsoft.Phone.Shell;
 using ReactiveApp.App;
 using ReactiveApp.Xaml.Adapters;
 using ReactiveUI;
+using ReactiveUI.Mobile;
 using Splat;
 using TestApp.Resources;
 
