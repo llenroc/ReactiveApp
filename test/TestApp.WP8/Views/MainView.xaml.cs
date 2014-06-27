@@ -19,18 +19,21 @@ namespace TestApp.Views
 {
     public partial class MainView : PhoneReactiveView, IViewFor<MainViewModel>
     {
+        private IDisposable disp;
         // Constructor
         public MainView()
         {
             InitializeComponent();
 
-            this.WhenActivated(d =>
+            disp = this.WhenActivated(d =>
             {
                 d(this.OneWayBind(this.ViewModel, x => x.Groups, x => x.PanoramaItem1.ItemsSource));
                 d(this.OneWayBind(this.ViewModel, x => x.FirstGroup.Items, x => x.PanoramaItem2.ItemsSource));
                 d(this.OneWayBind(this.ViewModel, x => x.SecondGroup.Items, x => x.PanoramaItem3.ItemsSource));
                 d(this.OneWayBind(this.ViewModel, x => x.ThirdGroup.Items, x => x.PanoramaItem4.ItemsSource));
                 d(this.OneWayBind(this.ViewModel, x => x.FourthGroup.Items, x => x.PanoramaItem5.ItemsSource));
+                d(this.BindCommand(this.ViewModel, x => x.Command, x => x.Button));
+                d(this.BindCommand(this.ViewModel, x => x.Command, x => x.ChooseNumber));
             });
         }
 
@@ -38,6 +41,11 @@ namespace TestApp.Views
         {
             get { return (MainViewModel)this.GetValue(ViewModelProperty); }
             set { this.SetValue(ViewModelProperty, value); }
+        }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
         }
     }
 }

@@ -39,7 +39,10 @@
             </phone:Panorama.Background>
 
             <!--Panorama item one-->
-            <phone:PanoramaItem Header="first item">
+            <phone:PanoramaItem>
+                <phone:PanoramaItem.Header>
+                    <Button Content="first item" x:Name="Button"/>
+                </phone:PanoramaItem.Header>
                 <!--Single line list with text wrapping-->
                 <phone:LongListSelector Margin="0,0,-22,0" x:Name="PanoramaItem1">
                     <phone:LongListSelector.ItemTemplate>
@@ -99,5 +102,16 @@
         </phone:Panorama>
         
     </Grid>
+
+    <phone:PhoneApplicationPage.ApplicationBar>
+        <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True">
+            <shell:ApplicationBarIconButton IconUri="/Images/appbar_button2.png" Text="kies nummer" x:Name="ChooseNumber"/>
+            <shell:ApplicationBar.MenuItems>
+                <shell:ApplicationBarMenuItem Text="Over deze app"/>
+                <shell:ApplicationBarMenuItem Text="Instellingen"/>
+                <shell:ApplicationBarMenuItem Text="Uitloggen"/>
+            </shell:ApplicationBar.MenuItems>
+        </shell:ApplicationBar>
+    </phone:PhoneApplicationPage.ApplicationBar>
 
 </views:PhoneReactiveView>

@@ -32,6 +32,9 @@ namespace TestApp.ViewModels
                 d(this.WhenAnyValue(x => x.Groups).Where(x => x != null).Select(g => g[1]).ToProperty(this, x => x.SecondGroup, out this.secondGroup, null, RxApp.MainThreadScheduler));
                 d(this.WhenAnyValue(x => x.Groups).Where(x => x != null).Select(g => g[2]).ToProperty(this, x => x.ThirdGroup, out this.thirdGroup, null, RxApp.MainThreadScheduler));
                 d(this.WhenAnyValue(x => x.Groups).Where(x => x != null).Select(g => g[3]).ToProperty(this, x => x.FourthGroup, out this.fourthGroup, null, RxApp.MainThreadScheduler));
+
+                d(this.Command = ReactiveCommand.Create());
+                d(this.Command.Subscribe(_ => this.OpenViewModel<TestViewModel>()));
             });
         }
 
@@ -66,6 +69,13 @@ namespace TestApp.ViewModels
         public GroupViewModel FourthGroup
         {
             get { return fourthGroup != null ? fourthGroup.Value : null; }
+        }
+
+        private ReactiveCommand<object> command;
+        public ReactiveCommand<object> Command
+        {
+            get { return this.command; }
+            private set { this.RaiseAndSetIfChanged(ref command, value); }
         }
     }
 }
