@@ -12,7 +12,7 @@ namespace ReactiveApp
     {
         public static IObservable<T> RunOnMainThread<T>(this IMainThreadDispatcher dispatcher, Func<IObservable<T>> func)
         {
-            return dispatcher.RunOnMainThread<IObservable<T>>(func).Merge();
+            return dispatcher.RunOnMainThread<IObservable<T>>(func).Switch();
         }
     }
 }
