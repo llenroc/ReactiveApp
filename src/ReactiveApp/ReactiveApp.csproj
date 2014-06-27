@@ -121,6 +121,7 @@
     <Compile Include="Extensions\IReactiveViewExtensions.cs" />
     <Compile Include="Extensions\IReactiveViewModelExtensions.cs" />
     <Compile Include="Extensions\IViewForExtensions.cs" />
+    <Compile Include="Extensions\ObservableExtensions.cs" />
     <Compile Include="Extensions\UriExtensions.cs" />
     <Compile Include="ObservableEx.cs" />
     <Compile Include="ReactiveCommandEx.cs" />
