@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.30501.0
+VisualStudioVersion = 12.0.30626.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReactiveApp", "src\ReactiveApp\ReactiveApp.csproj", "{5022E311-8709-4FAC-8114-AD2955EC198D}"
 EndProject
@@ -1101,8 +1101,8 @@ Global
 		{896C4B33-1725-4ED0-AF57-798A955D36A9}.Debug|ARM.Build.0 = Debug|ARM
 		{896C4B33-1725-4ED0-AF57-798A955D36A9}.Debug|iPhone.ActiveCfg = Debug|Any CPU
 		{896C4B33-1725-4ED0-AF57-798A955D36A9}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
-		{896C4B33-1725-4ED0-AF57-798A955D36A9}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
-		{896C4B33-1725-4ED0-AF57-798A955D36A9}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{896C4B33-1725-4ED0-AF57-798A955D36A9}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{896C4B33-1725-4ED0-AF57-798A955D36A9}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
 		{896C4B33-1725-4ED0-AF57-798A955D36A9}.Debug|x64.ActiveCfg = Debug|x64
 		{896C4B33-1725-4ED0-AF57-798A955D36A9}.Debug|x64.Build.0 = Debug|x64
 		{896C4B33-1725-4ED0-AF57-798A955D36A9}.Debug|x86.ActiveCfg = Debug|x86

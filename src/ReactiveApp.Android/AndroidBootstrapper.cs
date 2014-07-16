@@ -14,7 +14,6 @@ using ReactiveApp.App;
 using ReactiveApp.Exceptions;
 using ReactiveApp.Services;
 using ReactiveUI;
-using ReactiveUI.Mobile;
 using Splat;
 
 namespace ReactiveApp.Android

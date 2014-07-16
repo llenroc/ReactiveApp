@@ -12,7 +12,6 @@ using ReactiveApp.Services;
 using ReactiveApp.Xaml.Adapters;
 using ReactiveApp.Xaml.Services;
 using ReactiveUI;
-using ReactiveUI.Mobile;
 using Splat;
 
 namespace ReactiveApp.Xaml

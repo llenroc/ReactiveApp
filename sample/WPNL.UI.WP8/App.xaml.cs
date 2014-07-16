@@ -7,7 +7,7 @@ using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using ReactiveApp.Xaml.Adapters;
-using ReactiveUI.Mobile;
+using ReactiveUI;
 using WPNL.UI.WP8.Resources;
 
 namespace WPNL.UI.WP8

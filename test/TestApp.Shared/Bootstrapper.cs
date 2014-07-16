@@ -7,7 +7,6 @@ using ReactiveApp;
 using ReactiveApp.App;
 using ReactiveApp.Xaml;
 using ReactiveUI;
-using ReactiveUI.Mobile;
 using Splat;
 using TestApp.BindingTypeConverters;
 using TestApp.ViewModels;

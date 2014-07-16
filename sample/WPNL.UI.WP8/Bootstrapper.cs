@@ -9,7 +9,7 @@ using ReactiveApp.App;
 using ReactiveApp.Services;
 using ReactiveApp.Xaml;
 using ReactiveApp.Xaml.Adapters;
-using ReactiveUI.Mobile;
+using ReactiveUI;
 using Splat;
 using WPNL.Core;
 using WPNL.Core.ViewModels;

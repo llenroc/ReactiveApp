@@ -9,7 +9,6 @@ using ReactiveApp.Exceptions;
 using ReactiveApp.Services;
 using ReactiveApp.Xaml.Services;
 using ReactiveUI;
-using ReactiveUI.Mobile;
 using Splat;
 using Windows.ApplicationModel.Activation;
 using Windows.UI.Xaml;

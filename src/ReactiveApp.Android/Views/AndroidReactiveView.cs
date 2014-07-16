@@ -10,7 +10,6 @@ using Android.OS;
 using ReactiveApp.ViewModels;
 using ReactiveApp.Views;
 using ReactiveUI;
-using ReactiveUI.Android;
 
 namespace ReactiveApp.Android.Views
 {

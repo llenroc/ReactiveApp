@@ -41,7 +41,7 @@
             <!--Panorama item one-->
             <phone:PanoramaItem>
                 <phone:PanoramaItem.Header>
-                    <Button Content="first item" x:Name="Button"/>
+                    <Button Content="first item" x:Name="Title"/>
                 </phone:PanoramaItem.Header>
                 <!--Single line list with text wrapping-->
                 <phone:LongListSelector Margin="0,0,-22,0" x:Name="PanoramaItem1">

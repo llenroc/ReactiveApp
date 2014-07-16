@@ -32,7 +32,7 @@ namespace TestApp.Views
                 d(this.OneWayBind(this.ViewModel, x => x.SecondGroup.Items, x => x.PanoramaItem3.ItemsSource));
                 d(this.OneWayBind(this.ViewModel, x => x.ThirdGroup.Items, x => x.PanoramaItem4.ItemsSource));
                 d(this.OneWayBind(this.ViewModel, x => x.FourthGroup.Items, x => x.PanoramaItem5.ItemsSource));
-                d(this.BindCommand(this.ViewModel, x => x.Command, x => x.Button));
+                d(this.BindCommand(this.ViewModel, x => x.Command, x => x.Title));
                 d(this.BindCommand(this.ViewModel, x => x.Command, x => x.ChooseNumber));
             });
         }

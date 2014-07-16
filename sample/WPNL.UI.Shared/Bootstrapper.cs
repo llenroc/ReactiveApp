@@ -5,7 +5,7 @@ using System.Text;
 using ReactiveApp;
 using ReactiveApp.App;
 using ReactiveApp.Xaml;
-using ReactiveUI.Mobile;
+using ReactiveUI;
 using Splat;
 using Windows.ApplicationModel.Activation;
 using Windows.UI.Xaml.Controls;

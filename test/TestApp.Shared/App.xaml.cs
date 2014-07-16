@@ -6,7 +6,6 @@ using System.Reactive.Subjects;
 using System.Runtime.InteropServices.WindowsRuntime;
 using ReactiveApp.App;
 using ReactiveUI;
-using ReactiveUI.Mobile;
 using Splat;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;

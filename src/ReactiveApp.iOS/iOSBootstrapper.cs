@@ -9,7 +9,6 @@ using ReactiveApp.Exceptions;
 using ReactiveApp.iOS.Services;
 using ReactiveApp.Services;
 using ReactiveUI;
-using ReactiveUI.Mobile;
 using Splat;
 
 namespace ReactiveApp.iOS
