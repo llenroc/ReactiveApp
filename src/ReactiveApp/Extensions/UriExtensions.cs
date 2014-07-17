@@ -25,7 +25,7 @@ namespace ReactiveApp
             string[] singlePair = vp.Split('=');
             if (singlePair.Length == 2)
             {
-                toReturn[singlePair[0]] = WebUtility.UrlDecode(singlePair[1]);
+                toReturn[singlePair[0]] = singlePair[1];
             }
             else
             {
