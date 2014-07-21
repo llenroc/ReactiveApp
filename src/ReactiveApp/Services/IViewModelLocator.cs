@@ -9,6 +9,8 @@ namespace ReactiveApp.Services
 {
     public interface IViewModelLocator
     {
+        string ContractKey { get; set; }
+
         object GetViewModelForViewModelType(Type viewModel, IDataContainer parameters);
     }
 }
