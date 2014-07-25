@@ -97,7 +97,7 @@ namespace ReactiveApp.Android
         protected virtual IAndroidReactiveViewModelRequestTranslator CreateViewModelRequestTranslator()
         {
             var viewLocator = Locator.Current.GetService<ReactiveApp.Services.IViewLocator>();
-            var navigationSerializer = Locator.Current.GetService<INavigationSerializer>();
+            var navigationSerializer = Locator.Current.GetService<ISerializer>("Navigation");
             return new AndroidReactiveViewModelRequestTranslator(this.application, viewLocator, navigationSerializer);
         }
     }
