@@ -62,5 +62,10 @@ namespace ReactiveApp
         {
             this.container.Dispose();
         }
+
+        public IDisposable ServiceRegistrationCallback(Type serviceType, string contract, Action<IDisposable> callback)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
