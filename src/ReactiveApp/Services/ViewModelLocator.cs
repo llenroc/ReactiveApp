@@ -9,13 +9,17 @@ using Splat;
 
 namespace ReactiveApp.Services
 {
-    public class ViewModelLocator : IViewModelLocator
+    public class ViewModelLocator : IViewModelLocator, IEnableLogger
     {
+        private readonly ISerializer serializer;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="ViewModelLocator"/> class.
         /// </summary>
         public ViewModelLocator(ISerializer serializer)
         {
+            this.serializer = serializer;
+
             this.ContractKey = "ReactiveApp_ViewModelContract";
         }
 
@@ -52,13 +56,14 @@ namespace ReactiveApp.Services
                 PropertyInfo property = viewModelType.GetRuntimeProperty(kvp.Key);
                 if(property != null)
                 {
-                    if(property.PropertyType == typeof(string))
+                    try
                     {
-                        property.SetValue(viewModel, kvp.Value);
+                        object value = parameters.Read(kvp.Key, property.PropertyType);
+                        property.SetValue(viewModel, value);
                     }
-                    else
+                    catch(Exception e)
                     {
-                        
+                        this.Log().ErrorException(e.Message, e);
                     }
                 }
             }
