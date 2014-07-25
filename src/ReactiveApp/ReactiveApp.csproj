@@ -114,7 +114,7 @@
     <Compile Include="Exceptions\DefaultExceptionHandler.cs" />
     <Compile Include="Extensions\IDataContainerExtensions.cs" />
     <Compile Include="Extensions\IMainThreadDispatcherExtensions.cs" />
-    <Compile Include="Extensions\INavigationSerializerExtensions.cs" />
+    <Compile Include="Extensions\ISerializerExtensions.cs" />
     <Compile Include="Extensions\IConnectableObservableExtensions.cs" />
     <Compile Include="Exceptions\IExceptionHandler.cs" />
     <Compile Include="Extensions\IMutableDependencyResolverExtensions.cs" />
@@ -128,7 +128,6 @@
     <Compile Include="ReactiveCommandEx.cs" />
     <Compile Include="Services\DisplayOrientations.cs" />
     <Compile Include="Services\IMainThreadDispatcher.cs" />
-    <Compile Include="Services\INavigationSerializer.cs" />
     <Compile Include="Application\IReactiveApplication.cs" />
     <Compile Include="Services\IOrientationManager.cs" />
     <Compile Include="Services\ISerializer.cs" />

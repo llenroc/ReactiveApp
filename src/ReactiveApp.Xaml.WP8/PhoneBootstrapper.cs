@@ -84,22 +84,21 @@ namespace ReactiveApp.Xaml
             Locator.CurrentMutable.RegisterConstant<IOrientationManager>(orientationManager);
         }
 
-        protected virtual INavigationSerializer CreateNavigationSerializer()
+        protected virtual ISerializer CreateNavigationSerializer()
         {
-            //TODO: default implementation
-            return null;
+            return Locator.Current.GetService<ISerializer>();
         }
 
         protected virtual void InitializeNavigationSerializer()
         {
             var serializer = CreateNavigationSerializer();
-            Locator.CurrentMutable.RegisterConstant<INavigationSerializer>(serializer);
+            Locator.CurrentMutable.RegisterConstant<ISerializer>(serializer, "Navigation");
         }
 
         protected virtual IPhoneReactiveViewModelRequestTranslator CreateViewModelRequestTranslator()
         {
             var viewLocator = Locator.Current.GetService<ReactiveApp.Services.IViewLocator>();
-            var navigationSerializer = Locator.Current.GetService<INavigationSerializer>();
+            var navigationSerializer = Locator.Current.GetService<ISerializer>("Navigation");
             return new PhoneReactiveViewModelRequestTranslator(viewLocator, navigationSerializer);
         }
 

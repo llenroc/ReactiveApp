@@ -12,13 +12,13 @@ namespace ReactiveApp.Xaml.Services
     public class PhoneReactiveViewModelRequestTranslator : IPhoneReactiveViewModelRequestTranslator
     {
         private readonly IViewLocator viewLocator;
-        private readonly INavigationSerializer navigationSerializer;
+        private readonly ISerializer navigationSerializer;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PhoneReactiveViewModelRequestTranslator"/> class.
         /// </summary>
         /// <param name="viewLocator">The view locator.</param>
-        public PhoneReactiveViewModelRequestTranslator(IViewLocator viewLocator, INavigationSerializer navigationSerializer)
+        public PhoneReactiveViewModelRequestTranslator(IViewLocator viewLocator, ISerializer navigationSerializer)
         {
             this.viewLocator = viewLocator;
             this.navigationSerializer = navigationSerializer;

@@ -7,9 +7,9 @@ using ReactiveApp.Services;
 
 namespace ReactiveApp
 {
-    public static class INavigationSerializerExtensions
+    public static class ISerializerExtensions
     {
-        public static T DeserializeObject<T>(this INavigationSerializer This, string stringToSerialize)
+        public static T DeserializeObject<T>(this ISerializer This, string stringToSerialize)
         {
             return (T)This.DeserializeObject(typeof(T), stringToSerialize);
         }

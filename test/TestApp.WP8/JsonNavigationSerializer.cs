@@ -9,13 +9,13 @@ using ReactiveApp.Services;
 
 namespace TestApp
 {
-    public class JsonNavigationSerializer : INavigationSerializer
+    public class JsonSerializer : ISerializer
     {
-        private readonly JsonSerializer serializer;
+        private readonly Newtonsoft.Json.JsonSerializer serializer;
         /// <summary>
-        /// Initializes a new instance of the <see cref="JsonNavigationSerializer"/> class.
+        /// Initializes a new instance of the <see cref="JsonSerializer"/> class.
         /// </summary>
-        public JsonNavigationSerializer(JsonSerializerSettings settings = null)
+        public JsonSerializer(JsonSerializerSettings settings = null)
         {
             settings = settings ?? new JsonSerializerSettings()
             {
@@ -24,7 +24,7 @@ namespace TestApp
                 TypeNameHandling = TypeNameHandling.All,
             };
 
-            serializer = JsonSerializer.Create(settings);
+            serializer = Newtonsoft.Json.JsonSerializer.Create(settings);
         }
 
         public object DeserializeObject(Type type, string stringToSerialize)

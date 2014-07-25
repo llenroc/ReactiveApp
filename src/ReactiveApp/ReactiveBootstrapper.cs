@@ -33,14 +33,14 @@ namespace ReactiveApp
             this.BeforeBootstrapping();
             this.Log().Info("Initializing Debug Services.");
             this.InitializeDebugServices();
-            this.Log().Info("Initializing Platform Services.");
-            this.InitializePlatformServices();
             this.Log().Info("Initializing Settings.");
             this.InitializeSettings();
             this.Log().Info("Initializing MainThread Dispatcher.");
             this.InitializeMainThreadDispatcher();
             this.Log().Info("Initializing Serializer.");
             this.InitializeSerializer();
+            this.Log().Info("Initializing Platform Services.");
+            this.InitializePlatformServices();
             this.Log().Info("Initializing ViewModel Locator.");
             this.InitializeViewModelLocator();
             this.Log().Info("Initializing View Locator.");

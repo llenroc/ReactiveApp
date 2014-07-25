@@ -19,7 +19,7 @@ namespace ReactiveApp.Android.Services
     {
         private readonly Application application;
         private readonly IViewLocator viewLocator;
-        private readonly INavigationSerializer navigationSerializer;
+        private readonly ISerializer navigationSerializer;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AndroidReactiveViewModelRequestTranslator"/> class.
@@ -27,7 +27,7 @@ namespace ReactiveApp.Android.Services
         /// <param name="application">The application.</param>
         /// <param name="viewLocator">The view locator.</param>
         /// <param name="navigationSerializer">The navigation serializer.</param>
-        public AndroidReactiveViewModelRequestTranslator(Application application, IViewLocator viewLocator, INavigationSerializer navigationSerializer)
+        public AndroidReactiveViewModelRequestTranslator(Application application, IViewLocator viewLocator, ISerializer navigationSerializer)
         {
             this.application = application;
             this.viewLocator = viewLocator;
@@ -61,8 +61,7 @@ namespace ReactiveApp.Android.Services
                 return null;
             }
 
-            var serializer = Locator.Current.GetService<INavigationSerializer>();
-            var viewModelRequest = serializer.DeserializeObject<ReactiveViewModelRequest>(extraData);
+            var viewModelRequest = this.navigationSerializer.DeserializeObject<ReactiveViewModelRequest>(extraData);
                         
             return viewModelRequest;
         }

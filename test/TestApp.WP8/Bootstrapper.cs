@@ -32,9 +32,9 @@ namespace TestApp
             return new TestApp();
         }
 
-        protected override INavigationSerializer CreateNavigationSerializer()
+        protected override ISerializer CreateSerializer()
         {
-            return new JsonNavigationSerializer();
+            return new JsonSerializer();
         }
 
         protected override void AfterBootstrapping()
