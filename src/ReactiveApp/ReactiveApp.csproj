@@ -112,6 +112,7 @@
     <Compile Include="Debugging\IObjectTracker.cs" />
     <Compile Include="Debugging\ObjectTracker.cs" />
     <Compile Include="Exceptions\DefaultExceptionHandler.cs" />
+    <Compile Include="Extensions\IDataContainerExtensions.cs" />
     <Compile Include="Extensions\IMainThreadDispatcherExtensions.cs" />
     <Compile Include="Extensions\INavigationSerializerExtensions.cs" />
     <Compile Include="Extensions\IConnectableObservableExtensions.cs" />
