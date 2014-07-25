@@ -21,7 +21,7 @@ namespace ReactiveApp.Xaml.Views
         }
     }
 
-    public class WinRTReactiveUserControl<T> : PhoneReactiveUserControl, IViewFor<T> where T : class
+    public class PhoneReactiveUserControl<T> : PhoneReactiveUserControl, IViewFor<T> where T : class
     {
         public T ViewModel
         {
