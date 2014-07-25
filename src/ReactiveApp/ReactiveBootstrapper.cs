@@ -19,6 +19,8 @@ namespace ReactiveApp
 
         protected abstract IMainThreadDispatcher CreateMainThreadDispatcher();
 
+        protected abstract ISerializer CreateSerializer();
+
         protected abstract IViewDispatcher CreateViewDispatcher();
 
         protected abstract IViewPresenter CreateViewPresenter();
@@ -37,6 +39,8 @@ namespace ReactiveApp
             this.InitializeSettings();
             this.Log().Info("Initializing MainThread Dispatcher.");
             this.InitializeMainThreadDispatcher();
+            this.Log().Info("Initializing Serializer.");
+            this.InitializeSerializer();
             this.Log().Info("Initializing ViewModel Locator.");
             this.InitializeViewModelLocator();
             this.Log().Info("Initializing View Locator.");
@@ -106,7 +110,8 @@ namespace ReactiveApp
 
         protected virtual IViewModelLocator CreateViewModelLocator()
         {
-            return new ViewModelLocator();
+            var serializer = Locator.Current.GetService<ISerializer>();
+            return new ViewModelLocator(serializer);
         }
 
         protected virtual void InitializeViewModelLocator()
@@ -137,6 +142,12 @@ namespace ReactiveApp
         {
             var dispatcher = this.CreateMainThreadDispatcher();
             Locator.CurrentMutable.RegisterConstant<IMainThreadDispatcher>(dispatcher);
+        }
+
+        protected virtual void InitializeSerializer()
+        {
+            var serializer = this.CreateSerializer();
+            Locator.CurrentMutable.RegisterConstant<ISerializer>(serializer);
         }
 
         protected virtual void InitializeViewPresenter()
