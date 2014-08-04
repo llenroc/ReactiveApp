@@ -10,7 +10,7 @@
     <language>en-us</language>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <dependencies>
-      <dependency id="reactiveui" version="5.99.6-beta" />
+      <dependency id="reactiveui" version="6.0.3" />
       <dependency id="reactiveapp-core" version="__Version__" />
 	  <dependency id="reactiveapp-platforms" version="__Version__" />
     </dependencies>

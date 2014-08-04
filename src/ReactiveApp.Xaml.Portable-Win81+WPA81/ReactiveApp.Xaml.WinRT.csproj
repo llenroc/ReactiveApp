@@ -253,7 +253,7 @@
   </ItemGroup>
   <ItemGroup>
     <Reference Include="ReactiveUI">
-      <HintPath>..\..\packages\reactiveui-core.6.0.2\lib\Portable-Win81+WPA81\ReactiveUI.dll</HintPath>
+      <HintPath>..\..\packages\reactiveui-core.6.0.3\lib\Portable-Win81+WPA81\ReactiveUI.dll</HintPath>
     </Reference>
     <Reference Include="Splat">
       <HintPath>..\..\packages\Splat.1.4.0\lib\Portable-Win81+Wpa81\Splat.dll</HintPath>

@@ -11,41 +11,41 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <dependencies>
       <group>
-        <dependency id="Rx-Main" version="2.2.4" />
-        <dependency id="Splat" version="1.3.1" />
-        <dependency id="reactiveui-core" version="5.99.6-beta" />
+        <dependency id="Rx-Main" version="2.2.5" />
+        <dependency id="Splat" version="1.4.0" />
+        <dependency id="reactiveui-core" version="6.0.3" />
 		<dependency id="reactiveapp-core" version="__Version__" />
       </group>
       <group targetFramework="win8">
-        <dependency id="Rx-Main" version="2.2.4" />
-        <dependency id="Splat" version="1.3.1" />
-		<dependency id="reactiveui-core" version="5.99.6-beta" />
+        <dependency id="Rx-Main" version="2.2.5" />
+        <dependency id="Splat" version="1.4.0" />
+        <dependency id="reactiveui-core" version="6.0.3" />
 		<dependency id="reactiveapp-core" version="__Version__" />
-        <dependency id="Rx-Xaml" version="2.2.4" />
-        <dependency id="Rx-WinRT" version="2.2.4" />
+        <dependency id="Rx-Xaml" version="2.2.5" />
+        <dependency id="Rx-WinRT" version="2.2.5" />
       </group>
 	  <group targetFramework="wp8">
-        <dependency id="Rx-Main" version="2.2.4" />
-        <dependency id="Splat" version="1.3.1" />
-		<dependency id="reactiveui-core" version="5.99.6-beta" />
+        <dependency id="Rx-Main" version="2.2.5" />
+        <dependency id="Splat" version="1.4.0" />
+        <dependency id="reactiveui-core" version="6.0.3" />
 		<dependency id="reactiveapp-core" version="__Version__" />
-        <dependency id="Rx-Xaml" version="2.2.4" />
-        <dependency id="Rx-WinRT" version="2.2.4" />
+        <dependency id="Rx-Xaml" version="2.2.5" />
+        <dependency id="Rx-WinRT" version="2.2.5" />
       </group>
 	  <group targetFramework="net45">
-        <dependency id="Rx-Main" version="2.2.4" />
-        <dependency id="Splat" version="1.3.1" />
-		<dependency id="reactiveui-core" version="5.99.6-beta" />
+        <dependency id="Rx-Main" version="2.2.5" />
+        <dependency id="Splat" version="1.4.0" />
+        <dependency id="reactiveui-core" version="6.0.3" />
 		<dependency id="reactiveapp-core" version="__Version__" />
-        <dependency id="Rx-Xaml" version="2.2.4" />
+        <dependency id="Rx-Xaml" version="2.2.5" />
       </group>
 	  <group targetFramework="Portable-Win81+Wpa81">
-        <dependency id="Rx-Main" version="2.2.4" />
-        <dependency id="Splat" version="1.3.1" />
-		<dependency id="reactiveui-core" version="5.99.6-beta" />
+        <dependency id="Rx-Main" version="2.2.5" />
+        <dependency id="Splat" version="1.4.0" />
+        <dependency id="reactiveui-core" version="6.0.3" />
 		<dependency id="reactiveapp-core" version="__Version__" />
-        <dependency id="Rx-Xaml" version="2.2.4" />
-        <dependency id="Rx-WinRT" version="2.2.4" />
+        <dependency id="Rx-Xaml" version="2.2.5" />
+        <dependency id="Rx-WinRT" version="2.2.5" />
       </group>	  
     </dependencies>
   </metadata>
