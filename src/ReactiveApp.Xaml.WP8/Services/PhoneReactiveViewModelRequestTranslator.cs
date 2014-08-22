@@ -40,7 +40,8 @@ namespace ReactiveApp.Xaml.Services
         protected virtual string GetUriPartForView(Type viewType)
         {
             var segments = viewType.FullName.Split('.');
-            var folderAndNamespace = segments.SkipWhile((segment) => segment != ViewsFolderName);
+            var type = segments.LastOrDefault();
+            var folderAndNamespace = segments.SkipWhile((segment) => segment != ViewsFolderName && segment != type);
             var viewUriPart = string.Format("/{0}.xaml", string.Join("/", folderAndNamespace));
             return viewUriPart;
         }
