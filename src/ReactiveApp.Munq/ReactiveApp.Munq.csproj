@@ -129,7 +129,7 @@
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Splat">
-      <HintPath>..\..\packages\Splat.1.4.0\lib\Portable-net45+win+wpa81+wp80\Splat.dll</HintPath>
+      <HintPath>..\..\packages\Splat.1.4.2.1\lib\Portable-net45+win+wpa81+wp80\Splat.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
