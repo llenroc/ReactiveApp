@@ -119,7 +119,7 @@
       <HintPath>..\..\packages\Newtonsoft.Json.6.0.4\lib\portable-net45+wp80+win8+wpa81\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="ReactiveUI">
-      <HintPath>..\..\packages\reactiveui-core.6.0.5\lib\Portable-Win81+WPA81\ReactiveUI.dll</HintPath>
+      <HintPath>..\..\packages\reactiveui-core.6.0.6\lib\Portable-Win81+WPA81\ReactiveUI.dll</HintPath>
     </Reference>
     <Reference Include="Splat">
       <HintPath>..\..\packages\Splat.1.4.2.1\lib\Portable-Win81+Wpa81\Splat.dll</HintPath>
