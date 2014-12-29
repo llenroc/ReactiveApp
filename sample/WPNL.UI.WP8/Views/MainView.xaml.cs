@@ -9,7 +9,7 @@ using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using ReactiveApp.Xaml.Views;
 using ReactiveUI;
-using WPNL.Core.ViewModels;
+using WPNL.ViewModels;
 
 namespace WPNL.UI.WP8.Views
 {

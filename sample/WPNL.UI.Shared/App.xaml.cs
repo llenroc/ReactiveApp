@@ -4,7 +4,9 @@ using System.IO;
 using System.Linq;
 using System.Reactive.Subjects;
 using System.Runtime.InteropServices.WindowsRuntime;
+using ReactiveApp.App;
 using ReactiveUI;
+using Splat;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.Foundation;
@@ -17,6 +19,10 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
+
+#if WINDOWS_PHONE_APP
+using Windows.Phone.UI.Input;
+#endif
 
 // The Blank Application template is documented at http://go.microsoft.com/fwlink/?LinkId=234227
 
@@ -41,6 +47,10 @@ namespace WPNL.UI
         {
             this.InitializeComponent();
 
+#if WINDOWS_PHONE_APP
+            HardwareButtons.BackPressed += HardwareButtons_BackPressed;
+#endif
+
             this.suspendHelper = new AutoSuspendHelper(this);
         }
 
@@ -58,6 +68,7 @@ namespace WPNL.UI
                 this.DebugSettings.EnableFrameRateCounter = true;
             }
 #endif
+            this.suspendHelper.OnLaunched(e);
 
             Frame rootFrame = Window.Current.Content as Frame;
 
@@ -65,6 +76,7 @@ namespace WPNL.UI
             // just ensure that the window is active
             if (rootFrame == null)
             {
+
                 // Create a Frame to act as the navigation context and navigate to the first page
                 rootFrame = new Frame();
                 rootFrame.Navigated += this.RootFrame_FirstNavigated;
@@ -73,6 +85,10 @@ namespace WPNL.UI
                 rootFrame.CacheSize = 1;
 
                 this.bootstrapper = new Bootstrapper(rootFrame, this.suspendHelper);
+                this.bootstrapper.Run();
+
+                var startup = Locator.Current.GetService<IStartup>();
+                startup.Start();
 
                 // Place the frame in the current Window
                 Window.Current.Content = rootFrame;
@@ -111,5 +127,18 @@ namespace WPNL.UI
             rootFrame.Navigated -= this.RootFrame_FirstNavigated;
             Window.Current.Activate();
         }
+
+#if WINDOWS_PHONE_APP
+        private void HardwareButtons_BackPressed(object sender, BackPressedEventArgs e)
+        {
+            Frame rootFrame = Window.Current.Content as Frame;
+
+            if (rootFrame != null && rootFrame.CanGoBack)
+            {
+                e.Handled = true;
+                rootFrame.GoBack();
+            }
+        }
+#endif
     }
 }

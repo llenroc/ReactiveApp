@@ -19,12 +19,11 @@ namespace TestApp
             base.Initialize();
 
             //Register
-
-            this.RegisterStartup<MainViewModel>();
-
             Locator.CurrentMutable.Register<ISampleDataService>(c => new SampleDataService());
 
             Locator.CurrentMutable.Register<MainViewModel>(c => new MainViewModel(c.GetService<ISampleDataService>()));
+
+            this.RegisterStartup<MainViewModel>();
         }
     }
 }

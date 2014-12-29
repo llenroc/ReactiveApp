@@ -4,6 +4,7 @@ using System.Reactive.Subjects;
 using System.Text;
 using ReactiveApp;
 using ReactiveApp.App;
+using ReactiveApp.Services;
 using ReactiveApp.Xaml;
 using ReactiveUI;
 using Splat;
@@ -39,6 +40,11 @@ namespace TestApp
         protected override IDependencyResolver CreateDependencyResolver()
         {
             return new MunqDependencyResolver(ioc);
+        }
+
+        protected override ISerializer CreateSerializer()
+        {
+            return new TestAppJsonSerializer();
         }
     }
 }

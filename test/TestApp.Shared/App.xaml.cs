@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Reactive.Subjects;
 using System.Runtime.InteropServices.WindowsRuntime;
+
 using ReactiveApp.App;
 using ReactiveUI;
 using Splat;
@@ -19,6 +20,10 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
+
+#if WINDOWS_PHONE_APP
+using Windows.Phone.UI.Input;
+#endif
 
 // The Blank Application template is documented at http://go.microsoft.com/fwlink/?LinkId=391641
 
@@ -43,6 +48,9 @@ namespace TestApp
         {
             this.InitializeComponent();
 
+#if WINDOWS_PHONE_APP
+            HardwareButtons.BackPressed += HardwareButtons_BackPressed;
+#endif
             this.suspendHelper = new AutoSuspendHelper(this);
         }
 
@@ -60,6 +68,7 @@ namespace TestApp
                 this.DebugSettings.EnableFrameRateCounter = true;
             }
 #endif
+            this.suspendHelper.OnLaunched(e);
 
             Frame rootFrame = Window.Current.Content as Frame;
 
@@ -116,5 +125,17 @@ namespace TestApp
             rootFrame.Navigated -= this.RootFrame_FirstNavigated;
             Window.Current.Activate();
         }
+#if WINDOWS_PHONE_APP
+        private void HardwareButtons_BackPressed(object sender, BackPressedEventArgs e)
+        {
+            Frame rootFrame = Window.Current.Content as Frame;
+
+            if (rootFrame != null && rootFrame.CanGoBack)
+            {
+                e.Handled = true;
+                rootFrame.GoBack();
+            }
+        }
+#endif
     }
 }

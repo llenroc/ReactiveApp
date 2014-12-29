@@ -40,6 +40,7 @@
     <Compile Include="Services\SampleDataService.cs" />
     <Compile Include="TestApp.cs" />
     <Compile Include="Services\ISampleDataService.cs" />
+    <Compile Include="TestAppSerializer.cs" />
     <Compile Include="ViewModels\GroupViewModel.cs" />
     <Compile Include="ViewModels\ItemViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
