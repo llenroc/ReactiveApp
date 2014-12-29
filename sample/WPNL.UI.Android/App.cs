@@ -16,6 +16,12 @@ namespace WPNL.UI.Android
     public class App : Application
     {
         private Bootstrapper bootstrapper;
+        public App(IntPtr javaReference, JniHandleOwnership transfer)
+            : base(javaReference, transfer)
+        {
+
+        }
+
         public override void OnCreate()
         {
             base.OnCreate();

@@ -147,6 +147,8 @@
     </Reference>
     <Reference Include="Splat">
       <HintPath>..\..\packages\Splat.1.5.1\lib\NetCore45\Splat.dll</HintPath>
+      <HintPath>..\..\packages\Splat.1.4.2.1\lib\NetCore45\Splat.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="System.Reactive.Core, Version=2.2.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>

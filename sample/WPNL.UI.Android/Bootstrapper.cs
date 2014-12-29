@@ -12,10 +12,10 @@ using Android.Widget;
 using ReactiveApp;
 using ReactiveApp.Android;
 using ReactiveApp.App;
+using ReactiveApp.Services;
 using Splat;
-using WPNL.Core;
-using WPNL.Core.ViewModels;
 using WPNL.UI.Android.Views;
+using WPNL.ViewModels;
 
 namespace WPNL.UI.Android
 {
@@ -35,7 +35,7 @@ namespace WPNL.UI.Android
         /// <returns></returns>
         protected override IReactiveApplication CreateApplication()
         {
-            return new Core.WPNLApp();
+            return new WPNLApp();
         }
 
         protected override void AfterBootstrapping()
@@ -48,6 +48,11 @@ namespace WPNL.UI.Android
         protected override IDependencyResolver CreateDependencyResolver()
         {
             return new MunqDependencyResolver(ioc);
+        }
+
+        protected override ISerializer CreateSerializer()
+        {
+            return new WPNLJsonSerializer();
         }
     }
 }

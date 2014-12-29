@@ -31,12 +31,7 @@ namespace TestApp
         {
             return new TestApp();
         }
-
-        protected override ISerializer CreateSerializer()
-        {
-            return new JsonSerializer();
-        }
-
+        
         protected override void AfterBootstrapping()
         {
             base.AfterBootstrapping();
@@ -50,6 +45,11 @@ namespace TestApp
         protected override IDependencyResolver CreateDependencyResolver()
         {
             return new MunqDependencyResolver(ioc);
+        }
+
+        protected override ISerializer CreateSerializer()
+        {
+            return new TestAppJsonSerializer();
         }
     }
 }
