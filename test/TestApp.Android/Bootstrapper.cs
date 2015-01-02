@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
 using Android.App;
 using Android.Content;
 using Android.OS;
@@ -12,6 +11,7 @@ using Android.Widget;
 using ReactiveApp;
 using ReactiveApp.Android;
 using ReactiveApp.App;
+using ReactiveApp.Services;
 using Splat;
 using TestApp.ViewModels;
 using TestApp.Views;
@@ -47,6 +47,11 @@ namespace TestApp
         protected override IDependencyResolver CreateDependencyResolver()
         {
             return new MunqDependencyResolver(ioc);
+        }
+
+        protected override ISerializer CreateSerializer()
+        {
+            return new TestAppJsonSerializer();
         }
     }
 }

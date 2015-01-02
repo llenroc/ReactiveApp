@@ -2,15 +2,16 @@
 using System.Collections.Generic;
 using System.Reactive.Subjects;
 using System.Text;
+
 using ReactiveApp;
 using ReactiveApp.App;
+using ReactiveApp.Services;
 using ReactiveApp.Xaml;
 using ReactiveUI;
 using Splat;
 using Windows.ApplicationModel.Activation;
 using Windows.UI.Xaml.Controls;
-using WPNL.Core;
-using WPNL.Core.ViewModels;
+using WPNL.ViewModels;
 using WPNL.UI.Views;
 
 namespace WPNL.UI
@@ -31,6 +32,10 @@ namespace WPNL.UI
             base.AfterBootstrapping();
 
             Locator.CurrentMutable.RegisterView<MainView, MainViewModel>();
+        }
+        protected override ISerializer CreateSerializer()
+        {
+            return new WPNLJsonSerializer();
         }
     }
 }

@@ -11,7 +11,7 @@ using Android.Views;
 using Android.Widget;
 using ReactiveApp.Android.Views;
 using ReactiveUI;
-using WPNL.Core.ViewModels;
+using WPNL.ViewModels;
 
 namespace WPNL.UI.Android.Views
 {
