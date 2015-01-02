@@ -14,7 +14,7 @@
     <ProjectTypeGuids>{BC8A1FFA-BEE3-4634-8014-F334798102B3};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <PackageCertificateKeyFile>TestApp.Win8_TemporaryKey.pfx</PackageCertificateKeyFile>
     <PackageCertificateThumbprint>20D8CDB15BE0A6DC6F6F650D74B3E6C77CCC63D3</PackageCertificateThumbprint>
-    <NuGetPackageImportStamp>b716fb1e</NuGetPackageImportStamp>
+    <NuGetPackageImportStamp>fc5b7635</NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -144,13 +144,13 @@
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json">
-      <HintPath>..\..\packages\Newtonsoft.Json.6.0.4\lib\netcore45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\..\packages\Newtonsoft.Json.6.0.7\lib\netcore45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="ReactiveUI">
-      <HintPath>..\..\packages\reactiveui-core.6.0.6\lib\Win8\ReactiveUI.dll</HintPath>
+      <HintPath>..\..\packages\reactiveui-core.6.2.1.1\lib\Win8\ReactiveUI.dll</HintPath>
     </Reference>
     <Reference Include="Splat">
-      <HintPath>..\..\packages\Splat.1.4.2.1\lib\NetCore45\Splat.dll</HintPath>
+      <HintPath>..\..\packages\Splat.1.5.1\lib\NetCore45\Splat.dll</HintPath>
     </Reference>
     <Reference Include="System.Reactive.Core, Version=2.2.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -190,12 +190,12 @@
     <VisualStudioVersion>11.0</VisualStudioVersion>
   </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
-  <Import Project="..\..\packages\xcc.1.0.3\build\Xcc.targets" Condition="Exists('..\..\packages\xcc.1.0.3\build\Xcc.targets')" />
+  <Import Project="..\..\packages\xcc.1.0.4\build\Xcc.targets" Condition="Exists('..\..\packages\xcc.1.0.4\build\Xcc.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\..\packages\xcc.1.0.3\build\Xcc.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\xcc.1.0.3\build\Xcc.targets'))" />
+    <Error Condition="!Exists('..\..\packages\xcc.1.0.4\build\Xcc.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\xcc.1.0.4\build\Xcc.targets'))" />
   </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
